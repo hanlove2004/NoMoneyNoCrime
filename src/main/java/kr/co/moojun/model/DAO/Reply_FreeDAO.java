@@ -1,5 +1,5 @@
 package kr.co.moojun.model.DAO;
 
-public class Reply_FreeDAO {
+public interface Reply_FreeDAO {
 
 }

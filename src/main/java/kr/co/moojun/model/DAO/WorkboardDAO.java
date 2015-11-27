@@ -1,5 +1,5 @@
 package kr.co.moojun.model.DAO;
 
-public class WorkboardDAO {
+public interface WorkboardDAO {
 
 }
