@@ -8,6 +8,7 @@ public class Reply_EpilogueDTO {
 	private String content;
 	private Date regdate;
 	private String idx;
+	private String photoname;
 	
 	public int getNum() {
 		return num;
@@ -39,6 +40,14 @@ public class Reply_EpilogueDTO {
 	public void setIdx(String idx) {
 		this.idx = idx;
 	}
+	public String getPhotoname() {
+		return photoname;
+	}
+	public void setPhotoname(String photoname) {
+		this.photoname = photoname;
+	}
+	
+	
 	
 	
 	

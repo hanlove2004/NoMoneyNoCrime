@@ -7,13 +7,16 @@ import kr.co.moojun.model.DTO.EpilogueboardDTO;
 
 public interface EpilogueboardDAO {
 	
-	void insertEpilogue(EpilogueboardDTO dto); //쓰기
-	List<EpilogueboardDTO> getEpilogueList(HashMap map); //리스트(목록)
-	EpilogueboardDTO getEpilogue(int num); //디테일(상세보기)
+	int insertEpilogueBoard(EpilogueboardDTO dto); //여행후기 쓰기
 	
-	int updateEpilogue(EpilogueboardDTO dto); //여행후기 수정하기
-	int deleteEpilogue(EpilogueboardDTO dto); //여행후기 삭제하기
+	List<EpilogueboardDTO> getEpilogueBoardList(HashMap map); // 여행후기 리스트(목록)
 	
-	int getEpilogueCount(); //여행후기 게시글의 수
+	EpilogueboardDTO getEpilogueBoard(int num); // 여행후기 디테일(상세보기)
+	
+	int updateEpilogueBoard(EpilogueboardDTO dto); // 여행후기 수정하기
+	
+	int deleteEpilogueBoard(EpilogueboardDTO dto); //여행후기 삭제하기
+	
+	int getEpilogueBoardCount(); //여행후기 게시글의 수
 	
 }

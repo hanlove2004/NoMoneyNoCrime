@@ -14,6 +14,7 @@ public class WorkboardDTO {
 	private String regpeople;
 	private String addr;
 	private Date expiredate;
+	private String expire;
 
 	public int getNum() {
 		return num;
@@ -102,5 +103,15 @@ public class WorkboardDTO {
 	public void setExpiredate(Date expiredate) {
 		this.expiredate = expiredate;
 	}
+
+	public String getExpire() {
+		return expire;
+	}
+
+	public void setExpire(String expire) {
+		this.expire = expire;
+	}
+	
+	
 
 }
