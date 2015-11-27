@@ -1,6 +1,7 @@
 package kr.co.moojun.model.DTO;
 
 public class MatchingDTO {
+	
 	private int num;
 	private String owner;
 	private String worker;

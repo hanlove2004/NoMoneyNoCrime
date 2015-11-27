@@ -1,6 +1,7 @@
 package kr.co.moojun.model.DTO;
 
 public class MemberDTO {
+	
 	private String id;
 	private String name;
 	private String pwd;

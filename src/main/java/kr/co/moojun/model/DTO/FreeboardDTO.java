@@ -3,11 +3,13 @@ package kr.co.moojun.model.DTO;
 import java.sql.Date;
 
 public class FreeboardDTO {
+	
 	private int num;
 	private String id;
 	private String title;
 	private String content;
 	private Date regdate;
+	
 	public int getNum() {
 		return num;
 	}

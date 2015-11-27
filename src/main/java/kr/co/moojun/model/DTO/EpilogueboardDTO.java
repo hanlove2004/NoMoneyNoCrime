@@ -3,6 +3,7 @@ package kr.co.moojun.model.DTO;
 import java.sql.Date;
 
 public class EpilogueboardDTO {
+	
 	private int num;
 	private String id;
 	private String title;
