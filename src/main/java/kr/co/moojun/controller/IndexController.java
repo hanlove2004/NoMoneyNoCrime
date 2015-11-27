@@ -12,11 +12,13 @@ public class IndexController {
 			
 			// 기존의 view 처리하는 코드
 			// return "index.jsp";
-			System.out.println("asdfasdf");
+			System.out.println("StartPage Display");
 			// Tiles 적용 (UrlBase 방식)
 			return "WEB-INF/views/main/start.jsp";
+		}
+		
 }
-}
+
 
 
 
