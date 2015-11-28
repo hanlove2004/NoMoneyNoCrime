@@ -9,7 +9,9 @@ public class EpilogueboardDTO {
 	private String title;
 	private String content;
 	private Date regdate;
-	private String photoname;
+	private String photoname1;
+	private String photoname2;
+	private String photoname3;
 	
 	public int getNum() {
 		return num;
@@ -41,11 +43,24 @@ public class EpilogueboardDTO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	public String getPhotoname() {
-		return photoname;
+	public String getPhotoname1() {
+		return photoname1;
 	}
-	public void setPhotoname(String photoname) {
-		this.photoname = photoname;
+	public void setPhotoname1(String photoname1) {
+		this.photoname1 = photoname1;
 	}
+	public String getPhotoname2() {
+		return photoname2;
+	}
+	public void setPhotoname2(String photoname2) {
+		this.photoname2 = photoname2;
+	}
+	public String getPhotoname3() {
+		return photoname3;
+	}
+	public void setPhotoname3(String photoname3) {
+		this.photoname3 = photoname3;
+	}
+	
 	
 }
