@@ -14,6 +14,7 @@ public class MemberDTO {
 	private String email;
 	private String panalty;
 	private Date joindate;
+	private String enabled;
 	
 	public String getId() {
 		return id;
@@ -74,6 +75,12 @@ public class MemberDTO {
 	}
 	public void setJoindate(Date joindate) {
 		this.joindate = joindate;
+	}
+	public String getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
 	}
 	
 }
