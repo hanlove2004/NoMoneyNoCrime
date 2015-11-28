@@ -38,4 +38,5 @@
 	<select id="getMemberDetail" resultType="kr.co.moojun.model.DTO.MemberDTO">
 		SELECT * FROM MEMBER WHERE id = #{id}
 	</select>
+	
 </mapper>
