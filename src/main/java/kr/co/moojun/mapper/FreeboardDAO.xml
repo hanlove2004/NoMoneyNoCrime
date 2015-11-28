@@ -2,3 +2,45 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.moojun.DAO.FreeboardDAO">
+
+	<!-- 자유게시판 쓰기 -->
+	<insert id="insertFreeBoard" parameterType="kr.co.moojun.DTO.FreeboardDTO">
+		INSERT INTO
+		FREEBOARD (num, id, title, content, regdate)
+		VALUES (free_seq.nextval,#{id},#{title},#{content},sysdate)
+	</insert>
+	
+	<!-- 자유게시판 목록 보기, map 객체에 start와 end 값을 넣어서 parameter로 받는다. -->
+	<select id="getFreeBoardList" parameterType="hashmap">
+		SELECT * FROM
+			(SELECT F.*, ROWNUM r from
+				(SELECT * FROM FREEBOARD ORDER BY num DESC) F
+			)
+		WHERE r >= #{start} AND r &lt;= #{end}
+	</select>
+	
+	<!-- 자유게시판 상세 보기 -->
+	<select id="getFreeBoard" parameterType="Integer" resultType="kr.co.moojun.DTO.FreeboardDTO">
+		SELECT * FROM FREEBOARD WHERE num = #{num}
+	</select>
+	
+	<!-- 자유게시판 수정하기 -->
+	<update id="updateFreeBoard" parameterType="kr.co.moojun.DTO.FreeboardDTO">
+		UPDATE FREEBOARD
+		SET title = #{title}, content = #{content}
+		WHERE id = #{id} AND num = #{num}
+	</update>
+	
+	<!-- 자유게시판 삭제하기 -->
+	<delete id="deleteFreeBoard" parameterType="kr.co.moojun.DTO.FreeboardDTO">
+		DELETE FROM FREEBOARD WHERE id = #{id} AND num = #{num}
+	</delete>
+	
+	<!-- 자유게시판 게시글의 수 -->
+	<select id="getFreeBoardCount">
+		SELECT COUNT(*) FROM FREEBOARD
+	</select>
+
+</mapper>

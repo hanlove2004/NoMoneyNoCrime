@@ -1,8 +1,11 @@
 package kr.co.moojun.model.DTO;
 
+import java.sql.Date;
+
 public class MemberDTO {
 	
 	private String id;
+	private int num;
 	private String name;
 	private String pwd;
 	private String birth;
@@ -10,12 +13,19 @@ public class MemberDTO {
 	private String phone;
 	private String email;
 	private String panalty;
+	private Date joindate;
 	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public String getName() {
 		return name;
@@ -58,6 +68,12 @@ public class MemberDTO {
 	}
 	public void setPanalty(String panalty) {
 		this.panalty = panalty;
+	}
+	public Date getJoindate() {
+		return joindate;
+	}
+	public void setJoindate(Date joindate) {
+		this.joindate = joindate;
 	}
 	
 }
