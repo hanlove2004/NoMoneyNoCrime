@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="se"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -17,10 +16,15 @@
 					<li><a href="#">자유게시판</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+		
+					
+					<se:authentication property="name" var="LoingUser" />
+					<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+						<li><a href="#">
+						(${LoingUser})님 로그아웃</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-user"></span>
 							MyPage</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
-							로그아웃</a></li>
+					</se:authorize>
 				</ul>
 			</div>
 		</div>

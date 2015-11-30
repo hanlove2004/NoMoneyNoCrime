@@ -8,6 +8,7 @@ import kr.co.moojun.model.DTO.FreeboardDTO;
 import kr.co.moojun.model.DTO.Reply_FreeDTO;
 
 @Controller
+@RequestMapping("/freeboard/")
 public class FreeboardController {
 	
 	//자유게시판 목록 (freelist.htm)

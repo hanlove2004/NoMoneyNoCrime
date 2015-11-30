@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.co.moojun.model.DTO.WorkboardDTO;
 
 @Controller
+@RequestMapping(value="/workboard/")
 public class WorkController {
 
 	// 일자리게시판 목록 (workboardlist.htm)
