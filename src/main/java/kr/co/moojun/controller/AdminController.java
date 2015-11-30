@@ -1,8 +1,10 @@
 package kr.co.moojun.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/admin/")
 public class AdminController {
-	int exam; /* ½ÂÈ£ Å×½ºÆ® */
+	int exam; /* ï¿½ï¿½È£ ï¿½×½ï¿½Æ® */
 }

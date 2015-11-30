@@ -8,6 +8,7 @@ import kr.co.moojun.model.DTO.NoticeboardDTO;
 import kr.co.moojun.model.DTO.Reply_NoticeDTO;
 
 @Controller
+@RequestMapping(value="notice/")
 public class NoticeboardController {
 	
 	//공지사항 목록 (noticelist.htm)

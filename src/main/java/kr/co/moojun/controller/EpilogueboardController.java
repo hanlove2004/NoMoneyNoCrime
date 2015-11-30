@@ -9,6 +9,8 @@ import kr.co.moojun.model.DTO.EpilogueboardDTO;
 import kr.co.moojun.model.DTO.Reply_EpilogueDTO;
 
 @Controller
+
+@RequestMapping("/epilogue/")
 public class EpilogueboardController {
 
 	// 여행후기 목록 (epiloguelist.htm)
