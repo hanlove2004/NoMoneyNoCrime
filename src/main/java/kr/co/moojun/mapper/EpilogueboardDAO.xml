@@ -1,4 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<<<<<<< HEAD
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.moojun.model.DAO.EqilogueboardDAO">
+	
+	<!-- 글쓰기 -->
+	<insert id="insert" parameterType="vo.Notice">
+	  INSERT INTO NOTICES
+      ( SEQ, TITLE, CONTENT, WRITER, REGDATE, HIT, FILESRC ,FILESRC2 )
+      VALUES( #{seq}, #{title}, #{content}, #{writer}, SYSDATE, 0, #{fileSrc ,jdbcType=VARCHAR} , #{fileSrc2 ,jdbcType=VARCHAR})
+	</insert>
+	 <!--  
+    	java.sql.SQLException: 부적합한 열 유형: 1111
+                 해결방안 :  #{fileSrc ,jdbcType=VARCHAR}
+     -->
+	
+
+	<!-- 글 가져오기 -->
+	<select id="getNotices" parameterType="hashmap"
+		resultType="vo.Notice">
+		
+		SELECT * FROM
+					 (SELECT ROWNUM NUM, N.* 
+					 FROM 
+					 	(SELECT * 
+					 	FROM NOTICES 
+					 	WHERE ${param2} LIKE '%${param3}%' ORDER BY REGDATE DESC) N)
+					WHERE NUM BETWEEN 1 + (${param1}-1)*5 AND 5 + (${param1}-1)*5
+
+	</select>
+
+	<!-- 글 하나 가져오기 -->
+	<select id="getEpilogueBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.EqilogueboardDTO">		
+		SELECT * FROM EPILOGUE WHERE num=#{num}
+	</select>
+	
+	<!-- 글 수정하기 -->
+	<update id="updateEpilogueBoard" parameterType="kr.co.moojun.model.DTO.EqilogueboardDTO">
+		UPDATE EPILOGUE 
+		SET TITLE=#{title} , CONTENT=#{content}, FILESRC=#{fileSrc ,jdbcType=VARCHAR} , FILESRC2=#{fileSrc2 ,jdbcType=VARCHAR} , FILESRC3=#{fileSrc3 ,jdbcType=VARCHAR} 
+		WHERE num = #{num}
+	</update>
+
+	<!-- 글 삭제하기 -->
+	<delete id="deleteEpilogueBoard">
+		DELETE EPILOGUE WHERE num=#{num}
+	</delete>
+
+	<!-- 글 전체 건수  -->
+	<select id="getEpilogueBoardCount" resultType="Integer">
+		SELECT COUNT(*) CNT FROM EPILOGUE
+	</select>
+
+</mapper>  
+  
+  
+=======
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+>>>>>>> 00f9f5c498d9d4fc74985d30e6a6d62f070c3221

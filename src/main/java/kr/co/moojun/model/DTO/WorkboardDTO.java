@@ -3,6 +3,7 @@ package kr.co.moojun.model.DTO;
 import java.sql.Date;
 
 public class WorkboardDTO {
+	
 	private int num;
 	private String id;
 	private String title;
@@ -13,7 +14,8 @@ public class WorkboardDTO {
 	private String state;
 	private String regpeople;
 	private String addr;
-	private Date expiredate;
+	private Date startdate;
+	private Date enddate;
 	private String expire;
 
 	public int getNum() {
@@ -96,12 +98,20 @@ public class WorkboardDTO {
 		this.addr = addr;
 	}
 
-	public Date getExpiredate() {
-		return expiredate;
+	public Date getStartdate() {
+		return startdate;
 	}
 
-	public void setExpiredate(Date expiredate) {
-		this.expiredate = expiredate;
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
+	}
+
+	public Date getEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
 	}
 
 	public String getExpire() {
@@ -111,7 +121,5 @@ public class WorkboardDTO {
 	public void setExpire(String expire) {
 		this.expire = expire;
 	}
-	
-	
 
 }
