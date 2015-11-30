@@ -55,9 +55,9 @@
 	</update>
 	
 	<!-- 로그인 -->
-	<select id="loginMember">
+	<select id="loginMember" resultType="Integer">
 		SELECT 
-		       ID <!-- 아이디(PK)  ID(PK)    VARCHAR2(100) NOT NULL -->
+		           COUNT(*) <!-- 회원여부 -->
 		  FROM MEMBER <!-- 회원테이블 -->
 		 WHERE ID  = #{id} 	<!-- 아이디(PK)  ID(PK)    VARCHAR2(100) NOT NULL -->
 		   AND PWD = #{pwd} <!-- 패스워드    PWD       VARCHAR2(200) NOT NULL -->

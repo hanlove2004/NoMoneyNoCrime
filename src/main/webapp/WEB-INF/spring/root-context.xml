@@ -18,5 +18,25 @@
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
 	</bean>
 	<!-- Tiles 설정 END -->
-		
+	
+	<!-- DB 설정 -->
+	<bean id="driverManagerDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"></property>
+		<property name="username" value="springuser"></property>
+		<property name="password" value="1004"></property>
+	</bean>
+	<!-- DB 설정 end -->
+
+	<!-- Mybatis bean 추가 -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="driverManagerDataSource"></property>
+		<property name="mapperLocations" value="classpath*:mapper/*xml" />
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryBean" />
+	</bean>
+	<!-- Mybatis bean end -->	
 </beans>

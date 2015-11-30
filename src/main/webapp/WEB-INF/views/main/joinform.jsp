@@ -33,11 +33,11 @@
 			<input type="text" id="phone2" size="4">
 				 - 
 			<input type="text" id="phone3" size="4">
-			<input type="hidden" name="phone"><br>
+			<input type="hidden" name="phone" id="phone"><br>
 성별 :<input type="radio" name="sex" value="남자" checked="checked">남자
         <input type="radio" name="sex" value="여자">여자
         	<br>
-생년월일 :<input type="date" name="birthdate" style="height: 30px"><br>
+생년월일 :<input type="date" name="birth" style="height: 30px"><br>
 이메일 :<input type="text" name="email" ><br>
 <input type="submit" value="가입">
 </form>

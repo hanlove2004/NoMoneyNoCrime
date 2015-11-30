@@ -83,4 +83,12 @@ public class MemberDTO {
 		this.enabled = enabled;
 	}
 	
+	@Override
+	public String toString() {
+		return "MemberDTO [id=" + id + ", num=" + num + ", name=" + name + ", pwd=" + pwd + ", birth=" + birth
+				+ ", sex=" + sex + ", phone=" + phone + ", email=" + email + ", panalty=" + panalty + ", joindate="
+				+ joindate + "]";
+	}
+	
+	
 }
