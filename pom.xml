@@ -138,6 +138,10 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
+<<<<<<< HEAD
+		</dependency>        
+		
+=======
 		</dependency>
 		
 		<!-- mybatis 추가 -->
@@ -260,6 +264,7 @@
 			<artifactId>mail</artifactId>
 			<version>1.4</version>
 		</dependency>
+>>>>>>> 00f9f5c498d9d4fc74985d30e6a6d62f070c3221
 		
 	</dependencies>
     <build>
