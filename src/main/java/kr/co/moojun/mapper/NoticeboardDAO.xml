@@ -6,16 +6,39 @@
 <mapper namespace="kr.co.moojun.model.DAO.NoticeboardDAO">
 
 	<select id="getNoticeBoardCount" resultType="Integer">
-		select count(*) CNT from NOTICEBOARD
+		select count(*) CNT
+		from NOTICEBOARD
 	</select>
 
 	<select id="getNoticeBoardList" parameterType="hashmap"
 		resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
 		select * from NOTICEBOARD
 		where num >= #{start} and num &lt;= #{end}
-<<<<<<< HEAD
 		order by num asc
 	</select>
+
+	<select id="getNoticeBoard" parameterType="Integer"
+		resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+		SELECT * FROM NOTICEBOARD WHERE num=#{num}
+	</select>
+
+	<delete id="deleteNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+		DELETE NOTICEBOARD
+		WHERE num=#{num}
+	</delete>
+
+	<update id="updateNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+		UPDATE NOTICEBOARD
+		SET TITLE=#{title}, CONTENT=#{content} WHERE
+		num=#{num}
+	</update>
+
+	<insert id="insertNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+		INSERT INTO
+		NOTICEBOARD(num, id, title, content, REGDATE)
+		VALUES(notice_seq ,
+		#{id}, #{title}, #{content}, SYSDATE)
+	</insert>
 
 	<select id="getNoticeBoard" parameterType="Integer"
 		resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
@@ -38,27 +61,3 @@
 
 
 </mapper>
-=======
- 		order by num asc
- </select>
-    
- <select id="getNoticeBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
-     SELECT * FROM NOTICEBOARD WHERE num=#{num}
-</select>
-
- <delete id="deleteNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO" >
-     DELETE NOTICEBOARD WHERE num=#{num}
- </delete>
- 
- <update id="updateNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO" >
-     UPDATE NOTICEBOARD SET TITLE=#{title}, CONTENT=#{content} WHERE num=#{num}
- </update>
- 
- <insert id="insertNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO"> 
-      INSERT INTO NOTICEBOARD(num, id, title, content, REGDATE)
-      VALUES(notice_seq , #{id}, #{title}, #{content}, SYSDATE)
- </insert>
-   
-
-</mapper>
->>>>>>> a2c9ded74ec5d2cc913ba5df2a3e0b304074e09f
