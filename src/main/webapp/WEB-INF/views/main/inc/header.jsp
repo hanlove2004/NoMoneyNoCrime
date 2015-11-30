@@ -4,7 +4,7 @@
 <%@ taglib prefix="se"
 	uri="http://www.springframework.org/security/tags"%>
 
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">무전무죄</a>
