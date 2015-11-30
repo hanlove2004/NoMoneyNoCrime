@@ -4,17 +4,17 @@ import java.sql.Date;
 
 public class MemberDTO {
 	
-	private String id;
-	private int num;
-	private String name;
-	private String pwd;
-	private String birth;
-	private String sex;
-	private String phone;
-	private String email;
-	private String panalty;
-	private Date joindate;
-	private String enabled;
+	private String id;       /* 아이디(PK)  ID(PK)    VARCHAR2(100) NOT NULL */
+	private int num;         /* 번호        NUM       NUMBER        NOT NULL */
+	private String name;     /* 이름        NAME      VARCHAR2(100) NOT NULL */
+	private String pwd;      /* 패스워드    PWD       VARCHAR2(200) NOT NULL */
+	private String birth;    /* 생년월일    BIRTH     VARCHAR2(200) NOT NULL */
+	private String sex;      /* 성별        SEX       VARCHAR2(100) NOT NULL */
+	private String phone;    /* 전화번호    PHONE     VARCHAR2(100) NOT NULL */
+	private String email;    /* 이메일      EMAIL     VARCHAR2(200) NOT NULL */
+	private String panalty;  /* 벌점        PANALTY   VARCHAR2(100) NOT NULL */
+	private Date joindate;   /* 가입날짜    JOINDATE  DATE          NOT NULL */
+	private String enabled;  /* 사용여부    ENABLED   VARCHAR2(50)  NOT NULL */
 	
 	public String getId() {
 		return id;
