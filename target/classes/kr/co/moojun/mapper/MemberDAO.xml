@@ -7,31 +7,31 @@
 
 	<!-- 회원가입 -->
 	<insert id="insetMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
-		INSERT INTO MEMBER <!-- 회원테이블 -->
+		INSERT INTO MEMBER 
 	    (
-	      ID                <!-- 아이디(PK)  ID(PK)  VARCHAR2(100) NOT NULL -->
-	    , NUM               <!-- 번호        NUM       NUMBER        NOT NULL -->
-	    , NAME              <!-- 이름        NAME      VARCHAR2(100) NOT NULL -->
-	    , PWD               <!-- 패스워드    PWD       VARCHAR2(200) NOT NULL -->
-	    , BIRTH             <!-- 생년월일    BIRTH     VARCHAR2(200) NOT NULL -->
-	    , SEX               <!-- 성별        SEX       VARCHAR2(100) NOT NULL -->
-	    , PHONE             <!-- 전화번호    PHONE     VARCHAR2(100) NOT NULL -->
-	    , EMAIL             <!-- 이메일      EMAIL     VARCHAR2(200) NOT NULL -->
-	    , PANALTY           <!-- 벌점        PANALTY   VARCHAR2(100) NOT NULL -->
-	    , JOINDATE          <!-- 가입날짜    JOINDATE  DATE          NOT NULL -->
-	    , ENABLED           <!-- 사용여부    ENABLED   VARCHAR2(50)  NOT NULL -->
+	      ID                
+	    , NUM             
+	    , NAME           
+	    , PWD            
+	    , BIRTH          
+	    , SEX             
+	    , PHONE         
+	    , EMAIL          
+	    , PANALTY      
+	    , JOINDATE     
+	    , ENABLED      
 	    )
 	    VALUES
 	    (
 	      #{id}
-	    , member_seq.nextval
+	    , member_seq.NEXTVAL
 	    , #{name}
 	    , #{pwd}
 	    , #{birth}
 	    , #{sex}
 	    , #{phone}
 	    , #{email}
-	    , #{panalty}
+	    , '0'
 	    , sysdate
 	    , '1'
 	    )
