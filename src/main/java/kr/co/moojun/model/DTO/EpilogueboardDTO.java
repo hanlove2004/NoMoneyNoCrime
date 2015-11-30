@@ -10,6 +10,9 @@ public class EpilogueboardDTO {
 	private String content;
 	private Date regdate;
 	private String photoname;
+	private String photoname2;
+	private String photoname3;
+	
 	
 	public int getNum() {
 		return num;
