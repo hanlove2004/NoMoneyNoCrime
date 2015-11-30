@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-<<<<<<< HEAD
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
@@ -58,6 +57,3 @@
 </mapper>  
   
   
-=======
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
->>>>>>> 00f9f5c498d9d4fc74985d30e6a6d62f070c3221
