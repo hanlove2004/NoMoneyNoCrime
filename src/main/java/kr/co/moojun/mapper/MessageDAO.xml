@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<<<<<<< HEAD
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+=======
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+>>>>>>> a2c9ded74ec5d2cc913ba5df2a3e0b304074e09f
 
 <mapper namespace="kr.co.moojun.model.DAO.MessageDAO">
 	
@@ -29,3 +33,7 @@
 	</delete>
 
 </mapper>  
+<<<<<<< HEAD
+=======
+  
+>>>>>>> a2c9ded74ec5d2cc913ba5df2a3e0b304074e09f

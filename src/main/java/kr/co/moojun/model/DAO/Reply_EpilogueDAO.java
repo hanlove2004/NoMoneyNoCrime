@@ -1,6 +1,5 @@
 package kr.co.moojun.model.DAO;
 
-import java.util.HashMap;
 import java.util.List;
 
 import kr.co.moojun.model.DTO.Reply_EpilogueDTO;

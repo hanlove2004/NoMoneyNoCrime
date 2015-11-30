@@ -54,4 +54,10 @@
 		SELECT COUNT(*) CNT FROM EPILOGUE
 	</select>
 
+<<<<<<< HEAD
 </mapper>  
+=======
+</mapper>  
+  
+  
+>>>>>>> a2c9ded74ec5d2cc913ba5df2a3e0b304074e09f
