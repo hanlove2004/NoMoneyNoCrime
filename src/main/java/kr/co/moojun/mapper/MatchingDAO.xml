@@ -1,1 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.moojun.DAO.MatchingDAO">
+
+	<!-- 매칭 추가 -->
+	<insert id="insertMatching" parameterType="kr.co.moojun.DTO.MatchingDTO">
+		INSERT INTO
+		MATCHING (num, owner, worker, statecode)
+		VALUES (work_seq.nextval,#{owner},#{worker},#{statecode})
+	</insert>
+	
+	<!-- 매칭 현황 리스트 -->
+	<select id="getMatchingList">
+		SELECT * FROM MATCHING WHERE owner = #{owner}
+	</select>
+	
+	<!-- 매칭 상태 수정하기 -->
+	<update id="updateMatchingState" parameterType="kr.co.moojun.DTO.MatchingDTO">
+		UPDATE MATCHING
+		SET statecode = #{statecode}
+		WHERE num = #{num}
+	</update>
+	
+</mapper>

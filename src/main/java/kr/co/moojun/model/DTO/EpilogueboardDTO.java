@@ -12,7 +12,10 @@ public class EpilogueboardDTO {
 	private String photoname;
 	private String photoname2;
 	private String photoname3;
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 00f9f5c498d9d4fc74985d30e6a6d62f070c3221
 	
 	public int getNum() {
 		return num;
@@ -50,5 +53,18 @@ public class EpilogueboardDTO {
 	public void setPhotoname(String photoname) {
 		this.photoname = photoname;
 	}
+	public String getPhotoname2() {
+		return photoname2;
+	}
+	public void setPhotoname2(String photoname2) {
+		this.photoname2 = photoname2;
+	}
+	public String getPhotoname3() {
+		return photoname3;
+	}
+	public void setPhotoname3(String photoname3) {
+		this.photoname3 = photoname3;
+	}
+	
 	
 }

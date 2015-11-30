@@ -8,6 +8,7 @@ public class ReferenceDTO {
 	private String worker;
 	private String content;
 	private Date regdate;
+	private String photoname;
 	
 	public int getNum() {
 		return num;
@@ -39,6 +40,11 @@ public class ReferenceDTO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	
+	public String getPhotoname() {
+		return photoname;
+	}
+	public void setPhotoname(String photoname) {
+		this.photoname = photoname;
+	}
 	
 }
