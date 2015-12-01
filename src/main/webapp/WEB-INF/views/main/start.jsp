@@ -22,14 +22,14 @@
          <div class="form-group form-inline">
             <label for="id" class="col-sm-3 control-label">아이디:</label>
             <div class="col-sm-8">
-               <input type="email" class="form-control" id="id"
+               <input type="email" class="form-control" id="loginid"
                   placeholder="Enter email">
             </div>
          </div>
          <div class="form-group form-inline">
             <label for="pwd" class="col-sm-3 control-label">비밀번호:</label>
             <div class="col-sm-8">
-               <input type="password" class="form-control" id="pwd"
+               <input type="password" class="form-control" id="password"
                   placeholder="Enter password">
             </div>
          </div>
@@ -62,6 +62,12 @@
                <div class="col-sm-8">
                   <input type="password" class="form-control" name="confirmpwd"
                      id="confirmpwd" placeholder="Password Check">
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="m_pwd2" class="col-sm-4 control-label"></label>
+               <div class="col-sm-8" id="pwdcheck">
+					필수정보 입니다.
                </div>
             </div>
             <div class="form-group">

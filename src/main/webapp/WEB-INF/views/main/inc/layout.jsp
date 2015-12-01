@@ -39,6 +39,22 @@
 		        $("#join").fadeOut();
 		        $("#howtouse").delay(500).fadeIn();
 		    });
+		    
+		    
+		  //암호비교
+		  $('#confirmpwd').keyup(function(){
+			  var pwd = $('#pwd').val();
+		   if($('#confirmpwd').val() != pwd)
+		   {
+				$('#pwdcheck').text('');
+		   		$('#pwdcheck').html("비밀번호 불일치");
+		   }
+		   else
+		   {
+	    		$('#pwdcheck').text('');
+	    		$('#pwdcheck').html("비밀번호 일치");
+		   	}
+		 });
 	
 		});
 
