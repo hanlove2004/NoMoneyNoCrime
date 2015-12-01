@@ -21,7 +21,7 @@
    활성화            EXPIRE      VARCHAR2(20)  NOT NULL
    -->
    <!-- 일자리 게시판 쓰기 -->
-   <insert id="insertWorkBoard" parameterType="kr.co.moojun.model.WorkboardDTO">
+   <insert id="insertWorkBoard" parameterType="kr.co.moojun.model.DTO.WorkboardDTO">
       INSERT INTO WORKBOARD 
       (
         NUM
@@ -54,7 +54,7 @@
    </insert>
    
    <!-- 일자리게시판 리스트(여러개) -->
-   <select id="getWorkBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.WorkboardDTO">
+   <select id="getWorkBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.WorkboardDTO">
       SELECT 
              * 
         FROM
@@ -76,7 +76,7 @@
    </select>
    
    <!-- 일자리게시판 디테일(상세보기) -->
-   <select id="getWorkBoard" parameterType="Integer">
+   <select id="getWorkBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.WorkboardDTO">
       SELECT 
              * 
         FROM WORKBOARD 
@@ -84,7 +84,7 @@
    </select>
    
    <!-- 일자리게시판 수정하기 -->
-   <update id="updateWorkBoard" parameterType="kr.co.moojun.model.WorkboardDTO">
+   <update id="updateWorkBoard" parameterType="kr.co.moojun.model.DTO.WorkboardDTO">
       UPDATE WORKBOARD 
          SET TITLE = #{title}
            , COMPENSATE    = #{compensate}
@@ -96,7 +96,7 @@
    </update>
    
    <!-- 일자리게시판 삭제하기(실제 삭제가 아니라 유효기간만료된 글을 리스트에서 안보이게 하는 것) -->
-   <update id="deleteWorkBoard" parameterType="kr.co.moojun.model.WorkboardDTO">
+   <update id="deleteWorkBoard" parameterType="Integer">
       UPDATE WORKBOARD 
          SET EXPIRE    = '0' 
        WHERE NUM       = #{num} 
