@@ -59,11 +59,11 @@
    </insert>
    
    <!-- 탈퇴 -->
-   <delete id="deleteMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
-      DELETE FROM MEMBER  
-       WHERE ID  = #{id}  
-         AND PWD = #{pwd} 
-   </delete>
+   <update id="deleteMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
+   		UPDATE MEMBER
+   		SET ENABLED = '0'
+   		WHERE ID = #{id} AND PWD = #{pwd}
+   </update>
    
    <!-- 회원 정보 수정 -->
    <update id="updateMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
@@ -99,5 +99,20 @@
         FROM MEMBER 
        WHERE ID = #{id} 
    </select>
+   
+   <!-- 아이디 찾기 -->
+   <select id="searchIdByNameAndEmail" resultType="kr.co.moojun.model.DTO.MemberDTO">
+   		SELECT *
+   		FROM MEMBER
+   		WHERE NAME = #{param1} AND EMAIL = #{param2}
+   </select>
+   
+   <!-- 비밀번호 찾기 -->
+   <select id="searchPwdByIdAndEmail" resultType="kr.co.moojun.model.DTO.MemberDTO">
+   		SELECT *
+   		FROM MEMBER
+   		WHERE ID = #{param1} AND EMAIL = #{param2}
+   </select>
+   
    
 </mapper>

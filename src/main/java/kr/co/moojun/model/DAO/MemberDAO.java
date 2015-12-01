@@ -18,4 +18,8 @@ public interface MemberDAO {
 	List<MemberDTO> getMemberList(MemberDTO memberdto); // 회원리스트 조회
 	
 	MemberDTO getMemberDetail(String id); // 회원정보 보기 (디테일)
+	
+	MemberDTO searchIdByNameAndEmail(String name , String email); // 아이디 찾기
+	
+	MemberDTO searchPwdByIdAndEmail(String id , String email); // 비밀번호 찾기
 }
