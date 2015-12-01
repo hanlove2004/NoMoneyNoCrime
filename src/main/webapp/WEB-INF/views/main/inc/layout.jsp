@@ -113,7 +113,7 @@
 	</style>
 </head>
 <body>
-	<div class="main" style="background-image: url(<%=request.getContextPath()%>/images/main.jpg)">
+	<div class="main" style="background-image: url(${pageContext.request.contextPath}/images/main.jpg)">
 		<div class="container">
 			<!-- header 영역 -->
 			<tiles:insertAttribute name="header" />
@@ -125,6 +125,7 @@
 			
 
 			<a href="notice/noticelist.htm">공지사항으로 가기</a>
+			<a href="${pageContext.request.contextPath}/epilogue/epiloguelist.htm">여행후기로 가기</a>
 
 			
 			<!-- footer 영역 -->

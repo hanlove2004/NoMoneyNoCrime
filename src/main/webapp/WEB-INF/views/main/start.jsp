@@ -29,8 +29,7 @@
          </div>
       </c:if>
 
-      <c:url value="/login" var="loginURL" />
-      <form action="${loginURL }" method="post">
+      <form action="${pageContext.request.contextPath}/login" method="post">
          <div class="form-group form-inline">
             <label for="id" class="col-sm-3 control-label">아이디:</label>
             <div class="col-sm-8">
@@ -62,7 +61,7 @@
           <h4 class="modal-title">ID / PWD 찾기</h4>
         </div>
         <div class="modal-footer">
-			      <form action="main/searchid.htm" method="post">
+			      <form action="${pageContext.request.contextPath}/main/searchid.htm" method="post">
 			         <div class="form-group form-inline">
 			            <label for="id" class="col-sm-3 control-label">이름:</label>
 			            <div class="col-sm-8">
@@ -82,7 +81,7 @@
         </div>
         
         <div class="modal-footer">
-        		<form action="main/searchpwd.htm" method="post">
+        		<form action="${pageContext.request.contextPath}/main/searchpwd.htm" method="post">
 			         <div class="form-group form-inline">
 			            <label for="id" class="col-sm-3 control-label">아이디:</label>
 			            <div class="col-sm-8">
