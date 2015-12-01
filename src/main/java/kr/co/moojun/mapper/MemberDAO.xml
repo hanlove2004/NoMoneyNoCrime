@@ -19,11 +19,7 @@
    사용여부    ENABLED   VARCHAR2(50)  NOT NULL
    -->
    <!-- 회원가입 -->
-<<<<<<< HEAD
    <insert id="insertMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
-=======
-   <insert id="insetMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
->>>>>>> 66e306d335041cab665504852621e1f6a47e95c9
       INSERT INTO MEMBER 
        (
          ID                
@@ -54,7 +50,6 @@
        )
    </insert>
    
-<<<<<<< HEAD
    <!-- 회원 권한 테이블 insert -->
    <insert id="insertRoleAndMember">
    		INSERT INTO ROLEANDMEMBER
@@ -63,8 +58,6 @@
    		(#{param1} , #{param2})
    </insert>
    
-=======
->>>>>>> 66e306d335041cab665504852621e1f6a47e95c9
    <!-- 탈퇴 -->
    <delete id="deleteMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
       DELETE FROM MEMBER  

@@ -70,7 +70,7 @@
 		
 		.main
 		{
-			background-image: url(images/main.jpg);
+			/* background-image: url(images/main.jpg); */
 			width: 100%;
 			height: 100%;
 		}
@@ -97,7 +97,7 @@
 	</style>
 </head>
 <body>
-	<div class="main">
+	<div class="main" style="background-image: url(<%=request.getContextPath()%>/images/main.jpg)">
 		<div class="container">
 			<!-- header 영역 -->
 			<tiles:insertAttribute name="header" />
