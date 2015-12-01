@@ -44,16 +44,16 @@
 		  //암호비교
 		  $('#confirmpwd').keyup(function(){
 			  var pwd = $('#pwd').val();
-		   if($('#confirmpwd').val() != pwd)
-		   {
-				$('#pwdcheck').text('');
-		   		$('#pwdcheck').html("비밀번호 불일치");
-		   }
-		   else
-		   {
-	    		$('#pwdcheck').text('');
-	    		$('#pwdcheck').html("비밀번호 일치");
-		   	}
+			   if($('#confirmpwd').val() != pwd)
+			   {
+					$('#pwdcheck').text('');
+			   		$('#pwdcheck').html("비밀번호 불일치");
+			   }
+			   else
+			   {
+		    		$('#pwdcheck').text('');
+		    		$('#pwdcheck').html("비밀번호 일치");
+			   	}
 		 });
 	
 		});
@@ -123,11 +123,9 @@
 			<tiles:insertAttribute name="content" />
 			</div>
 			
-<<<<<<< HEAD
-			<a href="noticelist.htm">공지사항으로 가기</a>
-=======
+
 			<a href="notice/noticelist.htm">공지사항으로 가기</a>
->>>>>>> e6a2b588759509408955145eb501db37eaed3c3b
+
 			
 			<!-- footer 영역 -->
 			<tiles:insertAttribute name="footer" />

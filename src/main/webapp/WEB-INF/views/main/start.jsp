@@ -34,21 +34,80 @@
          <div class="form-group form-inline">
             <label for="id" class="col-sm-3 control-label">아이디:</label>
             <div class="col-sm-8">
-               <input type="text" class="form-control" id="id" name="username"
+               <input type="text" class="form-control" id="username" name="username"
                   placeholder="Enter email">
             </div>
          </div>
          <div class="form-group form-inline">
             <label for="pwd" class="col-sm-3 control-label">비밀번호:</label>
             <div class="col-sm-8">
-               <input type="password" class="form-control" id="pwd"
+               <input type="password" class="form-control" id="password"
                   name="password" placeholder="Enter password">
             </div>
          </div>
-         <button type="submit" class="btn btn-default">Submit</button>
+         <button type="submit" class="btn btn-default">로그인</button>
+         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">ID / PWD 찾기</button>
       </form>
    </div>
 </div>
+
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">ID / PWD 찾기</h4>
+        </div>
+        <div class="modal-footer">
+			      <form action="main/searchid.htm" method="post">
+			         <div class="form-group form-inline">
+			            <label for="id" class="col-sm-3 control-label">이름:</label>
+			            <div class="col-sm-8">
+			               <input type="text" class="form-control" id="name" name="name"
+			                  placeholder="name">
+			            </div>
+			         </div>
+			         <div class="form-group form-inline">
+			            <label for="pwd" class="col-sm-3 control-label">이메일:</label>
+			            <div class="col-sm-8">
+			               <input type="text" class="form-control" id="email"
+			                  name="email" placeholder="email">
+			            </div>
+			         </div>
+			         <button type="submit" class="btn btn-default">확인</button>
+			      </form>
+        </div>
+        
+        <div class="modal-footer">
+        		<form action="main/searchpwd.htm" method="post">
+			         <div class="form-group form-inline">
+			            <label for="id" class="col-sm-3 control-label">아이디:</label>
+			            <div class="col-sm-8">
+			               <input type="text" class="form-control" id="id" name="id"
+			                  placeholder="id">
+			            </div>
+			         </div>
+			         <div class="form-group form-inline">
+			            <label for="pwd" class="col-sm-3 control-label">이메일:</label>
+			            <div class="col-sm-8">
+			               <input type="text" class="form-control" id="email"
+			                  name="email" placeholder="email">
+			            </div>
+			         </div>
+			         <button type="submit" class="btn btn-default">확인</button>
+			      </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 <div id="join" align="center" class="collapse">
    <div class="well well-lg" align="center"
       style="margin: auto; height: 85%; width: 50%;">
@@ -124,7 +183,7 @@
             <input type="submit" value="JOIN" class="btn btn-success"> <input
                type="button" onclick="location.href='javascript:joinform.reset()'"
                value="RESET" class="btn btn-info"> <input type="button"
-               onclick="location.href='login.jsp'" value="CANCEL"
+               onclick="location.href='main.start'" value="CANCEL"
                class="btn btn-danger">
          </form>
       </div>
