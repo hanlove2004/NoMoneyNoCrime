@@ -4,60 +4,71 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.moojun.model.DAO.NoticeboardDAO">
+   <!-- 
+   공지게시판(NOTICEBOARD) 
+   번호(PK)       NUM(PK) NUMBER          NOT NULL
+   아이디(FK)     ID(FK)  VARCHAR2(100)   NOT NULL
+   제목              TITLE   VARCHAR2(200)   NOT NULL
+   내용              CONTENT VARCHAR2(2000)  NOT NULL
+   날짜              REGDATE DATE            NOT NULL
+   -->
+   <!-- 공지게시판 게시글의 수  -->
+   <select id="getNoticeBoardCount" resultType="Integer">
+      SELECT 
+             COUNT(*) 
+        FROM NOTICEBOARD
+   </select>
 
-	<select id="getNoticeBoardCount" resultType="Integer">
-		select count(*) CNT
-		from NOTICEBOARD
-	</select>
+   <!-- 공지게시판 리스트(여러개) -->
+   <select id="getNoticeBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+      SELECT 
+             * 
+        FROM NOTICEBOARD
+      WHERE NUM >= #{start} 
+        AND NUM &lt;= #{end}
+      ORDER BY NUM ASC
+   </select>
 
-	<select id="getNoticeBoardList" parameterType="hashmap"
-		resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
-		select * from NOTICEBOARD
-		where num >= #{start} and num &lt;= #{end}
-		order by num asc
-	</select>
+   <!-- 공지게시판 디테일(상세보기) -->
+   <select id="getNoticeBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+      SELECT 
+             * 
+        FROM NOTICEBOARD
+       WHERE NUM = #{num}
+   </select>
 
-	<select id="getNoticeBoard" parameterType="Integer"
-		resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
-		SELECT * FROM NOTICEBOARD WHERE num=#{num}
-	</select>
+   <!-- 공지게시판 삭제하기 -->
+   <delete id="deleteNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+      DELETE 
+        FROM NOTICEBOARD
+       WHERE NUM=#{num}
+   </delete>
 
-	<delete id="deleteNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
-		DELETE NOTICEBOARD
-		WHERE num=#{num}
-	</delete>
+   <!-- 공지게시판 수정하기 -->
+   <update id="updateNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+      UPDATE NOTICEBOARD
+         SET TITLE   = #{title}
+           , CONTENT  = #{content} 
+       WHERE NUM = #{num}
+   </update>
 
-	<update id="updateNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
-		UPDATE NOTICEBOARD
-		SET TITLE=#{title}, CONTENT=#{content} WHERE
-		num=#{num}
-	</update>
-
-	<insert id="insertNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
-		INSERT INTO
-		NOTICEBOARD(num, id, title, content, REGDATE)
-		VALUES(notice_seq ,
-		#{id}, #{title}, #{content}, SYSDATE)
-	</insert>
-
-	<select id="getNoticeBoard" parameterType="Integer"
-		resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
-		SELECT * FROM NOTICEBOARD WHERE num=#{num}
-	</select>
-
-	<delete id="deleteNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
-		DELETE NOTICEBOARD WHERE num=#{num}
-	</delete>
-
-	<update id="updateNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
-		UPDATE NOTICEBOARD SET TITLE=#{title}, CONTENT=#{content} WHERE
-		num=#{num}
-	</update>
-
-	<insert id="insertNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
-		INSERT INTO NOTICEBOARD(num, id, title, content, REGDATE)
-		VALUES(notice_seq , #{id}, #{title}, #{content}, SYSDATE)
-	</insert>
-
-
+   <!-- 공지사항 쓰기 -->
+   <insert id="insertNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+      INSERT INTO NOTICEBOARD
+      (
+        NUM
+      , ID
+      , TITLE
+      , CONTENT
+      , REGDATE
+      )
+      VALUES
+      (
+        NOTICE_SEQ.NEXTVAL
+      , #{id}
+      , #{title}
+      , #{content}
+      , SYSDATE
+      )
+   </insert>
 </mapper>
