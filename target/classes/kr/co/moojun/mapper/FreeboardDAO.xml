@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="kr.co.moojun.DAO.FreeboardDAO">
+<mapper namespace="kr.co.moojun.model.DAO.FreeboardDAO">
    <!-- 
    자유게시판(FREEBOARD)
    번호(PK)    NUM(PK) NUMBER        NOT NULL
@@ -25,7 +25,7 @@
       )
       VALUES 
       (
-        free_seq.nextval
+        FREE_SEQ.NEXTVAL
       , #{id}
       , #{title}
       , #{content}
@@ -34,7 +34,7 @@
    </insert>
    
    <!-- 자유게시판 목록 보기, map 객체에 start와 end 값을 넣어서 parameter로 받는다. -->
-   <select id="getFreeBoardList" parameterType="hashmap" resultType="kr.co.moojun.DTO.FreeboardDTO">
+   <select id="getFreeBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.FreeboardDTO">
       SELECT 
              *
         FROM
@@ -55,7 +55,7 @@
    </select>
    
    <!-- 자유게시판 상세 보기 -->
-   <select id="getFreeBoard" parameterType="Integer" resultType="kr.co.moojun.DTO.FreeboardDTO">
+   <select id="getFreeBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.FreeboardDTO">
       SELECT 
              * 
         FROM FREEBOARD 
@@ -63,7 +63,7 @@
    </select>
    
    <!-- 자유게시판 수정하기 -->
-   <update id="updateFreeBoard" parameterType="kr.co.moojun.DTO.FreeboardDTO">
+   <update id="updateFreeBoard" parameterType="kr.co.moojun.model.DTO.FreeboardDTO">
       UPDATE FREEBOARD
          SET TITLE    = #{title}
            , CONTENT    = #{content}
@@ -72,7 +72,7 @@
    </update>
    
    <!-- 자유게시판 삭제하기 -->
-   <delete id="deleteFreeBoard" parameterType="kr.co.moojun.DTO.FreeboardDTO">
+   <delete id="deleteFreeBoard" parameterType="kr.co.moojun.model.DTO.FreeboardDTO">
       DELETE 
         FROM FREEBOARD 
        WHERE ID    = #{id} 
@@ -80,7 +80,7 @@
    </delete>
    
    <!-- 자유게시판 게시글의 수 -->
-   <select id="getFreeBoardCount">
+   <select id="getFreeBoardCount" resultType="Integer">
       SELECT 
              COUNT(*) 
         FROM FREEBOARD

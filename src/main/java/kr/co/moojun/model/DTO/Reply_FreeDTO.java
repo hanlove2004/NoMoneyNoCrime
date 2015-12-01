@@ -3,50 +3,55 @@ package kr.co.moojun.model.DTO;
 import java.sql.Date;
 
 public class Reply_FreeDTO {
-	private int num;
-	private String id;
-	private String title;
-	private String content;
-	private Date regdate;
+   private int    num;     		 /* 번호(PK)       NUM(PK)   NUMBER        NOT NULL */
+   private String    id;      	 /* 아이디         ID        VARCHAR2(100) NOT NULL */
+   private String    content; 	 /* 내용           CONTENT   VARCHAR2(500) NOT NULL */
+   private Date    regdate; 	 /* 날짜           REGDATE   DATE          NOT NULL */
+   private int    idx;			 /* 인덱스(FK)     IDX(FK)   NUMBER        NOT NULL */
 
-	public int getNum() {
-		return num;
-	}
+   public int getNum() {
+      return num;
+   }
 
-	public void setNum(int num) {
-		this.num = num;
-	}
+   public void setNum(int num) {
+      this.num = num;
+   }
 
-	public String getId() {
-		return id;
-	}
+   public String getId() {
+      return id;
+   }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+   public void setId(String id) {
+      this.id = id;
+   }
 
-	public String getTitle() {
-		return title;
-	}
+   public String getContent() {
+      return content;
+   }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+   public void setContent(String content) {
+      this.content = content;
+   }
 
-	public String getContent() {
-		return content;
-	}
+   public Date getRegdate() {
+      return regdate;
+   }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+   public void setRegdate(Date regdate) {
+      this.regdate = regdate;
+   }
 
-	public Date getRegdate() {
-		return regdate;
-	}
+   public int getIdx() {
+      return idx;
+   }
 
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
-	}
+   public void setIdx(int idx) {
+      this.idx = idx;
+   }
 
+   @Override
+   public String toString() {
+      return "Reply_FreeDTO [num=" + num + ", id=" + id + ", content=" + content + ", regdate=" + regdate + ", idx="
+            + idx + "]";
+   }
 }
