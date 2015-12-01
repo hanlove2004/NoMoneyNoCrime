@@ -11,12 +11,35 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<title>무전무죄 프로젝트</title>
 	<script type="text/javascript">
-		$(function(){
-			
-			$('#login').empty();
+	
+		$(document).ready(function(){
+		    $(".li1").click(function(){
+		        $("#login").fadeOut();
+		        $("#join").fadeOut();
+		        $("#howtouse").fadeOut();
+		        $("#start").delay(500).fadeIn();
+		    });
+		    $(".li2").click(function(){
+		        $("#start").fadeOut();
+		        $("#join").fadeOut();
+		        $("#howtouse").fadeOut();
+		        $("#login").delay(500).fadeIn();
+		    });
+		    $(".li3").click(function(){
+		        $("#start").fadeOut();
+		        $("#login").fadeOut();
+		        $("#howtouse").fadeOut();
+		        $("#join").delay(500).fadeIn();
+		    });
+		    $(".li4").click(function(){
+		        $("#start").fadeOut();
+		        $("#login").fadeOut();
+		        $("#join").fadeOut();
+		        $("#howtouse").delay(500).fadeIn();
+		    });
+	
 		});
 
 	</script>
@@ -55,44 +78,38 @@
 		.maincontent
 		{
 			height: 470px;
-			
+		}
+		
+		p
+		{
+			color: yellow;
+			font-family: myfont02;
+		}
+		
+		@font-face 
+		{
+		    font-family: myfont01;
+		    src: url(font/365달콤한머핀.ttf);
+		    
+		    font-family: myfont02;
+		    src: url(font/a대한늬우스M.ttf);
 		}
 	</style>
 </head>
-<body cellpadding=0 cellspacing=0 marginleft=0 margintop=0 width="100%" height="100%">
+<body>
 	<div class="main">
-		<!-- header 영역 -->
-		<tiles:insertAttribute name="header" />
-		
-		<!-- main 영역 -->
-		<div class="maincontent">
-		<tiles:insertAttribute name="content" />
-			<div id="login" class="container collapse" align="center">
-				<div style="text-align: center; vertical-align: middle; margin: auto; width: 400px; border-color: white; border-style: ;">
-					<h1>로그인</h1>
-					<form method="post" class="form-horizontal">
-						<div class="form-group form-inline">
-							<label for="id" class="col-sm-3 control-label">아이디:</label>
-							<div class="col-sm-8">
-								<input type="email" class="form-control" id="id"
-									placeholder="Enter email">
-							</div>
-						</div>
-						<div class="form-group form-inline">
-							<label for="pwd" class="col-sm-3 control-label">비밀번호:</label>
-							<div class="col-sm-8">
-								<input type="password" class="form-control" id="pwd"
-									placeholder="Enter password">
-							</div>
-						</div>
-						<button type="submit" class="btn btn-default">Submit</button>
-					</form>
-				</div>
+		<div class="container">
+			<!-- header 영역 -->
+			<tiles:insertAttribute name="header" />
+			
+			<!-- main 영역 -->
+			<div class="maincontent">
+			<tiles:insertAttribute name="content" />
 			</div>
+			
+			<!-- footer 영역 -->
+			<tiles:insertAttribute name="footer" />
 		</div>
-		
-		<!-- footer 영역 -->
-		<tiles:insertAttribute name="footer" />
 	</div>
 </body>
 </html>
