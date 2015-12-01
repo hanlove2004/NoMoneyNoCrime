@@ -4,25 +4,112 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<title>무전무죄 프로젝트</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<title>무전무죄 프로젝트</title>
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+		    $(".li1").click(function(){
+		        $("#login").fadeOut();
+		        $("#join").fadeOut();
+		        $("#howtouse").fadeOut();
+		        $("#start").delay(500).fadeIn();
+		    });
+		    $(".li2").click(function(){
+		        $("#start").fadeOut();
+		        $("#join").fadeOut();
+		        $("#howtouse").fadeOut();
+		        $("#login").delay(500).fadeIn();
+		    });
+		    $(".li3").click(function(){
+		        $("#start").fadeOut();
+		        $("#login").fadeOut();
+		        $("#howtouse").fadeOut();
+		        $("#join").delay(500).fadeIn();
+		    });
+		    $(".li4").click(function(){
+		        $("#start").fadeOut();
+		        $("#login").fadeOut();
+		        $("#join").fadeOut();
+		        $("#howtouse").delay(500).fadeIn();
+		    });
+	
+		});
+
+	</script>
+	<style type="text/css">
+		body
+		{
+			padding:0px;
+			margin:0px;
+			width:100%;
+			height:100%;
+		}
+		
+		.navbar a
+		{
+			color: white;
+		}
+		
+		.navbar a:hover
+		{
+			color: rgb(0, 153, 0);
+			text-decoration: underline;
+		}
+		
+		.navbar li:hover
+		{
+			background-color: none;
+		}
+		
+		.main
+		{
+			background-image: url(images/main.jpg);
+			width: 100%;
+			height: 100%;
+		}
+		
+		.maincontent
+		{
+			height: 470px;
+		}
+		
+		p
+		{
+			color: yellow;
+			font-family: myfont02;
+		}
+		
+		@font-face 
+		{
+		    font-family: myfont01;
+		    src: url(font/365달콤한머핀.ttf);
+		    
+		    font-family: myfont02;
+		    src: url(font/a대한늬우스M.ttf);
+		}
+	</style>
 </head>
 <body>
-
-	<!-- header 영역 -->
-	<tiles:insertAttribute name="header"/>
-	
-	<!-- main 영역 -->
-	<tiles:insertAttribute name="content"/>
-	
-	<!-- footer 영역 -->
-	<tiles:insertAttribute name="footer"/>
-	
+	<div class="main">
+		<div class="container">
+			<!-- header 영역 -->
+			<tiles:insertAttribute name="header" />
+			
+			<!-- main 영역 -->
+			<div class="maincontent">
+			<tiles:insertAttribute name="content" />
+			</div>
+			
+			<!-- footer 영역 -->
+			<tiles:insertAttribute name="footer" />
+		</div>
+	</div>
 </body>
 </html>
