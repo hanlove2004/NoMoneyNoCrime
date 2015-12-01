@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <footer>
 <div class="container">
@@ -7,7 +7,7 @@
 		<div class="col-md-12 col-lg-12">
 			<p>NoMoneyNoCrime online</p>
 			<p>
-				°æ±âµµ ¼º³²½Ã ºĞ´ç±¸ »ïÆòµ¿ ´ë¿ÕÆÇ±³·Î 670±æ À¯½ºÆäÀÌ½º2 Bµ¿ 8F<br>
+				ê²½ê¸°ë„ ì„±ë‚¨ì‹œ ë¶„ë‹¹êµ¬ ì‚¼í‰ë™ ëŒ€ì™•íŒêµë¡œ 670ê¸¸ ìœ ìŠ¤í˜ì´ìŠ¤2 Bë™ 8F<br>
 				Tel : 031 1234 5678	/ Fax : 0303 3447 1207 / C.P : 010 1234 5678<br>
 				E-mail : NoMoneyNoCrime@naver.com<br>
 				copyright(c) http://localhost:8090/NoMoneyNoCrime/index.htm all rights reserved
