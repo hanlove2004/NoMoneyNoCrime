@@ -2,3 +2,87 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.moojun.model.DAO.Reply_FreeDAO">
+   <!-- 
+   자유댓글(REPLY_FREE)
+   번호(PK)       NUM(PK)   NUMBER        NOT NULL
+   아이디            ID        VARCHAR2(100) NOT NULL
+   내용              CONTENT   VARCHAR2(500) NOT NULL
+   날짜              REGDATE   DATE          NOT NULL
+   인덱스(FK)     IDX(FK)   NUMBER        NOT NULL
+    -->
+    
+    <!-- 
+    int insertFreeBoardReply(Reply_FreeDTO dto); // 자유게시판 댓글 쓰기
+
+   List<Reply_FreeDTO> getFreeBoardReplyList(int num); // 자유게시판 댓글 리스트(여러개)
+
+   int updateFreeBoardReply(Reply_FreeDTO dto); // 자유게시판 댓글 수정하기
+
+   int deleteFreeBoardReply(Reply_FreeDTO dto); // 자유게시판 댓글 삭제하기
+
+   int getFreeBoardReplyCount(); // 자유겟판 댓글  수
+     -->
+   <!--자유게시판 댓글 쓰기 -->
+   <insert id="insertFreeBoardReply" parameterType="kr.co.moojun.model.DTO.Reply_FreeDTO">
+      INSERT INTO REPLY_FREE
+      (
+        NUM
+      , ID
+      , CONTENT
+      , REGDATE
+      , IDX
+      )
+      VALUES
+      (
+        REPLY_FREE_SEQ.NEXTVAL
+      , #{id}
+      , #{content}
+      , SYSDATE
+      , #{idx}
+      )
+   </insert>
+
+   <!-- 자유게시판 댓글 리스트(여러개) -->
+   <select id="getFreeBoardReplyList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.Reply_FreeDTO">
+      SELECT 
+             *
+        FROM
+          (
+            SELECT 
+                   F.*
+                 , ROWNUM AS R 
+              FROM
+                ( 
+                  SELECT 
+                         * 
+                    FROM REPLY_FREE 
+                   ORDER BY num DESC
+                ) F
+         )
+      WHERE R >= #{start} 
+        AND R &lt;= #{end}
+   </select>
+
+   <!-- 자유게시판 댓글 수정하기-->
+   <update id="updateFreeBoardReply" parameterType="kr.co.moojun.model.DTO.Reply_FreeDTO">
+      UPDATE REPLY_FREE
+         SET CONTENT    = #{content}
+       WHERE NUM    = #{num}
+   </update>
+
+   <!-- 자유게시판 댓글 삭제하기 -->
+   <delete id="deleteFreeBoardReply" parameterType="kr.co.moojun.model.DTO.Reply_FreeDTO">
+      DELETE
+        FROM REPLY_FREE
+       WHERE NUM    = #{num}
+   </delete>
+
+   <!-- 자유게시판 댓글  수 -->
+   <select id="getFreeBoardReplyCount" parameterType="Integer" resultType="Integer">
+      SELECT
+             COUNT(*)
+        FROM REPLY_FREE
+        WHERE IDX = #{idx}
+   </select>
+</mapper>

@@ -5,11 +5,11 @@
 	<table class="table table-bordered"
 		style="text-align: center; font-size: 30px;">
 		<tr>
-			<td class="active"><b>자유게시판</b></td>
+			<td class="active"><b>공지사항 수정</b></td>
 		</tr>
 	</table>
 	<div style="height: 390px;">
-		<form name="freeinsertform" action="freeinsert.htm" method="post">
+		<form name="noticeupdateform" action="noticeupdate.htm" method="post">
 			<table class="table table-striped" style="text-align: center; margin-bottom: 0;">
 				<tr>
 					<td>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</td>
@@ -26,13 +26,13 @@
 				<tr>
 					<td colspan="3">
 						<button type="submit" class="btn btn-danger">
-							<a href="javascript:freeinsertform.submit()">작성</a>
+							<a href="javascript:noticeupdateform.submit()">수정</a>
 						</button>&nbsp;&nbsp;&nbsp;
 						<button type="submit" class="btn btn-danger">
-							<a href="freelist.htm">취소</a>
+							<a href="noticelist.htm">취소</a>
 						</button>&nbsp;&nbsp;&nbsp;
 						<button type="submit" class="btn btn-danger">
-							<a href="freelist.htm">목록</a>
+							<a href="noticelist.htm">목록</a>
 						</button>
 					</td>
 				</tr>
