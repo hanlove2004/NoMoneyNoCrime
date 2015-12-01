@@ -39,7 +39,7 @@
       , #{id}
       , #{content}
       , SYSDATE
-      , #{IDX}
+      , #{idx}
       )
    </insert>
 
@@ -78,10 +78,11 @@
        WHERE NUM    = #{num}
    </delete>
 
-   <!-- 자유겟판 댓글  수 -->
-   <select id="getFreeBoardReplyCount" resultType="Integer">
+   <!-- 자유게시판 댓글  수 -->
+   <select id="getFreeBoardReplyCount" parameterType="Integer" resultType="Integer">
       SELECT
              COUNT(*)
         FROM REPLY_FREE
+        WHERE IDX = #{idx}
    </select>
 </mapper>
