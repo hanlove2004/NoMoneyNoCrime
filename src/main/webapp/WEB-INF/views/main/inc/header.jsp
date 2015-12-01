@@ -11,9 +11,9 @@
 			</div>
 			<div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="login.htm"><span class="glyphicon glyphicon-user"></span>
+					<li><a href="main/login.htm"><span class="glyphicon glyphicon-user"></span>
 							로그인</a></li>
-					<li><a href="join.htm"><span class="glyphicon glyphicon-log-in"></span>
+					<li><a href="main/join.htm"><span class="glyphicon glyphicon-log-in"></span>
 							회원가입</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
 							사용방법</a></li>

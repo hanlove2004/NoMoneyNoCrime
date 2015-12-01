@@ -9,7 +9,6 @@
 	$(function(){
 			  $('#phone3').keyup(function(){
 				  var phone = $('#phone1').val() + "-" + $('#phone2').val() + "-" + $('#phone3').val();
-				  alert(phone);
 				  $('#phone').val(phone);
 			 });
 	});

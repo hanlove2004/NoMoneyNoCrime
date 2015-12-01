@@ -89,7 +89,7 @@ public class MemberController {
 		System.out.println(memberdto.toString());
 		
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		//memberdao.insetMember(memberdto);
+		memberdao.insetMember(memberdto);
 		
 		// Tiles 적용 (UrlBase 방식)
 		System.out.println("joinsuccess end");
