@@ -14,7 +14,7 @@
    -->
    
    <!--자유게시판 쓰기-->
-   <insert id="insertFreeBoard" parameterType="kr.co.moojun.DTO.FreeboardDTO">
+   <insert id="insertFreeBoard" parameterType="kr.co.moojun.model.DTO.FreeboardDTO">
       INSERT INTO FREEBOARD 
       (
         NUM
