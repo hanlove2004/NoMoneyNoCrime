@@ -5,7 +5,7 @@
 	<table class="table table-bordered"
 		style="text-align: center; font-size: 30px;">
 		<tr>
-			<td class="active"><b>공지사항</b></td>
+			<td class="active"><b>자유게시판</b></td>
 		</tr>
 	</table>
 	<table class="table table-hover" style="text-align: center;">
