@@ -123,6 +123,8 @@
 			<tiles:insertAttribute name="content" />
 			</div>
 			
+			<a href="noticelist.htm">공지사항으로 가기</a>
+			
 			<!-- footer 영역 -->
 			<tiles:insertAttribute name="footer" />
 		</div>
