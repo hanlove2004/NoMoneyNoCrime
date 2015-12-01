@@ -39,35 +39,35 @@
 	
 	<!-- 탈퇴 -->
 	<delete id="deleteMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
-		DELETE FROM MEMBER  <!-- 회원테이블 -->
-		 WHERE ID  = #{id}  <!-- 아이디(PK)  ID(PK)  VARCHAR2(100) NOT NULL -->
-		   AND PWD = #{pwd} <!-- 패스워드    PWD       VARCHAR2(200) NOT NULL -->
+		DELETE FROM MEMBER 
+		 WHERE ID  = #{id}  
+		   AND PWD = #{pwd} 
 	</delete>
 	
 	<!-- 회원 정보 수정 -->
 	<update id="updateMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
-		UPDATE MEMBER <!-- 회원테이블 -->
-		   SET PWD   = #{pwd} 	<!-- 패스워드    PWD       VARCHAR2(200) NOT NULL -->
-		     , PHONE = #{phone} <!-- 전화번호    PHONE     VARCHAR2(100) NOT NULL -->
-		     , EMAIL = #{email} <!-- 이메일      EMAIL     VARCHAR2(200) NOT NULL -->
-		 WHERE ID  = #{id}  <!-- 아이디(PK)  ID(PK)    VARCHAR2(100) NOT NULL -->
-		   AND PWD = #{pwd} <!-- 패스워드    PWD       VARCHAR2(200) NOT NULL -->
+		UPDATE MEMBER 
+		   SET PWD   = #{pwd} 	
+		     , PHONE = #{phone}
+		     , EMAIL = #{email} 
+		 WHERE ID  = #{id}  
+		   AND PWD = #{pwd} 
 	</update>
 	
 	<!-- 로그인 -->
 	<select id="loginMember" resultType="Integer">
 		SELECT 
-		           COUNT(*) <!-- 회원여부 -->
-		  FROM MEMBER <!-- 회원테이블 -->
-		 WHERE ID  = #{id} 	<!-- 아이디(PK)  ID(PK)    VARCHAR2(100) NOT NULL -->
-		   AND PWD = #{pwd} <!-- 패스워드    PWD       VARCHAR2(200) NOT NULL -->
+		           COUNT(*)
+		  FROM MEMBER
+		 WHERE ID  = #{id} 	
+		   AND PWD = #{pwd} 
 	</select>
 	
 	<!-- 회원리스트 조회 -->
 	<select id="getMemberList" parameterType="kr.co.moojun.model.DTO.MemberDTO">
 		SELECT 
 		       * 
-		  FROM MEMBER <!-- 회원테이블 -->
+		  FROM MEMBER 
 		 ORDER BY num DESC
 	</select>
 	
@@ -75,8 +75,8 @@
 	<select id="getMemberDetail" resultType="kr.co.moojun.model.DTO.MemberDTO">
 		SELECT 
 		       * 
-		  FROM MEMBER <!-- 회원테이블 --> 
-		 WHERE ID = #{id} <!-- 아이디(PK)  ID(PK)    VARCHAR2(100) NOT NULL -->
+		  FROM MEMBER 
+		 WHERE ID = #{id} 
 	</select>
 	
 </mapper>
