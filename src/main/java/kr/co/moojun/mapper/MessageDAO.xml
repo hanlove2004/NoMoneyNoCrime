@@ -4,28 +4,55 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="kr.co.moojun.model.DAO.MessageDAO">
-	
-	<!-- 쪽지 쓰기 -->
-	<insert id="insertBoard" parameterType="kr.co.moojun.mapper.MessageDTO" >
-		insert into message(num, sender, receiver, content, regdate)
-		values(message_seq, #{sender},#{receiver},#{content},SYSDATE)	
-	</insert>
+   <!--
+   쪽지(MESSAGE)
+   번호(PK)       NUM(PK)       NUMBER          NOT NULL
+   송신자(FK)     SENDER(FK)    VARCHAR2(100)   NOT NULL
+   수신자(FK)     RECEIVER(FK)  VARCHAR2(100)   NOT NULL
+   내용              CONTENT       VARCHAR2(1000)  NOT NULL
+   날짜              REGDATE       DATE            NOT NULL 
+   -->
+   <!-- 쪽지 쓰기 -->
+   <insert id="insertMessage" parameterType="kr.co.moojun.model.MessageDTO" >
+      INSERT INTO MESSAGE
+      (
+          NUM
+        , SENDER
+        , RECEIVER
+        , CONTENT
+        , REGDATE
+      )
+      VALUES
+      (
+         MESSAGE_SEQ.NEXTVAL
+       , #{sender}
+       , #{receiver}
+       , #{content}
+       , SYSDATE)   
+   </insert>
 
-	<!-- 메시지 리스트  -->
-	<select id="getMessageList" parameterType="kr.co.moojun.mapper.MessageDTO" resultType="kr.co.mycom.model.BoardDTO">
-		select * from message 
-		where sender = #{sender} or receiver = #{sender}
-	</select>
+   <!-- 메시지 리스트  -->
+   <select id="getMessageList" parameterType="kr.co.moojun.model.MessageDTO" resultType="kr.co.moojun.model.MessageDTO">
+      SELECT 
+             * 
+        FROM MESSAGE 
+       WHERE SENDER    = #{sender} 
+              OR 
+             RECEIVER = #{sender}
+   </select>
 
-	<!-- 메시지 디테일 -->
-	<select id="getMessageDetail" parameterType="Integer" resultType="kr.co.moojun.mapper.MessageDTO">
-		select * from message where num = #{num}
-	</select>
-	
-
-	<!-- 메시지 삭제하기 -->
-	<delete id="deleteMessage" parameterType="kr.co.moojun.mapper.MessageDTO">
-		delete from message where num = #{num}
-	</delete>
-
+   <!-- 메시지 디테일 -->
+   <select id="getMessageDetail" parameterType="Integer" resultType="kr.co.moojun.model.MessageDTO">
+      SELECT 
+             * 
+        FROM MESSAGE 
+       WHERE NUM = #{num}
+   </select>
+   
+   <!-- 메시지 삭제하기 -->
+   <delete id="deleteMessage" parameterType="kr.co.moojun.model.MessageDTO">
+      DELETE FROM 
+        FROM MESSAGE 
+       WHERE NUM = #{num}
+   </delete>
 </mapper>  
