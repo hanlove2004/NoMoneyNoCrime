@@ -4,53 +4,97 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.moojun.model.DAO.EqilogueboardDAO">
-	
-	<!-- 글쓰기 -->
-	<insert id="insert" parameterType="vo.Notice">
-	  INSERT INTO NOTICES
-      ( SEQ, TITLE, CONTENT, WRITER, REGDATE, HIT, FILESRC ,FILESRC2 )
-      VALUES( #{seq}, #{title}, #{content}, #{writer}, SYSDATE, 0, #{fileSrc ,jdbcType=VARCHAR} , #{fileSrc2 ,jdbcType=VARCHAR})
-	</insert>
-	 <!--  
-    	java.sql.SQLException: 부적합한 열 유형: 1111
-                 해결방안 :  #{fileSrc ,jdbcType=VARCHAR}
-     -->
-	
+   <!-- 
+   EQILOGUEBOARD(후기게시판)
+   번호(PK)       NUM(PK)     NUMBER        NOT NULL
+   아이디(FK)      ID(FK)      VARCHAR2(100) NOT NULL
+   제목                TITLE       VARCHAR2(200) NOT NULL
+   내용              CONTENT     VARCHAR2(2000)NOT NULL
+   날짜              REGDATE     DATE          NOT NULL
+   사진이름1      PHOTONAME1  VARCHAR2(100) NULL
+   사진이름2      PHOTONAME2  VARCHAR2(100) NULL
+   사진이름3      PHOTONAME3  VARCHAR2(100) NULL
+   -->
+   <!-- 여행후기 쓰기 -->
+   <insert id="insertEpilogueBoard" parameterType="kr.co.moojun.DTO.EpilogueboardDTO">
+      INSERT INTO EQILOGUEBOARD
+      ( 
+        NUM
+      , ID
+      , TITLE
+      , CONTENT
+      , REGDATE
+      , PHOTONAME1
+      , PHOTONAME2 
+      , PHOTONAME3
+      )
+      VALUES
+      ( 
+        #{num}
+      , #{id}
+      , #{title}
+      , #{content}
+      , sysdate
+      , #{photoname1 , jdbcType=VARCHAR} 
+      , #{photoname2 , jdbcType=VARCHAR}
+      , #{photoname3 , jdbcType=VARCHAR}
+      )
+   </insert>
+   <!-- java.sql.SQLException: 부적합한 열 유형: 1111 해결방안 : #{fileSrc ,jdbcType=VARCHAR} -->
 
-	<!-- 글 가져오기 -->
-	<select id="getNotices" parameterType="hashmap"
-		resultType="vo.Notice">
-		
-		SELECT * FROM
-					 (SELECT ROWNUM NUM, N.* 
-					 FROM 
-					 	(SELECT * 
-					 	FROM NOTICES 
-					 	WHERE ${param2} LIKE '%${param3}%' ORDER BY REGDATE DESC) N)
-					WHERE NUM BETWEEN 1 + (${param1}-1)*5 AND 5 + (${param1}-1)*5
 
-	</select>
+   <!-- 여행후기 리스트(목록) -->
+   <select id="getEpilogueBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.EqilogueboardDTO">
+      SELECT 
+             * 
+        FROM
+           ( 
+             SELECT 
+                    ROWNUM NUM
+                  , N.*
+             FROM
+                 (
+                   SELECT 
+                          *
+                     FROM EQILOGUEBOARD
+                    WHERE ${param2} LIKE '%${param3}%' 
+                    ORDER BY REGDATE DESC
+                 ) N
+          )
+       WHERE NUM BETWEEN 1 + (${param1}-1)*5 
+                     AND 5 + (${param1}-1)*5
+   </select>
 
-	<!-- 글 하나 가져오기 -->
-	<select id="getEpilogueBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.EqilogueboardDTO">		
-		SELECT * FROM EPILOGUE WHERE num=#{num}
-	</select>
-	
-	<!-- 글 수정하기 -->
-	<update id="updateEpilogueBoard" parameterType="kr.co.moojun.model.DTO.EqilogueboardDTO">
-		UPDATE EPILOGUE 
-		SET TITLE=#{title} , CONTENT=#{content}, FILESRC=#{fileSrc ,jdbcType=VARCHAR} , FILESRC2=#{fileSrc2 ,jdbcType=VARCHAR} , FILESRC3=#{fileSrc3 ,jdbcType=VARCHAR} 
-		WHERE num = #{num}
-	</update>
+   <!-- 여행후기 디테일(상세보기) -->
+   <select id="getEpilogueBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.EqilogueboardDTO">
+      SELECT 
+             * 
+        FROM EQILOGUEBOARD 
+       WHERE NUM = #{num}
+   </select>
 
-	<!-- 글 삭제하기 -->
-	<delete id="deleteEpilogueBoard">
-		DELETE EPILOGUE WHERE num=#{num}
-	</delete>
+   <!-- 여행후기 수정하기 -->
+   <update id="updateEpilogueBoard">
+      UPDATE EPILOGUE
+         SET TITLE     = #{title} 
+           , CONTENT     = #{content}
+           , PHOTONAME1 = #{fileSrc  ,jdbcType=VARCHAR} 
+           , PHOTONAME2 = #{fileSrc2 ,jdbcType=VARCHAR} 
+           , PHOTONAME3 = #{fileSrc3 ,jdbcType=VARCHAR}
+       WHERE NUM = #{num}
+   </update>
 
-	<!-- 글 전체 건수  -->
-	<select id="getEpilogueBoardCount" resultType="Integer">
-		SELECT COUNT(*) CNT FROM EPILOGUE
-	</select>
+   <!-- 여행후기 삭제하기 -->
+   <delete id="deleteEpilogueBoard">
+      DELETE 
+        FROM EPILOGUE 
+       WHERE NUM = #{num}
+   </delete>
 
+   <!-- 여행후기 게시글의 수 -->
+   <select id="getEpilogueBoardCount" resultType="Integer">
+      SELECT 
+             COUNT(*) 
+        FROM EPILOGUE
+   </select>
 </mapper>  
