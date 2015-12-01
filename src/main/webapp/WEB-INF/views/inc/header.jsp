@@ -11,17 +11,17 @@
 		</div>
 		<div>
 			<ul class="nav navbar-nav">
-				<li><a href="notice/noticelist.htm">공지사항</a></li>
+				<li><a href="noticelist.htm">공지사항</a></li>
 				<li><a href="workboard/workboardlist.htm">귀인만나기</a></li>
-				<li><a href="/pilogue/epiloguelist.htm">여행후기</a></li>
-				<li><a href="freeboard/freelist.htm">자유게시판</a></li>
+				<li><a href="epiloguelist.htm">여행후기</a></li>
+				<li><a href="freelist.htm">자유게시판</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<se:authentication property="name" var="LoingUser" />
 				<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-					<li><a href="mypage/memberinfo.htm"><span class="glyphicon glyphicon-user"></span>
+					<li><a href="memberinfo.htm"><span class="glyphicon glyphicon-user"></span>
 							MyPage</a></li>
-					<li><a href="main/logout.htm"> (${LoingUser})님 로그아웃</a></li>
+					<li><a href="logout.htm"> (${LoingUser})님 로그아웃</a></li>
 				</se:authorize>
 			</ul>
 		</div>
