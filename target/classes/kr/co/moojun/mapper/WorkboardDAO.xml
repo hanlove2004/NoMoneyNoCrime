@@ -4,44 +4,108 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="kr.co.moojun.model.DAO.WorkboardDAO">
-
-	<!-- 일자리 게시판 쓰기 -->
-	<insert id="insertWorkBoard" parameterType="kr.co.moojun.model.WorkboardDTO">
-		INSERT INTO
-		WORKBOARD (num, id, title, compensate, needpeople, content, regdate, state, regpeople, addr, expiredate, expire)
-		VALUES (work_seq.NEXTVAL, #{id}, #{title}, #{compensate}, #{needpeople}, #{content}, sysdate, '0', #{addr}, #{expiredate}, '1')
-	</insert>
-	
-	<!-- 일자리게시판 리스트(여러개) -->
-	<select id="getWorkBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.WorkboardDTO">
-		SELECT * FROM
-		(SELECT A.*, ROWNUM r FROM
-			(SELECT * FROM WORKBOARD ORDER BY PARENT DESC, SORT) A
-		)
-		WHERE r >= #{start} and r &lt;= #{end}
-	</select>
-	
-	<!-- 일자리게시판 디테일(상세보기) -->
-	<select id="getWorkBoard" parameterType="Integer">
-		SELECT * FROM WORKBOARD WHERE NUM = #{num}
-	</select>
-	
-	<!-- 일자리게시판 수정하기 -->
-	<update id="updateWorkBoard" parameterType="kr.co.moojun.model.WorkboardDTO">
-		UPDATE WORKBOARD 
-		SET title = #{title}, compensate = #{compensate}, needpeople = #{needpeople}, 
-				content = #{content}, addr = #{addr}, expiredate = #{expiredate}
-		WHERE num = #{num} 	
-	</update>
-	
-	<!-- 일자리게시판 삭제하기(실제 삭제가 아니라 유효기간만료된 글을 리스트에서 안보이게 하는 것) -->
-	<update id="deleteWorkBoard" parameterType="kr.co.moojun.model.WorkboardDTO">
-		UPDATE WORKBOARD SET expire = '0' WHERE num = #{num} 
-	</update>
-	
-	<!-- 일자리게시판 게시글의 수 -->
-	<select id="getWorkBoardCount">
-		SELECT COUNT(*) FROM WORKBOARD
-	</select>
-
+   <!-- 
+   일자리게시판(WORKBOARD)
+   번호(PK)      NUM(PK)     NUMBER        NOT NULL
+   아이디(FK)     ID(FK)      VARCHAR2(100) NOT NULL
+   제목              TITLE       VARCHAR2(200) NOT NULL
+   보상              COMPENSATE  VARCHAR2(200) NOT NULL
+   구인인원          NEEDPEOPLE  VARCHAR2(100) NOT NULL
+   내용             CONTENT     VARCHAR2(200) NOT NULL
+   날짜              REGDATE     DATE          NOT NULL
+   진행현황          STATE       VARCHAR2(100) NOT NULL
+   신청인원          REGPEOPLE   VARCHAR2(100) NOT NULL
+   주소              ADDR        VARCHAR2(200) NOT NULL
+   시작날짜          STARTDATE   DATE          NOT NULL
+   완료날짜          ENDDATE     DATE          NOT NULL
+   활성화            EXPIRE      VARCHAR2(20)  NOT NULL
+   -->
+   <!-- 일자리 게시판 쓰기 -->
+   <insert id="insertWorkBoard" parameterType="kr.co.moojun.model.WorkboardDTO">
+      INSERT INTO WORKBOARD 
+      (
+        NUM
+      , ID
+      , TITLE
+      , COMPENSATE
+      , NEEDPEOPLE
+      , CONTENT
+      , REGDATE
+      , STATE
+      , REGPEOPLE
+      , ADDR
+      , EXPIREDATE
+      , EXPIRE
+      )
+      VALUES 
+      (
+        WORK_SEQ.NEXTVAL
+      , #{id}
+      , #{title}
+      , #{compensate}
+      , #{needpeople}
+      , #{content}
+      , SYSDATE
+      , '0'
+      , #{addr}
+      , #{expiredate}
+      , '1'
+      )
+   </insert>
+   
+   <!-- 일자리게시판 리스트(여러개) -->
+   <select id="getWorkBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.WorkboardDTO">
+      SELECT 
+             * 
+        FROM
+          ( 
+            SELECT 
+                   A.*
+                 , ROWNUM R 
+              FROM
+                (
+                  SELECT 
+                         * 
+                    FROM WORKBOARD 
+                   ORDER BY PARENT DESC
+                          , SORT
+                ) A
+         )
+      WHERE R >= #{start} 
+        AND R &lt;= #{end}
+   </select>
+   
+   <!-- 일자리게시판 디테일(상세보기) -->
+   <select id="getWorkBoard" parameterType="Integer">
+      SELECT 
+             * 
+        FROM WORKBOARD 
+       WHERE NUM = #{num}
+   </select>
+   
+   <!-- 일자리게시판 수정하기 -->
+   <update id="updateWorkBoard" parameterType="kr.co.moojun.model.WorkboardDTO">
+      UPDATE WORKBOARD 
+         SET TITLE = #{title}
+           , COMPENSATE    = #{compensate}
+           , NEEDPEOPLE    = #{needpeople}
+           , CONTENT       = #{content}
+           , ADDR       = #{addr}
+           , EXPIREDATE    = #{expiredate}
+       WHERE num = #{num}    
+   </update>
+   
+   <!-- 일자리게시판 삭제하기(실제 삭제가 아니라 유효기간만료된 글을 리스트에서 안보이게 하는 것) -->
+   <update id="deleteWorkBoard" parameterType="kr.co.moojun.model.WorkboardDTO">
+      UPDATE WORKBOARD 
+         SET EXPIRE    = '0' 
+       WHERE NUM       = #{num} 
+   </update>
+   
+   <!-- 일자리게시판 게시글의 수 -->
+   <select id="getWorkBoardCount" resultType="Integer">
+      SELECT 
+             COUNT(*) 
+        FROM WORKBOARD
+   </select>
 </mapper>
