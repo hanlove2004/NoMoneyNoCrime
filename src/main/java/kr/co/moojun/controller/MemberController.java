@@ -89,7 +89,13 @@ public class MemberController {
 		System.out.println(memberdto.toString());
 		
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		memberdao.insetMember(memberdto);
+		int result = memberdao.insertMember(memberdto);
+		System.out.println("result : " + result);
+		if(result > 0){
+			memberdao.insertRoleAndMember(memberdto.getId(), "ROLE_USER");
+		}else{
+			System.out.println("insert 실패");
+		}
 		
 		// Tiles 적용 (UrlBase 방식)
 		System.out.println("joinsuccess end");

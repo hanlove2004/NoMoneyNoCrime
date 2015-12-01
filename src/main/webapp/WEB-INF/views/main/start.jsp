@@ -41,58 +41,65 @@
    <div class="well well-lg" align="center"
       style="margin: auto; height: 85%; width: 50%;">
       <div style="width: 400px;">
-         <form class="form-horizontal" name="joinform" action="join.htm"
+         <form class="form-horizontal" name="joinform" action="main/join.htm"
             method="post" onsubmit="return CheckForm();">
             <div class="form-group">
                <label for="m_id" class="col-sm-4 control-label">아이디</label>
                <div class="col-sm-8">
-                  <input type="text" class="form-control" name="m_id" id="m_id"
+                  <input type="text" class="form-control" name="id" id="id"
                      placeholder="ID">
                </div>
             </div>
             <div class="form-group">
                <label for="m_pwd1" class="col-sm-4 control-label">비밀번호</label>
                <div class="col-sm-8">
-                  <input type="password" class="form-control" name="m_pwd1"
-                     id="m_pwd1" placeholder="Password">
+                  <input type="password" class="form-control" name="pwd"
+                     id="pwd" placeholder="Password">
                </div>
             </div>
             <div class="form-group">
                <label for="m_pwd2" class="col-sm-4 control-label">비밀번호확인</label>
                <div class="col-sm-8">
-                  <input type="password" class="form-control" name="m_pwd2"
-                     id="m_pwd2" placeholder="Password Check">
+                  <input type="password" class="form-control" name="confirmpwd"
+                     id="confirmpwd" placeholder="Password Check">
                </div>
             </div>
             <div class="form-group">
                <label for="m_nick" class="col-sm-4 control-label">이름</label>
                <div class="col-sm-8">
-                  <input type="text" class="form-control" name="m_nick" id="m_nick"
+                  <input type="text" class="form-control" name="name" id="name"
                      placeholder="Nickname">
                </div>
             </div>
             <div class="form-group">
                <label for="m_phone" class="col-sm-4 control-label">전화번호</label>
                <div class="col-sm-8">
-                  <input type="text" class="form-control" name="m_phone"
-                     id="m_phone" placeholder="(예시) 01012345678">
+                  <input type="text" class="form-control" name="phone"
+                     id="phone" placeholder="(예시) 01012345678">
                </div>
             </div>
             <div class="form-group">
                <label for="m_gender" class="col-sm-4 control-label">성별</label>
                <div class="col-sm-5">
                   <label class="radio-inline"> <input type="radio"
-                     name="m_gender" id="m_gender" value="남" checked>남
+                     name="sex" id="man" value="남" checked>남
                   </label> <label class="radio-inline"> <input type="radio"
-                     name="m_gender" id="m_gender" value="여">여
+                     name="sex" id="woman" value="여">여
                   </label>
                </div>
             </div>
             <div class="form-group">
-               <label for="m_birth" class="col-sm-4 control-label">생년월일</label>
+               <label for="birth" class="col-sm-4 control-label">생년월일</label>
                <div class="col-sm-8">
-                  <input type="text" class="form-control" name="m_birth"
-                     id="m_birth" placeholder="(예시) 900101">
+                  <input type="date" class="form-control" name="birth"
+                     id="birth">
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="birth" class="col-sm-4 control-label">이메일</label>
+               <div class="col-sm-8">
+                  <input type="text" class="form-control" name="email"
+                     id="email">
                </div>
             </div>
             <hr>

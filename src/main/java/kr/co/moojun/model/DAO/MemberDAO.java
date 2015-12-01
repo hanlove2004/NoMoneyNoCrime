@@ -5,7 +5,9 @@ import java.util.List;
 import kr.co.moojun.model.DTO.MemberDTO;
 
 public interface MemberDAO {
-	int insetMember(MemberDTO memberdto); // 회원가입
+	int insertMember(MemberDTO memberdto); // 회원가입
+	
+	int insertRoleAndMember(String id , String role); // 회원 권한 insert
 	
 	int deleteMember(MemberDTO memberdto); // 탈퇴
 	

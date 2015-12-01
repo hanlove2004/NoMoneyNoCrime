@@ -19,7 +19,7 @@
    사용여부    ENABLED   VARCHAR2(50)  NOT NULL
    -->
    <!-- 회원가입 -->
-   <insert id="insetMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
+   <insert id="insertMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
       INSERT INTO MEMBER 
        (
          ID                
@@ -48,6 +48,14 @@
        , sysdate
        , '1'
        )
+   </insert>
+   
+   <!-- 회원 권한 테이블 insert -->
+   <insert id="insertRoleAndMember">
+   		INSERT INTO ROLEANDMEMBER
+   		(ID , ROLE)
+   		VALUES
+   		(#{param1} , #{param2})
    </insert>
    
    <!-- 탈퇴 -->
