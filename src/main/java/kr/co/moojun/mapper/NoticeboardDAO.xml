@@ -20,7 +20,7 @@
    </select>
 
    <!-- 공지게시판 리스트(여러개) -->
-   <select id="getNoticeBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+   <select id="getNoticeBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.NoticeboardDTO">
       SELECT 
              * 
         FROM NOTICEBOARD
@@ -30,7 +30,7 @@
    </select>
 
    <!-- 공지게시판 디테일(상세보기) -->
-   <select id="getNoticeBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+   <select id="getNoticeBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.NoticeboardDTO">
       SELECT 
              * 
         FROM NOTICEBOARD
@@ -38,14 +38,14 @@
    </select>
 
    <!-- 공지게시판 삭제하기 -->
-   <delete id="deleteNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+   <delete id="deleteNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeboardDTO">
       DELETE 
         FROM NOTICEBOARD
        WHERE NUM=#{num}
    </delete>
 
    <!-- 공지게시판 수정하기 -->
-   <update id="updateNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+   <update id="updateNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeboardDTO">
       UPDATE NOTICEBOARD
          SET TITLE   = #{title}
            , CONTENT  = #{content} 
@@ -53,7 +53,7 @@
    </update>
 
    <!-- 공지사항 쓰기 -->
-   <insert id="insertNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeBoardDTO">
+   <insert id="insertNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeboardDTO">
       INSERT INTO NOTICEBOARD
       (
         NUM

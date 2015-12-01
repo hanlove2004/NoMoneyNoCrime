@@ -1,5 +1,7 @@
 package kr.co.moojun.controller;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -7,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.co.moojun.model.DTO.WorkboardDTO;
 
 @Controller
-@RequestMapping(value="/workboard/")
+@RequestMapping(value = "/workboard/")
 public class WorkController {
+
+	@Autowired
+	private SqlSession sqlsession;
 
 	// 일자리게시판 목록 (workboardlist.htm)
 	@RequestMapping(value = "workboardlist.htm", method = RequestMethod.GET)
@@ -79,7 +84,7 @@ public class WorkController {
 		// Tiles 적용 (UrlBase 방식)
 		return "workboard.worklist";
 	}
-	
+
 	// 일자리 신청 (workrequest.htm)
 	@RequestMapping(value = "workrequest.htm", method = RequestMethod.POST)
 	public String workrequest(String num) {

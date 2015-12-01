@@ -3,85 +3,45 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xmlns:security="http://www.springframework.org/schema/security"
  xsi:schemaLocation="http://www.springframework.org/schema/beans 
- 					 http://www.springframework.org/schema/beans/spring-beans.xsd
-  					 http://www.springframework.org/schema/security 
-  					 http://www.springframework.org/schema/security/spring-security.xsd">
-
-
-
-<!-- 
-	 1단계 (자동로그인폼 : auto-config=true)
-		  in-memory 방식의 권한 처리
-<security:http auto-config="true"> auto-config=true : 커스터마이징 하지않고 스프링에서 제공하는것을 그대로 따라가겠다
-	<security:intercept-url pattern="/customer/noticeDetail.htm" 
-							access="hasRole('ROLE_USER')"/> /customer/noticeDetail.htm 요청에 대한것은 ROLE_USER에 대해 제공을 한다
-	<security:intercept-url pattern="/customer/noticeReg.htm" 
-							access="hasRole('ROLE_ADMIN')"/>
-</security:http>
-<security:authentication-manager>
-	<security:authentication-provider>
-		<security:user-service>
-			<security:user name="kglim" password="1004" authorities="ROLE_USER"/>
-			<security:user name="admin" password="1004" authorities="ROLE_USER,ROLE_ADMIN"/>
-		</security:user-service>
-	</security:authentication-provider>
-</security:authentication-manager>
- -->
- 
- <!-- 2단계 : 로그인 페이지 처리 
-            login , logout , 권한 정책 
- <security:http>
- 	<security:csrf disabled="true" />
- 	<security:form-login login-page="/joinus/login.htm" 
-						 authentication-failure-url="/joinus/login.htm?error"/> 인증에 실패한 사용자가 만나는 요청 URL
-	<security:logout logout-success-url="/index.htm" /> 로그아웃 했을시 요청 URL
-	<security:intercept-url pattern="/customer/noticeDetail.htm"   
-							access="hasRole('ROLE_USER')"/> 
-	<security:intercept-url pattern="/customer/noticeReg.htm" 
-							access="hasRole('ROLE_ADMIN')"/>	 pattern으로 지정된 요청에 대해서는 hasRole()안에 지정된 권한을 가진 사용자가 접근할 수 있고 
-																 권한을 가지고 있지 않다면 /joinus/login.htm의 요청을 하게 한다
-</security:http>
-<security:authentication-manager>
-	<security:authentication-provider>
-		<security:user-service>
-			<security:user name="kglim" password="1004" authorities="ROLE_USER"/>
-			<security:user name="admin" password="1004" authorities="ROLE_USER,ROLE_ADMIN"/>
-		</security:user-service>
-	</security:authentication-provider>
-</security:authentication-manager> -->
-
+                 http://www.springframework.org/schema/beans/spring-beans.xsd
+                  http://www.springframework.org/schema/security 
+                  http://www.springframework.org/schema/security/spring-security.xsd">
 
 
  <security:http>
- 	<security:csrf disabled="true" />
- 	<security:form-login login-page="/main/login.htm" 
-						 authentication-failure-url="/main/login.htm?error"/> 
-	<security:logout logout-success-url="/main.htm" /> 
-	<!-- <security:intercept-url pattern="/customer/noticeDetail.htm"   
-							access="hasRole('ROLE_USER')"/> 
-	<security:intercept-url pattern="/customer/noticeReg.htm" 
-							access="hasRole('ROLE_ADMIN')"/>  
-	-->
+    <security:csrf disabled="true" />
+    <security:form-login login-page="/main.htm" 
+                   authentication-failure-url="/main.htm?error"
+                   default-target-url="/notice/noticelist.htm"
+                   /> 
+   <security:logout logout-success-url="/main.htm" /> 
+   <!-- <security:intercept-url pattern="/customer/noticeDetail.htm"   
+                     access="hasRole('ROLE_USER')"/> 
+   <security:intercept-url pattern="/customer/noticeReg.htm" 
+                     access="hasRole('ROLE_ADMIN')"/>  
+   -->
 
-	<!-- <security:intercept-url pattern="/customer/*Reg.htm" access="ROLE_USER" /> -->
-	<security:intercept-url pattern="/epilogue/*" access="hasRole('ROLE_USER')" />
-	<security:intercept-url pattern="/freeboard/*" access="hasRole('ROLE_USER')" />
-	<security:intercept-url pattern="/mypage/*" access="hasRole('ROLE_USER')" />
-	<security:intercept-url pattern="/notice/*" access="hasRole('ROLE_USER')" />
-	<security:intercept-url pattern="/workboard/*" access="hasRole('ROLE_USER')" />
-	<security:intercept-url pattern="/main/*" access="hasRole('ROLE_USER')" />
-	<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>						
-							
+   <!-- <security:intercept-url pattern="/customer/*Reg.htm" access="ROLE_USER" /> -->
+   <!-- <security:intercept-url pattern="/epilogue/*" access="hasRole('ROLE_USER')" />
+   <security:intercept-url pattern="/freeboard/*" access="hasRole('ROLE_USER')" />
+   <security:intercept-url pattern="/mypage/*" access="hasRole('ROLE_USER')" />
+   <security:intercept-url pattern="/notice/*" access="hasRole('ROLE_USER')" />
+   <security:intercept-url pattern="/workboard/*" access="hasRole('ROLE_USER')" />
+   <security:intercept-url pattern="/main/*" access="hasRole('ROLE_USER')" />
+   <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/> -->
+   <security:intercept-url pattern="/main/howtouse.htm" access="hasRole('ROLE_USER')"/>
+   <security:intercept-url pattern="/notice/*" access="hasRole('ROLE_USER')"/>                    
+                     
 </security:http>
 <security:authentication-manager>
-	<security:authentication-provider>
-		 <security:jdbc-user-service data-source-ref="driverManagerDataSource"
-					users-by-username-query="SELECT id as USERID, pwd AS PASSWORD, enabled FROM member where userid=?" 
-   					authorities-by-username-query="select m.USERID , r.ROLE 
-          										   from member m join rollandmember r 
-          										   on m.userid = r.userid 
-          										   where m.userid=?" />
-	</security:authentication-provider>
+   <security:authentication-provider>
+       <security:jdbc-user-service data-source-ref="driverManagerDataSource"
+               users-by-username-query="SELECT id as username , pwd AS PASSWORD, enabled FROM member where id=?" 
+                  authorities-by-username-query="select m.id as userid , r.ROLE as role_name 
+                                           from member m join roleandmember r 
+                                           on m.id = r.id 
+                                           where m.id=?" />
+   </security:authentication-provider>
 </security:authentication-manager>
 
 

@@ -1,5 +1,7 @@
 package kr.co.moojun.controller;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,10 +11,12 @@ import kr.co.moojun.model.DTO.EpilogueboardDTO;
 import kr.co.moojun.model.DTO.Reply_EpilogueDTO;
 
 @Controller
-
 @RequestMapping("/epilogue/")
 public class EpilogueboardController {
 
+	@Autowired
+	private SqlSession sqlsession;
+	
 	// 여행후기 목록 (epiloguelist.htm)
 	@RequestMapping(value = "epiloguelist.htm", method = RequestMethod.GET)
 	public String epiloguelist() {
