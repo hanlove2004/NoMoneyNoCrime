@@ -1,10 +1,14 @@
 package kr.co.moojun.controller;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin/")
 public class AdminController {
-	int exam; /* ��ȣ �׽�Ʈ */
+	
+	@Autowired
+	private SqlSession sqlsession;
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="start" class="collapse in">
    <div class="well well-lg">
       메인
@@ -18,19 +19,30 @@
    <div class="well well-lg"
       style="text-align: center; vertical-align: middle; margin: auto; width: 400px; border-color: white; border-style:;">
       <h1>로그인</h1>
-      <form method="post" class="form-horizontal">
+      <c:if test="${param.error != null}">
+         <div>
+            로그인실패<br>
+            <c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+                           이유 : <c:out
+                  value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+            </c:if>
+         </div>
+      </c:if>
+
+      <c:url value="/login" var="loginURL" />
+      <form action="${loginURL }" method="post">
          <div class="form-group form-inline">
             <label for="id" class="col-sm-3 control-label">아이디:</label>
             <div class="col-sm-8">
-               <input type="email" class="form-control" id="loginid"
+               <input type="text" class="form-control" id="id" name="username"
                   placeholder="Enter email">
             </div>
          </div>
          <div class="form-group form-inline">
             <label for="pwd" class="col-sm-3 control-label">비밀번호:</label>
             <div class="col-sm-8">
-               <input type="password" class="form-control" id="password"
-                  placeholder="Enter password">
+               <input type="password" class="form-control" id="pwd"
+                  name="password" placeholder="Enter password">
             </div>
          </div>
          <button type="submit" class="btn btn-default">Submit</button>

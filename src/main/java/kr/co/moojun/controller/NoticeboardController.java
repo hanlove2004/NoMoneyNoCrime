@@ -17,7 +17,7 @@ import kr.co.moojun.model.DTO.NoticeboardDTO;
 import kr.co.moojun.model.DTO.Reply_NoticeDTO;
 
 @Controller
-@RequestMapping(value="notice/")
+@RequestMapping(value="/notice/")
 public class NoticeboardController {
    
    @Autowired
