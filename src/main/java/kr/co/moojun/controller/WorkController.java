@@ -204,15 +204,4 @@ public class WorkController {
       // Tiles 적용 (UrlBase 방식)
       return "workboard.worklist";
    }
-   
-   // 일자리 신청 (workrequest.htm)
-   @RequestMapping(value = "workrequest.htm", method = RequestMethod.POST)
-   public String workrequest(String num) {
-
-      System.out.println("");
-
-      // Tiles 적용 (UrlBase 방식)
-      return "workboard.workdetail";
-   }
-
 }

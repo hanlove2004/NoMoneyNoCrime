@@ -13,7 +13,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="<%=request.getContextPath()%>/notice/noticelist.htm">공지사항</a></li>
 				<li><a href="<%=request.getContextPath()%>/workboard/workboardlist.htm">귀인만나기</a></li>
-				<li><a href="<%=request.getContextPath()%>/epiloguelist.htm">여행후기</a></li>
+				<li><a href="<%=request.getContextPath()%>/epilogue/epiloguelist.htm">여행후기</a></li>
 				<li><a href="<%=request.getContextPath()%>/freeboard/freelist.htm">자유게시판</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
