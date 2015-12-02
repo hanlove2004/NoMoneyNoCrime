@@ -44,16 +44,16 @@
 		  //암호비교
 		  $('#confirmpwd').keyup(function(){
 			  var pwd = $('#pwd').val();
-			   if($('#confirmpwd').val() != pwd)
-			   {
-					$('#pwdcheck').text('');
-			   		$('#pwdcheck').html("비밀번호 불일치");
-			   }
-			   else
-			   {
-		    		$('#pwdcheck').text('');
-		    		$('#pwdcheck').html("비밀번호 일치");
-			   	}
+		   if($('#confirmpwd').val() != pwd)
+		   {
+				$('#pwdcheck').text('');
+		   		$('#pwdcheck').html("비밀번호 불일치");
+		   }
+		   else
+		   {
+	    		$('#pwdcheck').text('');
+	    		$('#pwdcheck').html("비밀번호 일치");
+		   	}
 		 });
 	
 		});
@@ -113,7 +113,7 @@
 	</style>
 </head>
 <body>
-	<div class="main" style="background-image: url(${pageContext.request.contextPath}/images/main.jpg)">
+	<div class="main" style="background-image: url(<%=request.getContextPath()%>/images/main.jpg)">
 		<div class="container">
 			<!-- header 영역 -->
 			<tiles:insertAttribute name="header" />
@@ -123,6 +123,7 @@
 			<tiles:insertAttribute name="content" />
 			</div>
 			
+<<<<<<< HEAD
 
 
 			<a href="notice/noticelist.htm">공지사항으로 가기</a>
@@ -132,6 +133,10 @@
 			<a href="${pageContext.request.contextPath}/main/join.htm">join 폼 test</a>
 
 			
+=======
+			<a href="notice/noticelist.htm">공지사항 목록</a>
+			<a href="submain.htm">SUBMAIN으로</a>
+>>>>>>> a8d2e530b2e93d34711e4e1da72147eb5ab78d08
 			<!-- footer 영역 -->
 			<tiles:insertAttribute name="footer" />
 		</div>

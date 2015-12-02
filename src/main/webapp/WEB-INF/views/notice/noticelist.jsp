@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se"
+	uri="http://www.springframework.org/security/tags"%>
 <div style="height: 500px; width: 700px; margin: auto;">
 	<table class="table table-bordered"
 		style="text-align: center; font-size: 30px;">
@@ -24,10 +26,11 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
-	<div style="text-align: right">
-		<a href="noticeinsert.htm">글쓰기</a>
-	</div>
+	<se:authorize ifAnyGranted="ROLE_ADMIN">
+		<div style="text-align: right">
+			<a href="noticeinsert.htm">글쓰기</a>
+		</div>
+	</se:authorize>
 	<div style="margin: auto;">
 		<nav>
 			<ul class="pagination">
