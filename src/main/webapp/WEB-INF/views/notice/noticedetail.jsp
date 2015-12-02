@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se"
+	uri="http://www.springframework.org/security/tags"%>
 <div style="height: 500px; width: 700px; margin: auto;">
 	<table class="table table-bordered"
 		style="text-align: center; font-size: 30px;">
@@ -25,15 +27,17 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<button type="submit" class="btn btn-danger">
-						<a href="noticeupdate.htm">수정</a>
-					</button>&nbsp;&nbsp;&nbsp;
-					<button type="submit" class="btn btn-danger">
-						<a href="noticelist.htm">취소</a>
-					</button>&nbsp;&nbsp;&nbsp;
-					<button type="submit" class="btn btn-danger">
-						<a href="noticelist.htm">목록</a>
-					</button>
+					<se:authorize ifAnyGranted="ROLE_ADMIN">
+						<button type="submit" class="btn btn-danger">
+							<a href="noticeupdate.htm">수정</a>
+						</button>&nbsp;&nbsp;&nbsp;
+						<button type="submit" class="btn btn-danger">
+							<a href="noticelist.htm">취소</a>
+						</button>&nbsp;&nbsp;&nbsp;
+						<button type="submit" class="btn btn-danger">
+							<a href="noticelist.htm">목록</a>
+						</button>
+					</se:authorize>
 				</td>
 			</tr>
 		</table>
