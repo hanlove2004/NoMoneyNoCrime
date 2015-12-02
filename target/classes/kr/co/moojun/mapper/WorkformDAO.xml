@@ -2,3 +2,73 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.moojun.model.DAO.WorkformDAO">
+   <!--
+   일자리 신청폼(WORKFORM)
+   번호(FK) NUM(FK)   NUMBER          NOT NULL
+   구인자      OWNER     VARCHAR2(100)   NOT NULL
+   구직자      WORKER    VARCHAR2(100)   NOT NULL
+   이름        NAME      VARCHAR2(100)   NOT NULL
+   나이        AGE       VARCHAR2(100)   NOT NULL
+   자기소개    INTRODUCE VARCHAR2(500)   NOT NULL
+   /////////////////////////////////////////
+   int insertWorkform(WorkformDTO Workformdto); // 일자리신청폼 작성
+   int deleteWorkform(WorkformDTO Workformdto); // 일자리신청폼 삭제
+   List<WorkformDTO> getWorkformList(WorkformDTO Workformdto); // 일자리신청폼 리스트
+   WorkformDTO getWorkformDetail(WorkformDTO Workformdto); // 일자리신청폼 디테일
+   -->
+   
+   <!-- 일자리신청폼 리스트 -->
+   <select id="getWorkformList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.WorkformDTO">
+      SELECT
+             * 
+        FROM (
+             SELECT
+                    ROWNUM AS ROWNUM
+                  , WORKFORM.*
+               FROM WORKFORM WORKFORM
+             ) 
+       WHERE ROWNUM >= #{START} 
+         AND ROWNUM &lt;= #{END}
+       ORDER BY NUM ASC
+   </select>
+   
+   
+   <!-- 일자리신청폼 디테일 -->
+   <select id="getWorkformDetail" parameterType="Integer" resultType="kr.co.moojun.model.DTO.WorkformDTO">
+      SELECT
+             * 
+        FROM WORKFORM
+       WHERE NUM >= #{num} 
+   </select>
+   
+   <!-- 일자리신청폼 삭제 -->
+   <delete id="deleteWorkform" parameterType="kr.co.moojun.model.DTO.WorkformDTO">
+      DELETE 
+        FROM WORKFORM
+       WHERE NUM=#{num}
+   </delete>
+
+   <!-- 일자리신청폼 작성 -->
+   <insert id="insertWorkform" parameterType="kr.co.moojun.model.DTO.WorkformDTO">
+      INSERT INTO WORKFORM
+      (
+        NUM
+      , OWNER
+      , WORKER
+      , NAME
+      , AGE
+      , INTRODUCE
+      )
+      VALUES
+      (
+        #{num}
+      , #{owner}
+      , #{worker}
+      , #{name}
+      , #{age}
+      , #{introduce}
+      )
+   </insert>
+</mapper>
