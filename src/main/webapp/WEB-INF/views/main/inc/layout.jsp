@@ -44,16 +44,16 @@
 		  //암호비교
 		  $('#confirmpwd').keyup(function(){
 			  var pwd = $('#pwd').val();
-			   if($('#confirmpwd').val() != pwd)
-			   {
-					$('#pwdcheck').text('');
-			   		$('#pwdcheck').html("비밀번호 불일치");
-			   }
-			   else
-			   {
-		    		$('#pwdcheck').text('');
-		    		$('#pwdcheck').html("비밀번호 일치");
-			   	}
+		   if($('#confirmpwd').val() != pwd)
+		   {
+				$('#pwdcheck').text('');
+		   		$('#pwdcheck').html("비밀번호 불일치");
+		   }
+		   else
+		   {
+	    		$('#pwdcheck').text('');
+	    		$('#pwdcheck').html("비밀번호 일치");
+		   	}
 		 });
 	
 		});
@@ -113,7 +113,7 @@
 	</style>
 </head>
 <body>
-	<div class="main" style="background-image: url(${pageContext.request.contextPath}/images/main.jpg)">
+	<div class="main" style="background-image: url(<%=request.getContextPath()%>/images/main.jpg)">
 		<div class="container">
 			<!-- header 영역 -->
 			<tiles:insertAttribute name="header" />
@@ -123,15 +123,8 @@
 			<tiles:insertAttribute name="content" />
 			</div>
 			
-<<<<<<< HEAD
-
-			<a href="notice/noticelist.htm">공지사항으로 가기</a>
-			<a href="${pageContext.request.contextPath}/epilogue/epiloguelist.htm">여행후기로 가기</a>
-
-=======
-			<a href="noticelist.htm">공지사항으로 가기</a>
->>>>>>> 509301f356793afaf373cfecf16d8e3554061663
-			
+			<a href="notice/noticelist.htm">공지사항 목록</a>
+			<a href="submain.htm">SUBMAIN으로</a>
 			<!-- footer 영역 -->
 			<tiles:insertAttribute name="footer" />
 		</div>
