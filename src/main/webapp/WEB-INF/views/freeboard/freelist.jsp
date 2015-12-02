@@ -24,13 +24,41 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+	<!-- 목록(카드 디자인) 테스트 -->
+	<%-- <div style="margin: 0 auto; width: 700px; height: 500px;">
+		<div class="card-deck-wrapper" style="margin: 0 auto;">
+			<div class="card-deck">
+				<c:forEach var="freelist" items="${freelist}">
+					<div class="card" style="float: left; margin: 30px; padding: 10px; background-color: silver;
+							-moz-box-shadow: 30px 3px 5px 5px black; 
+					   		-webkit-box-shadow: 3px 3px 85px 5px black; 
+					   		box-shadow: 10px 10px 30px 5px black; 
+					   		border-top-right-radius: 1em;
+					   		border-top-left-radius: 1em;
+							border-bottom-right-radius: 1em;
+							border-bottom-left-radius: 1em;">
+						<img class="card-img-top" src="<%=request.getContextPath()%>/images/image1.jpg" 
+							alt="${freelist.title}" height="100px" width="150px">
+						<div class="card-block">
+							<h4 class="card-title"><b>${freelist.title}</b></h4>
+							<p class="card-text">${freelist.content}</p>
+							<p class="card-text">
+								<small class="text-muted">${freelist.regdate}</small>
+							</p>
+							<a href="freedatail.htm?num=${freelist.num}" class="btn btn-primary">상세보기</a>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	</div> --%>
+
 	<div style="text-align: right">
 		<a href="freeinsert.htm">글쓰기</a>
 	</div>
-	<div style="margin: auto;">
-		<nav>
-			<ul class="pagination">
+	<div style="margin: 0 auto; width: 300px;">
+		<nav style="text-align: center;">
+			<ul class="pagination pagination-sm"">
 				<!-- 처음 , 이전 페이지로 이동 -->
 				<c:if test="${pg>block}">
 					<li><a href="freelist.htm?pg=1">처음</a></li>
@@ -42,7 +70,7 @@
 		    	</c:if> 
 		    	<!-- 각 페이지로 이동 -->
 		    	<c:forEach begin="${fromPage}" end="${toPage}" var="i">
-					<c:if test="${i==pg}"><li>${i}</li></c:if>
+		    		<c:if test="${i==pg}"><li class="active"><a>${i}</a></li></c:if>
 					<c:if test="${i!=pg}">
 						<li><a href="freelist.htm?pg=${i}">${i}</a></li>
 					</c:if>

@@ -85,11 +85,24 @@
    </select>
    
    <!-- 회원리스트 조회 -->
-   <select id="getMemberList" parameterType="kr.co.moojun.model.DTO.MemberDTO">
+   <select id="getMemberList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.MemberDTO">
       SELECT 
-             * 
-        FROM MEMBER 
-       ORDER BY num DESC
+             *
+        FROM
+          (
+            SELECT 
+                   F.*
+                 , ROWNUM AS R 
+              FROM
+                ( 
+                  SELECT 
+                         * 
+                    FROM MEMBER 
+                   ORDER BY num DESC
+                ) F
+         )
+      WHERE R >= #{start} 
+        AND R &lt;= #{end}
    </select>
    
    <!-- 회원정보 보기 (디테일) -->
@@ -112,6 +125,13 @@
    		SELECT *
    		FROM MEMBER
    		WHERE ID = #{param1} AND EMAIL = #{param2}
+   </select>
+   
+   <!-- 회원현황 (전체 회원수) -->
+   <select id="getMemberCount" resultType="Integer">
+      SELECT 
+             COUNT(*) 
+        FROM MEMBER
    </select>
    
    
