@@ -9,7 +9,7 @@
 		</tr>
 	</table>
 	<div style="height: 390px;">
-		<form name="epilogueinsertform" action="epilogueinsert.htm" method="post">
+		<form name="epilogueinsertform" action="epilogueinsert.htm" method="post" enctype="multipart/form-data">
 			<table class="table table-striped" style="text-align: center; margin-bottom: 0;">
 				<tr>
 					<td>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</td>
@@ -41,10 +41,10 @@
 							<a href="javascript:epilogueinsertform.submit()">작성</a>
 						</button>&nbsp;&nbsp;&nbsp;
 						<button type="submit" class="btn btn-danger">
-							<a href="epilogueinsert.htm">취소</a>
+							<a href="epiloguelist.htm">취소</a>
 						</button>&nbsp;&nbsp;&nbsp;
 						<button type="submit" class="btn btn-danger">
-							<a href="epilogueinsert.htm">목록</a>
+							<a href="epiloguelist.htm">목록</a>
 						</button>
 					</td>
 				</tr>
