@@ -1,6 +1,9 @@
 package kr.co.moojun.model.DTO;
 
 import java.sql.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class EpilogueboardDTO {
 	
@@ -13,7 +16,18 @@ public class EpilogueboardDTO {
 	private String photoname2;
 	private String photoname3;
 
-	
+
+	//멀티 파일 업로드///////////////////////////////
+	private List<CommonsMultipartFile> files;
+
+	public List<CommonsMultipartFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<CommonsMultipartFile> files) {
+		this.files = files;
+	}
+	////////////////////////////////////////////////
+
 	public int getNum() {
 		return num;
 	}

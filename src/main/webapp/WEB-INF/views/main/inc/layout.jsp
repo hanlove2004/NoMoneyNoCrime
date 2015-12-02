@@ -123,14 +123,14 @@
 			<tiles:insertAttribute name="content" />
 			</div>
 			
-<<<<<<< HEAD
+
 
 			<a href="notice/noticelist.htm">공지사항으로 가기</a>
 			<a href="${pageContext.request.contextPath}/epilogue/epiloguelist.htm">여행후기로 가기</a>
 
-=======
-			<a href="noticelist.htm">공지사항으로 가기</a>
->>>>>>> 509301f356793afaf373cfecf16d8e3554061663
+
+			<a href="${pageContext.request.contextPath}/main/join.htm">join 폼 test</a>
+
 			
 			<!-- footer 영역 -->
 			<tiles:insertAttribute name="footer" />
