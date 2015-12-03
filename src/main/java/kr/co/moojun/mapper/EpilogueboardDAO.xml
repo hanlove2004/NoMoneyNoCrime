@@ -47,10 +47,9 @@
    <select id="getEpilogueBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.EpilogueboardDTO">
 		SELECT 
              * 
-        FROM EPILOGUE
-      WHERE NUM >= #{start} 
-        AND NUM &lt;= #{end}
-      ORDER BY NUM DESC
+        FROM (SELECT ROWNUM AS NUM1, N.* FROM (SELECT * FROM EPILOGUE ORDER BY REGDATE DESC) N)
+      WHERE NUM1 >= #{start} 
+        AND NUM1 &lt;= #{end}
    </select>
 
    <!-- 여행후기 디테일(상세보기) -->

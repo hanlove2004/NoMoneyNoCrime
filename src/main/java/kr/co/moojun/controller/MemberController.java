@@ -25,7 +25,7 @@ public class MemberController {
 	
 	@Autowired
 	private SqlSession sqlsession;
-	
+	/*
 	//로그인(login.htm)
 	@RequestMapping(value="login.htm",method=RequestMethod.GET)
 	public String login(){
@@ -34,7 +34,7 @@ public class MemberController {
 		// Tiles 적용 (UrlBase 방식)
 		return "main.login";
 	}
-	
+	*/
 	//로그인 성공 (login.htm)
 	@RequestMapping(value="login.htm",method=RequestMethod.POST)
 	public String loginsuccess(String id, String pwd){
@@ -100,7 +100,7 @@ public class MemberController {
 		// Tiles 적용 (UrlBase 방식)
 		return "main.start";
 	}
-	
+	/*
 	//회원가입 (join.htm)
 	@RequestMapping(value="join.htm",method=RequestMethod.GET)
 	public String joinform(){
@@ -110,7 +110,7 @@ public class MemberController {
 		// Tiles 적용 (UrlBase 방식)
 		return "main.joinform";
 	}
-	
+	*/
 	//회원가입 성공 (join.htm)
 	@RequestMapping(value="join.htm",method=RequestMethod.POST)
 	public String joinsuccess(MemberDTO memberdto){

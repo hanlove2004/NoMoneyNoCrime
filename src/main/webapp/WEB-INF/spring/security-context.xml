@@ -12,7 +12,7 @@
     <security:csrf disabled="true" />
     <security:form-login login-page="/main.htm" 
                    authentication-failure-url="/main.htm?error"
-                   default-target-url="/notice/noticelist.htm"
+                   default-target-url="/submain.htm"
                    /> 
    <security:logout logout-success-url="/main.htm" /> 
    <!-- <security:intercept-url pattern="/customer/noticeDetail.htm"   
@@ -22,16 +22,13 @@
    -->
 
    <!-- <security:intercept-url pattern="/customer/*Reg.htm" access="ROLE_USER" /> -->
-   <!-- <security:intercept-url pattern="/epilogue/*" access="hasRole('ROLE_USER')" />
+   <security:intercept-url pattern="/submain.htm" access="hasRole('ROLE_USER')" />
+   <security:intercept-url pattern="/epilogue/*" access="hasRole('ROLE_USER')" />
    <security:intercept-url pattern="/freeboard/*" access="hasRole('ROLE_USER')" />
    <security:intercept-url pattern="/mypage/*" access="hasRole('ROLE_USER')" />
    <security:intercept-url pattern="/notice/*" access="hasRole('ROLE_USER')" />
    <security:intercept-url pattern="/workboard/*" access="hasRole('ROLE_USER')" />
-   <security:intercept-url pattern="/main/*" access="hasRole('ROLE_USER')" />
-   <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/> -->
-   <security:intercept-url pattern="/main/howtouse.htm" access="hasRole('ROLE_USER')"/>
-   <security:intercept-url pattern="/notice/*" access="hasRole('ROLE_USER')"/>
-   <security:intercept-url pattern="/epilogue/*" access="hasRole('ROLE_USER')"/>                
+   <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>               
                      
 </security:http>
 <security:authentication-manager>

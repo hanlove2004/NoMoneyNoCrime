@@ -7,7 +7,7 @@
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">무전무죄</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/submain.htm">무전무죄</a>
 		</div>
 		<div>
 			<ul class="nav navbar-nav">
@@ -21,7 +21,7 @@
 				<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
 					<li><a href="<%=request.getContextPath()%>/mypage/memberinfo.htm"><span class="glyphicon glyphicon-user"></span>
 							MyPage</a></li>
-					<li><a href="logout.htm"> (${LoingUser})님 로그아웃</a></li>
+					<li><a href="<%=request.getContextPath()%>/logout"> (${LoingUser})님 로그아웃</a></li>
 				</se:authorize>
 			</ul>
 		</div>
