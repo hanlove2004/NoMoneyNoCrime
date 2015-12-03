@@ -4,10 +4,10 @@
 <%@ taglib prefix="se"
 	uri="http://www.springframework.org/security/tags"%>
 
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
+<nav class="navbar">
+	<div class="container-fluid" style="background-image: url('<%=request.getContextPath()%>/images/free.jpg');">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="<%=request.getContextPath()%>/submain.htm">무전무죄</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/submain.htm" style="padding-bottom: 0px; padding-right: 10px; padding-top: 0px;"><img src="<%=request.getContextPath()%>/images/무전무죄_logo_fin_04.png" style="width: 75px; height: 55px;"></a>
 		</div>
 		<div>
 			<ul class="nav navbar-nav">
@@ -18,6 +18,10 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<se:authentication property="name" var="LoingUser" />
+				<se:authorize ifAnyGranted="ROLE_ADMIN">
+					<li><a href="<%=request.getContextPath()%>/admin/memberlist.htm"><span class="glyphicon glyphicon-user"></span>
+							회원현황</a></li>
+				</se:authorize>
 				<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
 					<li><a href="<%=request.getContextPath()%>/mypage/memberinfo.htm"><span class="glyphicon glyphicon-user"></span>
 							MyPage</a></li>
