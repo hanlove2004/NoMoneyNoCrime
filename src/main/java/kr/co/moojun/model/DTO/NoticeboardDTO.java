@@ -39,6 +39,9 @@ public class NoticeboardDTO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "NoticeboardDTO [num=" + num + ", id=" + id + ", title=" + title + ", content=" + content + ", regdate="
+				+ regdate + "]";
+	}
 }
