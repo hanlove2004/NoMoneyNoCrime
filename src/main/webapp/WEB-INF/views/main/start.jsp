@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- 메인 -->
@@ -22,29 +21,35 @@
 <div id="login" align="center" class="collapse">
    <div class="well well-lg" style="text-align: center; vertical-align: middle; margin: auto; width: 400px; border-color: white; border-style:;">
       <h1>로그인</h1>
+      
+      <!-- SECURITY 적용부분 -->
       <c:if test="${param.error != null}">
          <div>
             로그인실패<br>
             <c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
-                           이유 : <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+                               이유 : <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
             </c:if>
          </div>
       </c:if>
 
       <form action="${pageContext.request.contextPath}/login" method="post">
+         
          <div class="form-group form-inline">
-            <label for="id" class="col-sm-3 control-label">아이디:</label>
+            <label for="loginid" class="col-sm-3 control-label">아이디:</label>
             <div class="col-sm-8">
-               <input type="text" class="form-control" id="username" name="username" placeholder="Enter email">
+               <input type="text" class="form-control" id="loginid" name="loginid" placeholder="ID">
             </div>
          </div>
+         
          <div class="form-group form-inline">
-            <label for="pwd" class="col-sm-3 control-label">비밀번호:</label>
+            <label for="loginpwd" class="col-sm-3 control-label">비밀번호:</label>
             <div class="col-sm-8">
-               <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+               <input type="password" class="form-control" id="loginpwd" name="loginpwd" placeholder="PASSWORD">
             </div>
          </div>
+         
          <button type="submit" class="btn btn-default">로그인</button>
+         
          <!-- 모달이동 -->
          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">ID / PWD 찾기</button>
       </form>
@@ -57,43 +62,54 @@
 
       <!-- Modal content-->
       <div class="modal-content">
+      
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">ID / PWD 찾기</h4>
          </div>
+         
+         <!-- ID 찾기 -->
          <div class="modal-footer">
             <form action="${pageContext.request.contextPath}/main/searchid.htm" method="post">
                <div class="form-group form-inline">
-                  <label for="id" class="col-sm-3 control-label">이름:</label>
+                  <h4 class="modal-title" style="text-align: left;">ID 찾기</h4>
+                  <label for="name" class="col-sm-3 control-label">이름:</label>
                   <div class="col-sm-8">
                      <input type="text" class="form-control" id="name" name="name" placeholder="name">
                   </div>
                </div>
+               
                <div class="form-group form-inline">
-                  <label for="pwd" class="col-sm-3 control-label">이메일:</label>
+                  <label for="email" class="col-sm-3 control-label">이메일:</label>
                   <div class="col-sm-8">
                      <input type="text" class="form-control" id="email" name="email" placeholder="email">
                   </div>
                </div>
+               
                <button type="submit" class="btn btn-default">확인</button>
             </form>
          </div>
 
+         <!-- PWD 찾기 -->
          <div class="modal-footer">
             <form action="${pageContext.request.contextPath}/main/searchpwd.htm" method="post">
                <div class="form-group form-inline">
+                  <h4 class="modal-title"style="text-align: left;">PWD 찾기</h4>
                   <label for="id" class="col-sm-3 control-label">아이디:</label>
                   <div class="col-sm-8">
-                     <input type="text" class="form-control" id="id" name="id" placeholder="id">
+                     <input type="text" class="form-control" id="searchid" name="searchid" placeholder="id">
                   </div>
                </div>
+               
                <div class="form-group form-inline">
                   <label for="pwd" class="col-sm-3 control-label">이메일:</label>
                   <div class="col-sm-8">
                      <input type="text" class="form-control" id="email" name="email" placeholder="email">
                   </div>
                </div>
+               
                <button type="submit" class="btn btn-default">확인</button>
+               
             </form>
          </div>
          <div class="modal-footer">
@@ -149,6 +165,7 @@
                   <input type="text" class="form-control" name="phone" id="phone" placeholder="(예시) 01012345678">
                </div>
             </div>
+            
             <div class="form-group">
                <label for="m_gender" class="col-sm-4 control-label">성별</label>
                <div class="col-sm-5">
