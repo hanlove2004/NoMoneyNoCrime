@@ -37,14 +37,14 @@
          <div class="form-group form-inline">
             <label for="loginid" class="col-sm-3 control-label">아이디:</label>
             <div class="col-sm-8">
-               <input type="text" class="form-control" id="loginid" name="loginid" placeholder="ID">
+               <input type="text" class="form-control" id="username" name="username" placeholder="ID">
             </div>
          </div>
          
          <div class="form-group form-inline">
             <label for="loginpwd" class="col-sm-3 control-label">비밀번호:</label>
             <div class="col-sm-8">
-               <input type="password" class="form-control" id="loginpwd" name="loginpwd" placeholder="PASSWORD">
+               <input type="password" class="form-control" id="password" name="password" placeholder="PASSWORD">
             </div>
          </div>
          
