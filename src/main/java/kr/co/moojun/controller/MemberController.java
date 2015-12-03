@@ -36,20 +36,28 @@ public class MemberController {
 	}
 	*/
 	//로그인 성공 (login.htm)
-	@RequestMapping(value="login.htm",method=RequestMethod.POST)
-	public String loginsuccess(String id, String pwd){
+	/*@RequestMapping(value="login.htm",method=RequestMethod.POST)
+	public String loginsuccess(@RequestParam(value="loginid", required=false) String id, 
+							@RequestParam(value="loginpwd", required=false) String pwd) {
 		
-		System.out.println("");
+		System.out.println("로그인 성공");
 		
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		int result = memberdao.loginMember(id, pwd);
+		MemberDTO memberdto = new MemberDTO();
+		
+		memberdto.setId(id);
+		memberdto.setPwd(pwd);
+		
+		int result = memberdao.loginMember(memberdto);
 		System.out.println(result);
 		if(result > 0){
 			System.out.println("회원입니다.");
 		}
+		
+		System.out.println("로그인 성공 끝");
 		// Tiles 적용 (UrlBase 방식)
 		return "submain.main";
-	}
+	}*/
 	
 	//아이디, 비밀번호 찾기(searchinfo.htm)
 	@RequestMapping(value="searchinfo.htm",method=RequestMethod.GET)

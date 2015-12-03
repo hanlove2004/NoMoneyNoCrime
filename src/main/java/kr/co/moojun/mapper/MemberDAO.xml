@@ -76,13 +76,13 @@
    </update>
    
    <!-- 로그인 -->
-   <select id="loginMember" resultType="Integer">
+  <!--  <select id="loginMember" parameterType="kr.co.moojun.model.DTO.MemberDTO" resultType="Integer">
       SELECT 
              COUNT(*) 
         FROM MEMBER 
        WHERE ID  = #{id}    
-         AND PWD = #{pwd} 
-   </select>
+         AND PWD = #{pwd}
+   </select> -->
    
    <!-- 회원리스트 조회 -->
    <select id="getMemberList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.MemberDTO">

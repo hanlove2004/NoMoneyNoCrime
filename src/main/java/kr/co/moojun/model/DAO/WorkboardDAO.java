@@ -17,4 +17,8 @@ public interface WorkboardDAO {
    int deleteWorkBoard(int num); // 일자리게시판 삭제하기 (실제 삭제가 아니라 유효기간만료된 글을 리스트에서 안보이게 하는것)
 
    int getWorkBoardCount(); // 일자리게시판 게시글의 수
+   
+   List<WorkboardDTO> getMyWorkAddList(HashMap map); // 내 일자리 등록 리스트
+   
+   int getMyWorkAddListCount(String id); // 내 일자리 등록 게시글의 수
 }

@@ -39,7 +39,7 @@ public class FreeboardController {
          pg = Integer.parseInt(strPg);
       }
       
-      int rowSize = 10;   //한번에 볼 수 있는 그리드 수
+      int rowSize = 9;   //한번에 볼 수 있는 그리드 수
       int start    = (pg * rowSize) - (rowSize - 1);
       int end    =  pg * rowSize;
 

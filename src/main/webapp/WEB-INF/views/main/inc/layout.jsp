@@ -14,50 +14,64 @@
 	<title>무전무죄 프로젝트</title>
 	<script type="text/javascript">
 	
-		$(document).ready(function(){
-		    $(".li1").click(function(){
-		        $("#login").fadeOut();
-		        $("#join").fadeOut();
-		        $("#howtouse").fadeOut();
-		        $("#start").delay(500).fadeIn();
-		    });
-		    $(".li2").click(function(){
-		        $("#start").fadeOut();
-		        $("#join").fadeOut();
-		        $("#howtouse").fadeOut();
-		        $("#login").delay(500).fadeIn();
-		    });
-		    $(".li3").click(function(){
-		        $("#start").fadeOut();
-		        $("#login").fadeOut();
-		        $("#howtouse").fadeOut();
-		        $("#join").delay(500).fadeIn();
-		    });
-		    $(".li4").click(function(){
-		        $("#start").fadeOut();
-		        $("#login").fadeOut();
-		        $("#join").fadeOut();
-		        $("#howtouse").delay(500).fadeIn();
-		    });
-		    
-		    
-		  //암호비교
-		  $('#confirmpwd').keyup(function(){
-			  var pwd = $('#pwd').val();
-		   if($('#confirmpwd').val() != pwd)
-		   {
-				$('#pwdcheck').text('');
-		   		$('#pwdcheck').html("비밀번호 불일치");
-		   }
-		   else
-		   {
-	    		$('#pwdcheck').text('');
-	    		$('#pwdcheck').html("비밀번호 일치");
-		   	}
-		 });
-	
-		});
+		
+		$(document).ready(function() {
+			$(".li1").click(function() {
+				$("#login").fadeOut();
+				$("#join").fadeOut();
+				$("#howtouse").fadeOut();
+				$("#start").delay(500).fadeIn();
+			});
+			$(".li2").click(function() {
+				$("#start").fadeOut();
+				$("#join").fadeOut();
+				$("#howtouse").fadeOut();
+				$("#login").delay(500).fadeIn();
+			});
+			$(".li3").click(function() {
+				$("#start").fadeOut();
+				$("#login").fadeOut();
+				$("#howtouse").fadeOut();
+				$("#join").delay(500).fadeIn();
+			});
+			$(".li4").click(function() {
+				$("#start").fadeOut();
+				$("#login").fadeOut();
+				$("#join").fadeOut();
+				$("#howtouse").delay(500).fadeIn();
+			});
 
+			//암호비교
+			$('#confirmpwd').keyup(function() {
+				var pwd = $('#pwd').val();
+				if ($('#confirmpwd').val() != pwd) {
+					$('#pwdcheck').text('');
+					$('#pwdcheck').html("비밀번호 불일치");
+				} else {
+					$('#pwdcheck').text('');
+					$('#pwdcheck').html("비밀번호 일치");
+				}
+			});
+
+			$("#id").focusout(function() {
+				var id = $('#id').val();
+				console.log(id);
+				$.ajax({
+					type : "post",
+					url : "idcheck.htm",
+					data : "id=" + id,
+					success : function(data) { //callback  
+						console.log(data.data); // 아이디가 중복 되면 false 아니면 true
+						if (!data.data) {
+							alert("중복된 아이디 입니다. 다시 입력해주세요");
+							$('#id').val("");
+							$('#id').focus();
+						}
+					}
+				});
+			});
+
+		});
 	</script>
 	<style type="text/css">
 		body

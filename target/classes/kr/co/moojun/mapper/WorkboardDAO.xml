@@ -67,8 +67,7 @@
                   SELECT 
                          * 
                     FROM WORKBOARD 
-                   ORDER BY PARENT DESC
-                          , SORT
+                   ORDER BY num DESC
                 ) A
          )
       WHERE R >= #{start} 
@@ -76,7 +75,7 @@
    </select>
    
    <!-- 일자리게시판 디테일(상세보기) -->
-   <select id="getWorkBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.WorkboardDTO">
+   <select id="getWorkBoard" parameterType="Integer">
       SELECT 
              * 
         FROM WORKBOARD 
@@ -96,7 +95,7 @@
    </update>
    
    <!-- 일자리게시판 삭제하기(실제 삭제가 아니라 유효기간만료된 글을 리스트에서 안보이게 하는 것) -->
-   <update id="deleteWorkBoard" parameterType="Integer">
+   <update id="deleteWorkBoard" parameterType="kr.co.moojun.model.DTO.WorkboardDTO">
       UPDATE WORKBOARD 
          SET EXPIRE    = '0' 
        WHERE NUM       = #{num} 
@@ -107,5 +106,35 @@
       SELECT 
              COUNT(*) 
         FROM WORKBOARD
+   </select>
+   
+   <!-- 내 일자리 등록 리스트 -->
+    <select id="getMyWorkAddList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.WorkboardDTO">
+      SELECT 
+             * 
+        FROM
+          ( 
+            SELECT 
+                   A.*
+                 , ROWNUM R 
+              FROM
+                (
+                  SELECT 
+                         * 
+                    FROM WORKBOARD
+                    WHERE id = #{id}
+                   ORDER BY num DESC
+                ) A
+         )
+      WHERE R >= #{start} 
+        AND R &lt;= #{end}
+   </select>
+   
+    <!-- 내 일자리 등록 게시글의 수 -->
+   <select id="getMyWorkAddListCount" resultType="Integer">
+      SELECT 
+             COUNT(*) 
+        FROM WORKBOARD
+        WHERE id = #{id}
    </select>
 </mapper>

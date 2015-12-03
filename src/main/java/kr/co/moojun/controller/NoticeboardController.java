@@ -41,6 +41,7 @@ public class NoticeboardController {
       int rowSize = 10;   //한번에 볼 수 있는 그리드 수
       int start = (pg * rowSize) - (rowSize - 1);
       int end = pg * rowSize;
+      System.out.println(strPg + "/" + rowSize + "/" + start + "/" + end);
 
       //총 게시물수
       NoticeboardDAO noticeboarddao = sqlsession.getMapper(NoticeboardDAO.class);
@@ -57,6 +58,8 @@ public class NoticeboardController {
       if (toPage > allPage) { // 예) 20>17
          toPage = allPage;
       }
+      
+      System.out.println(total + "/" + toPage);
 
       HashMap map = new HashMap();
 
@@ -65,7 +68,7 @@ public class NoticeboardController {
       
       List<NoticeboardDTO> noticelist = noticeboarddao.getNoticeBoardList(map);
       
-      model.addAttribute("list", noticelist); 
+      model.addAttribute("noticelist", noticelist); 
       model.addAttribute("pg", pg); 
       model.addAttribute("allPage", allPage); 
       model.addAttribute("block", block); 
@@ -197,26 +200,6 @@ public class NoticeboardController {
       
       // Tiles 적용 (UrlBase 방식)
       return "notice.noticelist";
-   }
-   
-   // 공지사항 댓글 (noticereply.htm)
-   @RequestMapping(value = "noticereply.htm", method = RequestMethod.POST)
-   public String noticereply(Reply_NoticeDTO dto) {
-
-      System.out.println("");
-
-      // Tiles 적용 (UrlBase 방식)
-      return "";
-   }
-   
-   // 공지사항 댓글 삭제 (noticereplydelete.htm)
-   @RequestMapping(value = "noticereplydelete.htm", method = RequestMethod.GET)
-   public String noticereplydelete(Reply_NoticeDTO dto) {
-
-      System.out.println("");
-
-      // Tiles 적용 (UrlBase 방식)
-      return "";
    }
    
 }
