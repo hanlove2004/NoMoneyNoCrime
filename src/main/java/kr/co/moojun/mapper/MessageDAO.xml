@@ -13,7 +13,7 @@
    날짜              REGDATE       DATE            NOT NULL 
    -->
    <!-- 쪽지 쓰기 -->
-   <insert id="insertMessage" parameterType="kr.co.moojun.model.MessageDTO" >
+   <insert id="insertMessage" parameterType="kr.co.moojun.model.DTO.MessageDTO" >
       INSERT INTO MESSAGE
       (
           NUM
@@ -32,7 +32,7 @@
    </insert>
 
    <!-- 메시지 리스트  -->
-   <select id="getMessageList" parameterType="kr.co.moojun.model.MessageDTO" resultType="kr.co.moojun.model.MessageDTO">
+   <select id="getMessageList" parameterType="kr.co.moojun.model.DTO.MessageDTO" resultType="kr.co.moojun.model.DTO.MessageDTO">
       SELECT 
              * 
         FROM MESSAGE 
@@ -42,7 +42,7 @@
    </select>
 
    <!-- 메시지 디테일 -->
-   <select id="getMessageDetail" parameterType="Integer" resultType="kr.co.moojun.model.MessageDTO">
+   <select id="getMessageDetail" parameterType="Integer" resultType="kr.co.moojun.model.DTO.MessageDTO">
       SELECT 
              * 
         FROM MESSAGE 
@@ -50,7 +50,7 @@
    </select>
    
    <!-- 메시지 삭제하기 -->
-   <delete id="deleteMessage" parameterType="kr.co.moojun.model.MessageDTO">
+   <delete id="deleteMessage" parameterType="kr.co.moojun.model.DTO.MessageDTO">
       DELETE FROM 
         FROM MESSAGE 
        WHERE NUM = #{num}

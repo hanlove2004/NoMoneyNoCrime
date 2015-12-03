@@ -123,20 +123,12 @@
 			<tiles:insertAttribute name="content" />
 			</div>
 			
-<<<<<<< HEAD
 
-
-			<a href="notice/noticelist.htm">공지사항으로 가기</a>
 			<a href="${pageContext.request.contextPath}/epilogue/epiloguelist.htm">여행후기로 가기</a>
-
-
-			<a href="${pageContext.request.contextPath}/main/join.htm">join 폼 test</a>
-
 			
-=======
 			<a href="notice/noticelist.htm">공지사항 목록</a>
 			<a href="submain.htm">SUBMAIN으로</a>
->>>>>>> a8d2e530b2e93d34711e4e1da72147eb5ab78d08
+
 			<!-- footer 영역 -->
 			<tiles:insertAttribute name="footer" />
 		</div>

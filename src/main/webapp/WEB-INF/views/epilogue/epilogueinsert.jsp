@@ -10,12 +10,9 @@
 		</tr>
 	</table>
 	<div style="height: 390px;">
-<<<<<<< HEAD
+
 		<form name="epilogueinsertform" id="epilogueinsertform" 
 		action="<%=request.getContextPath() %>/epilogue/epilogueinsert.htm" method="post" enctype="multipart/form-data">
-=======
-		<form name="epilogueinsertform" action="epilogueinsert.htm" method="post" enctype="multipart/form-data">
->>>>>>> a8d2e530b2e93d34711e4e1da72147eb5ab78d08
 			<table class="table table-striped" style="text-align: center; margin-bottom: 0;">
 				<tr>
 					<td>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</td>
@@ -39,23 +36,12 @@
 				</tr>
 				<tr>
 					<td colspan="3">
-<<<<<<< HEAD
 						<button type="button" class="btn btn-danger"><a href="javascript:epilogueinsertform.submit()">작성</a></button>&nbsp;&nbsp;&nbsp;
 						<button type="button" class="btn btn-danger">
 							<a href="<%=request.getContextPath() %>/epilogue/epiloguelist.htm?pg=${pg}">취소</a>
 						</button>&nbsp;&nbsp;&nbsp;
 						<button type="button" class="btn btn-danger">
 							<a href="<%=request.getContextPath() %>/epilogue/epiloguelist.htm">목록</a>
-=======
-						<button type="submit" class="btn btn-danger">
-							<a href="javascript:epilogueinsertform.submit()">작성</a>
-						</button>&nbsp;&nbsp;&nbsp;
-						<button type="submit" class="btn btn-danger">
-							<a href="epiloguelist.htm">취소</a>
-						</button>&nbsp;&nbsp;&nbsp;
-						<button type="submit" class="btn btn-danger">
-							<a href="epiloguelist.htm">목록</a>
->>>>>>> a8d2e530b2e93d34711e4e1da72147eb5ab78d08
 						</button>
 					</td>
 				</tr>
