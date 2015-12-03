@@ -199,24 +199,4 @@ public class NoticeboardController {
       return "notice.noticelist";
    }
    
-   // 공지사항 댓글 (noticereply.htm)
-   @RequestMapping(value = "noticereply.htm", method = RequestMethod.POST)
-   public String noticereply(Reply_NoticeDTO dto) {
-
-      System.out.println("");
-
-      // Tiles 적용 (UrlBase 방식)
-      return "";
-   }
-   
-   // 공지사항 댓글 삭제 (noticereplydelete.htm)
-   @RequestMapping(value = "noticereplydelete.htm", method = RequestMethod.GET)
-   public String noticereplydelete(Reply_NoticeDTO dto) {
-
-      System.out.println("");
-
-      // Tiles 적용 (UrlBase 방식)
-      return "";
-   }
-   
 }
