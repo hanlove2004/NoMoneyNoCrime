@@ -13,13 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.EpilogueboardDAO;
 import kr.co.moojun.model.DTO.EpilogueboardDTO;
 import kr.co.moojun.model.DTO.Reply_EpilogueDTO;
+
 
 @Controller
 @RequestMapping(value="/epilogue/")
@@ -27,6 +30,9 @@ public class EpilogueboardController {
 
 	@Autowired
 	private SqlSession sqlsession;
+	
+	@Autowired
+	private View jsonv; // 주입.	
 	
 	// 여행후기 목록 (epiloguelist.htm)
 	@RequestMapping(value = "epiloguelist.htm", method = RequestMethod.GET)
@@ -37,7 +43,7 @@ public class EpilogueboardController {
 		if (strPg != null) {
 			pg = Integer.parseInt(strPg);
 		}
-		int rowSize = 7;
+		int rowSize = 9;
 		int start = (pg * rowSize) - (rowSize - 1);
 		int end = pg * rowSize;
 
@@ -89,19 +95,21 @@ public class EpilogueboardController {
 		System.out.println("-------------------------------------------------");
 		System.out.println("epiloguelist 끝");
 		
-		
 		// Tiles 적용 (UrlBase 방식)
 		return "epilogue.epiloguelist";
 	}
 
 	// 여행후기 상세보기 (epiloguedetail.htm)
-	@RequestMapping(value = "epiloguedetail.htm", method = RequestMethod.GET)
-	public String epiloguedetail(String num) {
-
-		System.out.println("");
-
-		// Tiles 적용 (UrlBase 방식)
-		return "epilogue.epiloguedetail";
+	@RequestMapping(value = "epiloguedetail.htm", method = RequestMethod.POST)
+	public View epiloguedetail(String num , ModelMap modelmap) {
+		System.out.println("epiloguedetail start");
+		System.out.println(num);
+		EpilogueboardDAO epilogueboarddao =  sqlsession.getMapper(EpilogueboardDAO.class);
+		EpilogueboardDTO epilogueboarddto = epilogueboarddao.getEpilogueBoard(Integer.parseInt(num));
+       System.out.println(epilogueboarddto.toString());
+       modelmap.addAttribute(epilogueboarddto);
+       
+       return jsonv;
 	}
 
 	// 여행후기 쓰기 (epilogueinsert.htm)

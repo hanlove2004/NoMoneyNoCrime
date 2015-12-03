@@ -46,7 +46,7 @@
 							<p class="card-text">
 								<small class="text-muted">${epiloguelist.regdate}</small>
 							</p>
-							<a href="epiloguedetail.htm?num=${epiloguelist.num}" class="btn btn-primary">상세보기</a>
+							<a href="#" class="btn btn-primary" id="epilogue${epiloguelist.num}" onclick="epiloguedetail(${epiloguelist.num})">상세보기</a>
 						</div>
 					</div>
 				</c:forEach>
@@ -89,4 +89,6 @@
 			</ul>
 		</nav>
 	</div>
+	
+	<%@ include file="epiloguedetail.jsp" %>
 </div>

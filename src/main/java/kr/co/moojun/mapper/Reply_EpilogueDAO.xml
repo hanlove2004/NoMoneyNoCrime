@@ -5,4 +5,64 @@
   
 <mapper namespace="kr.co.moojun.model.DAO.Reply_EpilogueDAO">
 
+ <!-- 여행후기 댓글 쓰기 -->
+   <insert id="insertEpilogueBoardReply" parameterType="kr.co.moojun.model.DTO.Reply_EpilogueDTO">
+      INSERT INTO REPLY_EPILOGUE
+      ( 
+        NUM
+      , ID
+      , CONTENT
+      , REGDATE
+      , IDX
+      )
+      VALUES
+      ( 
+        reply_epilogue_seq.NEXTVAL
+      , #{id}
+      , #{content}
+      , sysdate
+      , #{num}
+      )
+   </insert>
+   <!-- java.sql.SQLException: 부적합한 열 유형: 1111 해결방안 : #{fileSrc ,jdbcType=VARCHAR} -->
+
+
+   <!-- 여행후기 댓글 리스트(목록) -->
+   <select id="getEpilogueBoardReplyList" parameterType="Integer" resultType="kr.co.moojun.model.DTO.Reply_EpilogueDTO">
+		SELECT * 
+        FROM 
+        	(SELECT ROWNUM AS NUM1, N.* 
+        	  FROM 
+        	  		(
+        	  		  SELECT * 
+        	  		  FROM REPLY_EPILOGUE 
+        	  		  WHERE IDX=#{num} 
+        	  		  ORDER BY REGDATE
+        	  		  ) N
+        	 )
+      	WHERE NUM1 >= #{start} AND NUM1 &lt;= #{end}
+   </select>
+
+   <!-- 여행후기 댓글 수정하기 -->
+   <update id="updateEpilogueBoardReply" parameterType="kr.co.moojun.model.DTO.Reply_EpilogueDTO">
+      UPDATE REPLY_EPILOGUE
+      SET CONTENT = #{content}
+      WHERE NUM = #{num}
+   </update>
+
+   <!-- 여행후기 댓글 삭제하기 -->
+   <delete id="deleteEpilogueBoardReply" parameterType="kr.co.moojun.model.DTO.Reply_EpilogueDTO">
+      DELETE 
+      FROM REPLY_EPILOGUE 
+      WHERE NUM = #{num}
+   </delete>
+
+   <!-- 여행후기 댓글 게시글의 수 -->
+   <select id="getEpilogueBoardCount" resultType="Integer">
+      SELECT 
+      	COUNT(*) 
+      FROM REPLY_EPILOGUE
+   </select>
+
+
 </mapper>
