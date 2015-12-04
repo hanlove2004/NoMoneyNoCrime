@@ -65,6 +65,13 @@
    		WHERE ID = #{id} AND PWD = #{pwd}
    </update>
    
+   <!-- 강퇴(관리자) -->
+   <delete id="admindeleteMember" parameterType="Integer">
+   		DELETE 
+        FROM MEMBER 
+       WHERE NUM    = #{num}
+   </delete>
+   
    <!-- 회원 정보 수정 -->
    <update id="updateMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
       UPDATE MEMBER <!-- 회원테이블 -->

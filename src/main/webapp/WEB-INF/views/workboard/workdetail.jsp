@@ -10,7 +10,7 @@
    </table>
    <c:set var="workboarddto" value="${workboarddto}" />
    <div style="height: 390px;">
-      <form name="workinsertform" action="workinsert.htm" method="post">
+      <!-- <form name="workinsertform" action="workinsert.htm" method="post"> -->
          <table class="table table-striped" style="text-align: center; margin-bottom: 0;">
             <tr>
                <td>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</td>
@@ -59,15 +59,24 @@
             <tr>
                <td colspan="3">
                   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#requestForm">
-                     신청
-                  </button>&nbsp;&nbsp;&nbsp;
+                     <a href="#">신청</a>
+                  </button>
+                  &nbsp;&nbsp;&nbsp;
+                  <button type="submit" class="btn btn-danger">
+                     <a href="workupdate.htm?num=${workboarddto.num}">수정하기</a>
+                  </button>
+                  &nbsp;&nbsp;&nbsp;
+                  <button type="submit" class="btn btn-danger">
+                     <a href="workdelete.htm?num=${workboarddto.num}">삭제하기</a>
+                  </button>
+                  &nbsp;&nbsp;&nbsp;
                   <button type="submit" class="btn btn-danger">
                      <a href="worklist.htm">목록</a>
                   </button>
                </td>
             </tr>
          </table>
-      </form>
+     <!--  </form> -->
    </div>
 </div>
 

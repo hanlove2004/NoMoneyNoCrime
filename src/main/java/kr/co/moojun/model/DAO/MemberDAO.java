@@ -12,10 +12,12 @@ public interface MemberDAO {
 	
 	int deleteMember(MemberDTO memberdto); // 탈퇴
 	
+	int admindeleteMember(int num); // 회원 강퇴
+	
 	int updateMember(MemberDTO memberdto);// 회원 정보 수정
 	
-	/*int loginMember(MemberDTO memberdto); // 로그인
-*/	
+	/*int loginMember(MemberDTO memberdto); // 로그인 */
+	
 	List<MemberDTO> getMemberList(HashMap map); // 회원리스트 조회
 	
 	MemberDTO getMemberDetail(String id); // 회원정보 보기 (디테일)
