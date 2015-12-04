@@ -7,6 +7,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- bootstrap vertical-tabs -->
+	<link href="<%=request.getContextPath()%>/css/bootstrap.vertical-tabs.min.css" rel="stylesheet">
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
@@ -60,15 +62,29 @@
 	</style>
 </head>
 <body style="height: 100%; width: 100%">
+
+	<!-- header 영역 -->
+	<tiles:insertAttribute name="header"/>
 	
-		<!-- header 영역 -->
-		<tiles:insertAttribute name="header"/>
-		
-		<!-- main 영역 -->
-		<tiles:insertAttribute name="content"/>
-		
-		<!-- footer 영역 -->
-		<tiles:insertAttribute name="footer"/>
+	<div style="text-align: center">
+		<button type="submit" class="btn btn-info">
+			<a href="memberinfo.htm">회원정보</a>
+		</button>&nbsp;&nbsp;&nbsp;
+		<button type="submit" class="btn btn-info">
+			<a href="workaddlist.htm">일자리현황</a>
+		</button>&nbsp;&nbsp;&nbsp;
+		<button type="submit" class="btn btn-info">
+			<a href="myepiloguelist.htm">나의여행후기</a>
+		</button>&nbsp;&nbsp;&nbsp;
+		<button type="submit" class="btn btn-info">
+			<a href="messagelist.htm">쪽지함</a>
+		</button>
+	</div>
+	<!-- main 영역 -->
+	<tiles:insertAttribute name="content"/>
+	
+	<!-- footer 영역 -->
+	<tiles:insertAttribute name="footer"/>
 	
 </body>
 </html>

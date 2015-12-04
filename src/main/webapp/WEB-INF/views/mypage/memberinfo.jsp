@@ -55,7 +55,9 @@
             
             <hr>
             
-            <input type="button" onclick="memberupdate.htm" value="개인정보 수정" class="btn btn-info"> 
+            <button type="submit" class="btn btn-info">
+				<a href="memberupdate.htm">개인정보 수정</a>
+			</button>
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteMember">회원탈퇴</button>
 
       </div>
