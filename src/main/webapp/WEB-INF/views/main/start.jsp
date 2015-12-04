@@ -127,33 +127,33 @@
          <form class="form-horizontal" name="joinform" action="main/join.htm" method="post" onsubmit="return CheckForm();">
             
             <div class="form-group">
-               <label for="m_id" class="col-sm-4 control-label">아이디</label>
+               <label for="id" class="col-sm-4 control-label">아이디</label>
                <div class="col-sm-8">
                   <input type="text" class="form-control" name="id" id="id" placeholder="ID">
                </div>
             </div>
             
             <div class="form-group">
-               <label for="m_pwd1" class="col-sm-4 control-label">비밀번호</label>
+               <label for="pwd" class="col-sm-4 control-label">비밀번호</label>
                <div class="col-sm-8">
                   <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Password">
                </div>
             </div>
             
             <div class="form-group">
-               <label for="m_pwd2" class="col-sm-4 control-label">비밀번호확인</label>
+               <label for="confirmpwd" class="col-sm-4 control-label">비밀번호확인</label>
                <div class="col-sm-8">
                   <input type="password" class="form-control" name="confirmpwd" id="confirmpwd" placeholder="Password Check">
                </div>
             </div>
             
             <div class="form-group">
-               <label for="m_pwd2" class="col-sm-4 control-label"></label>
+               <label for="pwdcheck" class="col-sm-4 control-label"></label>
                <div class="col-sm-8" id="pwdcheck">필수정보 입니다.</div>
             </div>
             
             <div class="form-group">
-               <label for="m_nick" class="col-sm-4 control-label">이름</label>
+               <label for="name" class="col-sm-4 control-label">이름</label>
                <div class="col-sm-8">
                   <input type="text" class="form-control" name="name" id="name" placeholder="Nickname">
                </div>
@@ -167,7 +167,7 @@
             </div>
             
             <div class="form-group">
-               <label for="m_gender" class="col-sm-4 control-label">성별</label>
+               <label for="sex" class="col-sm-4 control-label">성별</label>
                <div class="col-sm-5">
                   <label class="radio-inline"> <input type="radio" name="sex" id="man" value="남" checked>남</label> 
                   <label class="radio-inline"> <input type="radio" name="sex" id="woman" value="여">여</label>
@@ -182,7 +182,7 @@
             </div>
             
             <div class="form-group">
-               <label for="birth" class="col-sm-4 control-label">이메일</label>
+               <label for="email" class="col-sm-4 control-label">이메일</label>
                <div class="col-sm-8">
                   <input type="text" class="form-control" name="email" id="email">
                </div>

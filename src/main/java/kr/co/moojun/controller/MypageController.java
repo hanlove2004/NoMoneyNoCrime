@@ -1,5 +1,6 @@
 package kr.co.moojun.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,12 +28,18 @@ public class MypageController {
 
 	// 마이페이지 회원정보 (memberinfo.htm)
 	@RequestMapping(value = "memberinfo.htm", method = RequestMethod.GET)
-	public String memberinfo(String id, Model model, HttpServletRequest request) {
+	public String memberinfo(String id, Model model, HttpServletRequest request, Principal principal) {
 
 		System.out.println("memberinfo 시작");
 		
-		//회원정보 상세보기
+		//mapper 설정
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
+		
+		//LOGIN 상태인 id 받아오기
+		id = principal.getName();
+		System.out.println(id);
+		
+		//회원정보 상세보기
 		MemberDTO memberdto = memberdao.getMemberDetail(id);
 		
 		System.out.println(memberdto.toString());
@@ -46,12 +53,18 @@ public class MypageController {
 	
 	// 마이페이지 회원정보 수정 (memberupdate.htm)
 	@RequestMapping(value = "memberupdate.htm", method = RequestMethod.GET)
-	public String memberupdate(String id, Model model) {
+	public String memberupdate(String id, Model model, Principal principal) {
 
 		System.out.println("memberupdate 시작");
 		
-		//회원정보 수정정보 상세보기 (readonly 부분)
+		//mapper 설정
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
+		
+		//LOGIN 상태인 id 받아오기
+		id = principal.getName();
+		System.out.println(id);
+		
+		//회원정보 수정정보 상세보기 (readonly 부분)
 		MemberDTO memberdto = memberdao.getMemberDetail(id);
 		
 		System.out.println(memberdto.toString());

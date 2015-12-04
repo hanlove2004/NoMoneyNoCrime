@@ -52,7 +52,6 @@
 	</style>
 </head>
 <body>
-	<div class="main" style="background-image: url(<%=request.getContextPath()%>/images/submain.jpg)">
 
 		<!-- header 영역 -->
 		<tiles:insertAttribute name="header"/>
@@ -65,6 +64,5 @@
 		<!-- footer 영역 -->
 		<tiles:insertAttribute name="footer"/>
 	
-	</div>
 </body>
 </html>

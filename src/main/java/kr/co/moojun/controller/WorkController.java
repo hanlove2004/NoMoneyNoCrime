@@ -1,5 +1,6 @@
 package kr.co.moojun.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class WorkController {
    @Autowired
    private SqlSession sqlsession;
    
-   // 일자리게시판 목록 (workboardlist.htm)
-   @RequestMapping(value = "workboardlist.htm", method = RequestMethod.GET)
-   public String workboardlist(HttpServletRequest request, Model model) {
+   // 일자리게시판 목록 (worklist.htm)
+   @RequestMapping(value = "worklist.htm", method = RequestMethod.GET)
+   public String worklist(HttpServletRequest request, Model model) {
 
-      System.out.println("workboardlist 시작");
+      System.out.println("worklist 시작");
       
       int pg = 1; //처음 시작페이지
       
@@ -89,33 +90,37 @@ public class WorkController {
       System.out.println("-------------------------------------------------");
       
       
-      System.out.println("workboardlist 끝");
+      System.out.println("worklist 끝");
 
       // Tiles 적용 (UrlBase 방식)
       return "workboard.worklist";
    }
 
-   // 일자리게시판 상세보기 (workboarddetail.htm)
-   @RequestMapping(value = "workboarddetail.htm", method = RequestMethod.GET)
-   public String workboarddetail(int num, Model model) {
-      System.out.println("workboarddetail 시작");
+   // 일자리게시판 상세보기 (workdetail.htm)
+   @RequestMapping(value = "workdetail.htm", method = RequestMethod.GET)
+   public String workdetail(HttpServletRequest request, Model model) {
+      System.out.println("workdetail 시작");
+      
+      int num = Integer.parseInt(request.getParameter("num"));
+      
+      System.out.println("num : " + num);
       
       //자유게시판 상세조회
       WorkboardDAO workboarddao= sqlsession.getMapper(WorkboardDAO.class); 
       WorkboardDTO workboarddto =workboarddao.getWorkBoard(num);
       
       System.out.println(workboarddto.toString());
-      model.addAttribute("freeboarddto", workboarddto); // 모델앤 뷰중에서 모델
+      model.addAttribute("workboarddto", workboarddto); // 모델앤 뷰중에서 모델
 
-      System.out.println("workboarddetail 끝");
+      System.out.println("workdetail 끝");
       
       // Tiles 적용 (UrlBase 방식)
       return "workboard.workdetail";
    }
 
-   // 일자리게시판 쓰기 (workboardinsert.htm)
-   @RequestMapping(value = "workboardinsert.htm", method = RequestMethod.GET)
-   public String workboardinsert() {
+   // 일자리게시판 쓰기 (workinsert.htm)
+   @RequestMapping(value = "workinsert.htm", method = RequestMethod.GET)
+   public String workinsert() {
       System.out.println("workboardinsert 시작");
       
       System.out.println("workboardinsert 끝");
@@ -123,30 +128,36 @@ public class WorkController {
       return "workboard.workinsert";
    }
 
-   // 일자리게시판 쓰기 성공 (workboardinsert.htm)
-   @RequestMapping(value = "workboardinsert.htm", method = RequestMethod.POST)
-   public String workboardinsertsuccess(WorkboardDTO dto, Model model) {
+   // 일자리게시판 쓰기 성공 (workinsert.htm)
+   @RequestMapping(value = "workinsert.htm", method = RequestMethod.POST)
+   public String workinsertsuccess(WorkboardDTO dto, Model model, Principal principal) {
 
-      System.out.println("workboardinsertsuccess 시작");
-      System.out.println(dto.toString());
+      System.out.println("workinsertsuccess 시작");
       
       WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
+      
+      //아이디 security 이용해서 가져와서 dto 세팅
+      System.out.println(principal.getName());
+      dto.setId(principal.getName());
+      
+      System.out.println(dto.toString());
+
       int result = workboarddao.insertWorkBoard(dto);
-      System.out.println("updateNoticeBoard result=>" + result);
+      System.out.println("workinsertsuccess result=>" + result);
       
       model.addAttribute("result", result); //실패 : 0 , 성공 : 1
       
-      System.out.println("workboardinsertsuccess 끝");
+      System.out.println("workinsertsuccess 끝");
 
       // Tiles 적용 (UrlBase 방식)
       return "workboard.worklist";
    }
 
-   // 일자리게시판 수정 (workboardupdate.htm)
-   @RequestMapping(value = "workboardupdate.htm", method = RequestMethod.GET)
-   public String workboardupdate(int num, int pg, Model model) {
+   // 일자리게시판 수정 (workupdate.htm)
+   @RequestMapping(value = "workupdate.htm", method = RequestMethod.GET)
+   public String workupdate(int num, int pg, Model model) {
 
-      System.out.println("workboardupdate 시작");
+      System.out.println("workupdate 시작");
       System.out.println("글번호(num) : " + num);
       System.out.println("페이지번호(pg) : " + pg);
       
@@ -159,14 +170,14 @@ public class WorkController {
       model.addAttribute("freeboarddto", workboarddto);
       model.addAttribute("pg", pg);
       
-      System.out.println("workboardupdate 끝");
+      System.out.println("workupdate 끝");
       
       // Tiles 적용 (UrlBase 방식)
       return "workboard.workupdate";
    }
 
    // 일자리게시판 수정 성공 (workboardupdate.htm)
-   @RequestMapping(value = "workboardupdate.htm", method = RequestMethod.POST)
+   @RequestMapping(value = "workupdate.htm", method = RequestMethod.POST)
    public String workboardupdatesuccess(WorkboardDTO dto, int pg, Model model) {
       System.out.println("workboardupdatesuccess 시작");
       System.out.println("페이지번호(pg)" + pg);
@@ -187,9 +198,9 @@ public class WorkController {
    }
 
    // 일자리게시판 삭제 (workboarddelete.htm)
-   @RequestMapping(value = "workboarddelete.htm", method = RequestMethod.GET)
-   public String workboarddelete(int num, int pg, Model model) {
-      System.out.println("workboarddelete 시작");
+   @RequestMapping(value = "workdelete.htm", method = RequestMethod.GET)
+   public String workdelete(int num, int pg, Model model) {
+      System.out.println("workdelete 시작");
       System.out.println("num" + num);
       System.out.println("pg" + pg);
       
@@ -199,7 +210,7 @@ public class WorkController {
       model.addAttribute("result", result); //실패 : 0 , 성공 : 1
       model.addAttribute("pg", pg);
       
-      System.out.println("workboarddelete 끝");
+      System.out.println("workdelete 끝");
       
       // Tiles 적용 (UrlBase 방식)
       return "workboard.worklist";

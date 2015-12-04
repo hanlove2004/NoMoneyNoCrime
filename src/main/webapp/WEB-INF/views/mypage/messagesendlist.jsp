@@ -15,13 +15,13 @@
 			<td>날짜</td>
 			<td>보낸사람</td>
 		</tr>
-		<!-- 받아오는 값 가칭 (messagereceivelist) 으로 설정 -->
-		<c:forEach var="messagereceivelist" items="${messagereceivelist}">
+		<!-- 받아오는 값 가칭 (messagesendlist) 으로 설정 -->
+		<c:forEach var="messagesendlist" items="${messagesendlist}">
 			<tr style="height: 30px;">
-				<td>${messagereceivelist.num}</td>
-				<td><a href="messagedatail.htm?num=${messagereceivelist.num}">${messagereceivelist.title}</a></td>
-				<td>${messagereceivelist.regdate}</td>
-				<td>${messagereceivelist.receiver}</td>
+				<td>${messagesendlist.num}</td>
+				<td><a href="messagedatail.htm?num=${messagesendlist.num}">${messagesendlist.title}</a></td>
+				<td>${messagesendlist.regdate}</td>
+				<td>${messagesendlist.sender}</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -31,9 +31,9 @@
 			<ul class="pagination pagination-sm">
 				<!-- 처음 , 이전 페이지로 이동 -->
 				<c:if test="${pg>block}">
-					<li><a href="messagereceivelist.htm?pg=1">처음</a></li>
+					<li><a href="messagesendlist.htm?pg=1">처음</a></li>
 					<li>
-						<a href="messagereceivelist.htm?pg=${fromPage-1}" aria-label="Previous">
+						<a href="messagesendlist.htm?pg=${fromPage-1}" aria-label="Previous">
 							<span aria-hidden="true">&laquo;</span>
 						</a>
 			    	</li>
@@ -42,17 +42,17 @@
 		    	<c:forEach begin="${fromPage}" end="${toPage}" var="i">
 		    		<c:if test="${i==pg}"><li class="active"><a>${i}</a></li></c:if>
 					<c:if test="${i!=pg}">
-						<li><a href="messagereceivelist.htm?pg=${i}">${i}</a></li>
+						<li><a href="messagesendlist.htm?pg=${i}">${i}</a></li>
 					</c:if>
 				</c:forEach> 
 				<!-- 마지막 , 다음 페이지로 이동 -->
 				<c:if test="${toPage<allPage}">
 					<li>
-						<a href="messagereceivelist.htm?pg=${toPage+1}" aria-label="Next">
+						<a href="messagesendlist.htm?pg=${toPage+1}" aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
 						</a>
 					</li>
-					<li><a href="messagereceivelist.htm?pg=${allPage}">마지막</a></li>
+					<li><a href="messagesendlist.htm?pg=${allPage}">마지막</a></li>
 				</c:if>
 			</ul>
 		</nav>
