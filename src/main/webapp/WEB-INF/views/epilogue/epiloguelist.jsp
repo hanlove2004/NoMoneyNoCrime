@@ -38,11 +38,10 @@
 					   		border-top-left-radius: 1em;
 							border-bottom-right-radius: 1em;
 							border-bottom-left-radius: 1em;">
-						<img class="card-img-top" src="<%=request.getContextPath()%>/images/${epiloguelist.photoname1}" 
+						<img class="card-img-top" src="<%=request.getContextPath()%>/upload/1449211088615Chrysanthemum_nam1554" 
 							alt="${epiloguelist.title}" height="100px" width="150px">
 						<div class="card-block">
 							<h4 class="card-title"><b>${epiloguelist.title}</b></h4>
-							<p class="card-text">${epiloguelist.content}</p>
 							<p class="card-text">
 								<small class="text-muted">${epiloguelist.regdate}</small>
 							</p>

@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.EpilogueboardDAO;
+import kr.co.moojun.model.DAO.Reply_EpilogueDAO;
 import kr.co.moojun.model.DTO.EpilogueboardDTO;
 import kr.co.moojun.model.DTO.Reply_EpilogueDTO;
 
@@ -32,7 +35,8 @@ public class EpilogueboardController {
 	private SqlSession sqlsession;
 	
 	@Autowired
-	private View jsonv; // 주입.	
+	@Qualifier("jsonview")
+	private View jsonview;	
 	
 	// 여행후기 목록 (epiloguelist.htm)
 	@RequestMapping(value = "epiloguelist.htm", method = RequestMethod.GET)
@@ -107,9 +111,50 @@ public class EpilogueboardController {
 		EpilogueboardDAO epilogueboarddao =  sqlsession.getMapper(EpilogueboardDAO.class);
 		EpilogueboardDTO epilogueboarddto = epilogueboarddao.getEpilogueBoard(Integer.parseInt(num));
        System.out.println(epilogueboarddto.toString());
-       modelmap.addAttribute(epilogueboarddto);
+       modelmap.addAttribute("epilogueboarddto",epilogueboarddto);
        
-       return jsonv;
+       return jsonview;
+	}
+	
+	// 여행후기 상세보기 (epiloguereplydetail.htm)
+	@RequestMapping(value = "epiloguereplydetail.htm", method = RequestMethod.POST)
+	public View epiloguereplydetail(String num , ModelMap modelmap) {
+		System.out.println("epiloguereplydetail start");
+		System.out.println(num);
+		
+		
+		HashMap map = new HashMap();
+		map.put("num", num);
+		
+		Reply_EpilogueDAO reply_epiloguedao = sqlsession.getMapper(Reply_EpilogueDAO.class);
+		List<Reply_EpilogueDTO> reply_epiloguelist = reply_epiloguedao.getEpilogueBoardReplyList(map);
+		
+		
+		modelmap.addAttribute("reply_epiloguelist",reply_epiloguelist);
+
+		return jsonview;
+	}
+	
+	// 여행 후기 댓글 쓰기
+	@RequestMapping(value = "reply_epiloguewrite.htm", method = RequestMethod.POST)
+	public View reply_epiloguewrite(String num, String replycontent , Principal principal, Model model){	
+		
+		System.out.println("reply_epiloguewrite start");
+		System.out.println("num:" + num);
+		System.out.println("replycontent:" + replycontent);
+		System.out.println("principal id:" + principal.getName());
+		
+		Reply_EpilogueDTO reply_epiloguedto = new Reply_EpilogueDTO();
+		reply_epiloguedto.setId(principal.getName());
+		reply_epiloguedto.setIdx(num);
+		reply_epiloguedto.setContent(replycontent);
+		
+		Reply_EpilogueDAO reply_epiloguedao = sqlsession.getMapper(Reply_EpilogueDAO.class);
+		reply_epiloguedao.insertEpilogueBoardReply(reply_epiloguedto);
+		
+		model.addAttribute("reply_epiloguedto", reply_epiloguedto);
+		
+		return jsonview;
 	}
 
 	// 여행후기 쓰기 (epilogueinsert.htm)
@@ -148,6 +193,9 @@ public class EpilogueboardController {
 				}
 				String[] splitname = fname.split("\\.");
 				String path  = request.getSession().getServletContext().getRealPath("/upload");
+				String path1 =   request.getContextPath().replace("/", "\\")+ "\\upload";
+				System.out.println(request.getSession().getServletContext().getContextPath());
+				System.out.println(path1);
 				
 				String uploadname = System.currentTimeMillis() + splitname[0] + "_"
 											+ principal.getName() + "." + splitname[1];
