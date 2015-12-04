@@ -98,11 +98,14 @@ public class WorkController {
 
    // 일자리게시판 상세보기 (workdetail.htm)
    @RequestMapping(value = "workdetail.htm", method = RequestMethod.GET)
-   public String workdetail(HttpServletRequest request, Model model) {
+   public String workdetail(HttpServletRequest request, Model model, Principal principal) {
       System.out.println("workdetail 시작");
       
       int num = Integer.parseInt(request.getParameter("num"));
       
+      String id = principal.getName();   //로그인한 아이디
+
+      System.out.println("로그인한 아이디 : " + id);
       System.out.println("num : " + num);
       
       //자유게시판 상세조회
@@ -111,6 +114,7 @@ public class WorkController {
       
       System.out.println(workboarddto.toString());
       model.addAttribute("workboarddto", workboarddto); // 모델앤 뷰중에서 모델
+      model.addAttribute("id" , id);
 
       System.out.println("workdetail 끝");
       

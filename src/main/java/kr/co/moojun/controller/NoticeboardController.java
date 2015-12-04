@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.NoticeboardDAO;
 import kr.co.moojun.model.DTO.NoticeboardDTO;
@@ -22,6 +24,10 @@ public class NoticeboardController {
    
    @Autowired
    private SqlSession sqlsession;
+   
+   @Autowired
+   @Qualifier("jsonview")
+   private View jsonview;
    
    //공지사항 목록 (noticelist.htm)
    @RequestMapping(value="noticelist.htm",method=RequestMethod.GET)
@@ -97,8 +103,8 @@ public class NoticeboardController {
    }
    
    // 공지사항 상세보기 (noticedetail.htm)
-   @RequestMapping(value = "noticedetail.htm", method = RequestMethod.GET)
-   public String noticedetail(int num, Model model) {
+   @RequestMapping(value = "noticedetail.htm", method = RequestMethod.POST)
+   public View noticedetail(int num, Model model) {
 
       System.out.println("noticedetail 시작");
 
@@ -110,7 +116,7 @@ public class NoticeboardController {
       
       System.out.println("noticedetail 끝");
       // Tiles 적용 (UrlBase 방식)
-      return "notice.noticedetail";
+      return jsonview;
    }
    
    // 공지사항 쓰기 (noticeinsert.htm)

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <div style="height: 500px; width: 700px; margin: auto;">
    <table class="table table-bordered"
       style="text-align: center; font-size: 30px;">
@@ -59,17 +60,39 @@
             <tr>
                <td colspan="3">
                   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#requestForm">
-                     <a href="#">신청</a>
+                     <a href="worklist.htm">신청</a>
                   </button>
+                  
                   &nbsp;&nbsp;&nbsp;
-                  <button type="submit" class="btn btn-danger">
-                     <a href="workupdate.htm?num=${workboarddto.num}">수정하기</a>
-                  </button>
-                  &nbsp;&nbsp;&nbsp;
-                  <button type="submit" class="btn btn-danger">
-                     <a href="workdelete.htm?num=${workboarddto.num}">삭제하기</a>
-                  </button>
-                  &nbsp;&nbsp;&nbsp;
+                  
+                  <!-- 작성자 아이디 -->
+                  <c:set var="dtoid" value="${workboarddto.id}" />
+                  
+                  <!-- 로그인한 아이디 -->
+                  <c:set var="loginid" value="${id}" />
+                  
+                  <!-- 로그인한 아이디와 작성자와 같을때 삭제, 수정버튼 활성화 -->
+                  <c:if test="${dtoid == loginid}">
+                     <button type="submit" class="btn btn-danger">
+                        <a href="workupdate.htm?num=${workboarddto.num}">수정하기</a>
+                     </button>
+                     
+                     &nbsp;&nbsp;&nbsp;
+                     
+                     <button type="submit" class="btn btn-danger">
+                       <a href="workdelete.htm?num=${workboarddto.num}">삭제하기</a>
+                       </button>
+              </c:if>
+              
+              <!-- 만약 관리자 일 경우 삭제버튼 활성화 -->
+              <se:authorize ifAllGranted="ROLE_ADMIN">
+                     <button type="submit" class="btn btn-danger">
+                       <a href="workdelete.htm?num=${workboarddto.num}">삭제하기</a>
+                       </button>
+              </se:authorize>
+              
+              &nbsp;&nbsp;&nbsp;
+                  
                   <button type="submit" class="btn btn-danger">
                      <a href="worklist.htm">목록</a>
                   </button>
