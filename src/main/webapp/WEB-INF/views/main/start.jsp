@@ -2,25 +2,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- 메인 -->
-<div id="start" class="collapse in">
-   <div class="well well-lg">
-      메인 
-      <br> 
-      <br> 
-      <br> 
-      <br> 
-      <br> 
-      <br> 
-      <br>
-      <br> 
-      메인 끝
-   </div>
+<div id="start" align="center" class="collapse in" style="margin-top: 90px;">
+	<div class="jumbotron text-center" style="vertical-align: middle; margin: auto; width: 500px; border-radius: 0.5em; background-color: #F2E966;">
+		<h2 style="font-family: myfont05;">돈 없는 것은 죄가 아니다!</h2> 
+		<b style="font-family: myfont05; font-size: 20px; color: #DC0429">떠나세요! 여러분의 무전여행을 도와드립니다.</b>
+		<hr>
+		<form class="form-inline">
+			<input type="text" class="form-control" size="35" placeholder="여행후기 검색">&nbsp;&nbsp;&nbsp;
+			<a href="#" class="btn btn-danger">
+				<span class="glyphicon glyphicon-search"></span> Search
+			</a> 
+		</form>
+	</div>
 </div>
 
 <!-- 로그인 -->
-<div id="login" align="center" class="collapse">
-   <div class="well well-lg" style="text-align: center; vertical-align: middle; margin: auto; width: 400px; border-color: white; border-style:;">
-      <h2 style="font-family: myfont05;">로그인</h2>
+<div id="login" class="collapse" style="margin: 80px;" >
+   <div class="well" 
+   		style="text-align: center; vertical-align: middle; margin: auto; width: 350px; border-radius: 0.5em; background-color: #F2E966;">
+      <h1 style="font-family: myfont05;">로그인</h1>
       <hr>
       <!-- SECURITY 적용부분 -->
       <c:if test="${param.error != null}">
@@ -35,14 +35,18 @@
       <form action="${pageContext.request.contextPath}/login" method="post">
          
          <div class="form-group">
-            <label for="username" class="col-sm-4 control-label">아이디:</label>
+            <label for="username" class="col-sm-3 control-label" style="font-size: 20px; text-align: right; vertical-align: middle;">
+            	<span class="glyphicon glyphicon-user"></span>
+            </label>
             <div class="col-sm-8">
                <input type="text" class="form-control" id="username" name="username" placeholder="ID">
             </div>
          </div>
          
          <div class="form-group">
-            <label for="password" class="col-sm-4 control-label">비밀번호:</label>
+            <label for="password" class="col-sm-3 control-label" style="font-size: 20px; text-align: right; vertical-align: middle;">
+            	<span class="glyphicon glyphicon-lock"></span>
+            </label>
             <div class="col-sm-8">
                <input type="password" class="form-control" id="password" name="password" placeholder="PASSWORD">
             </div>
@@ -61,7 +65,7 @@
    <div class="modal-dialog">
 
       <!-- Modal content-->
-      <div class="modal-content">
+      <div class="modal-content" style=" background-color: #F2EFC2;">
       
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -122,61 +126,61 @@
 
 <!-- 회원가입 -->
 <div id="join" align="center" class="collapse">
-   <div class="well well-lg" align="center" style="margin: auto; height: 85%; width: 50%;">
-      <div style="width: 400px;">
+   <div class="well well-lg" align="center" style="margin: auto; height: 85%; width: 40%; background-color: #F2E966;">
+      <!-- <div style="width: 400px;"> -->
          <form class="form-horizontal" name="joinform" action="main/join.htm" method="post" onsubmit="return CheckForm();">
             
             <div class="form-group">
                <label for="id" class="col-sm-4 control-label">아이디</label>
-               <div class="col-sm-8">
-                  <input type="text" class="form-control" name="id" id="id" placeholder="ID">
+               <div class="col-sm-6">
+                  <input type="text" class="form-control input-sm" name="id" id="id" placeholder="ID">
                </div>
             </div>
             <div class="form-group">
                <label for="pwd" class="col-sm-4 control-label">비밀번호</label>
-               <div class="col-sm-8">
-                  <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Password">
+               <div class="col-sm-6">
+                  <input type="password" class="form-control input-sm" name="pwd" id="pwd" placeholder="Password">
                </div>
             </div>
             <div class="form-group">
                <label for="confirmpwd" class="col-sm-4 control-label">비밀번호확인</label>
-               <div class="col-sm-8">
-                  <input type="password" class="form-control" name="confirmpwd" id="confirmpwd" placeholder="Password Check">
+               <div class="col-sm-6">
+                  <input type="password" class="form-control input-sm" name="confirmpwd" id="confirmpwd" placeholder="Password Check">
                </div>
             </div>
             <div class="form-group">
                <label for="pwdcheck" class="col-sm-4 control-label"></label>
-               <div class="col-sm-8" id="pwdcheck">필수정보 입니다.</div>
+               <div class="col-sm-6" id="pwdcheck">필수정보 입니다.</div>
             </div>
             <div class="form-group">
                <label for="name" class="col-sm-4 control-label">이름</label>
-               <div class="col-sm-8">
-                  <input type="text" class="form-control" name="name" id="name" placeholder="Nickname">
+               <div class="col-sm-6">
+                  <input type="text" class="form-control input-sm" name="name" id="name" placeholder="Name">
                </div>
             </div>
             <div class="form-group">
                <label for="phone" class="col-sm-4 control-label">전화번호</label>
-               <div class="col-sm-8">
-                  <input type="text" class="form-control" name="phone" id="phone" placeholder="(예시) 01012345678">
+               <div class="col-sm-6">
+                  <input type="text" class="form-control input-sm" name="phone" id="phone" placeholder="(예시) 01012345678">
                </div>
             </div>
             <div class="form-group">
                <label for="sex" class="col-sm-4 control-label">성별</label>
-               <div class="col-sm-5">
+               <div class="col-sm-4">
                   <label class="radio-inline"> <input type="radio" name="sex" id="man" value="남" checked>남</label> 
                   <label class="radio-inline"> <input type="radio" name="sex" id="woman" value="여">여</label>
                </div>
             </div>
             <div class="form-group">
                <label for="birth" class="col-sm-4 control-label">생년월일</label>
-               <div class="col-sm-8">
-                  <input type="date" class="form-control" name="birth" id="birth">
+               <div class="col-sm-6">
+                  <input type="date" class="form-control input-sm" name="birth" id="birth">
                </div>
             </div>
             <div class="form-group">
                <label for="email" class="col-sm-4 control-label">이메일</label>
-               <div class="col-sm-8">
-                  <input type="text" class="form-control" name="email" id="email">
+               <div class="col-sm-6">
+                  <input type="text" class="form-control input-sm" name="email" id="email" placeholder="(예시) kosta@kosta.co.kr">
                </div>
             </div>
             <br>
@@ -184,13 +188,13 @@
             <input type="button" onclick="location.href='javascript:joinform.reset()'" value="RESET" class="btn btn-info"> 
             <input type="button" onclick="location.href='main.start'" value="CANCEL" class="btn btn-danger">
          </form>
-      </div>
+      <!-- </div> -->
    </div>
 </div>
 
 <!-- 사용방법 -->
 <div id="howtouse" class="collapse">
-	<div class="well well-lg" style="margin: auto; height: 85%; width: 90%;">
+	<div class="well well-lg" style="margin: auto; height: 85%; width: 90%; background-color: #F2E966;">
 		<div class="container">
 			<h3 style="font-family: myfont05;">무전무죄 이용은 어떻게 하나요?</h3>
 			<p>

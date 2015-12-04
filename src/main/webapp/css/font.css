@@ -3,18 +3,18 @@
 	@font-face 
 	{
 	    font-family: myfont01;
-	    src: url('font/365dal.ttf');
+	    src: url(font/365dal.ttf);
 	    
 	    font-family: myfont02;
-	    src: url('font/koreanews.ttf');
+	    src: url(font/koreanews.ttf);
 	    
 	    font-family: myfont03;
-	    src : url('font/BMDOHYEON_ttf.ttf');
+	    src : url(font/BMDOHYEON_ttf.ttf);
 	    
 	    font-family: myfont04;
-	    src : url('font/BMJUA_ttf.ttf');
+	    src : url(font/BMJUA_ttf.ttf);
 	    
 	    font-family: myfont05;
-	    src : url('font/OSeongandHanEum-Bold.ttf');
+	    src : url(font/OSeongandHanEum-Bold.otf);
 	    
 	}
