@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div id="memberupdate" align="center" class="collapse">
+<div id="memberupdate" align="center">
    <div class="well well-lg" align="center" style="margin: auto; height: 85%; width: 50%;">
       <div style="width: 400px;">
          <form class="form-horizontal" name="memberupdate" action="memberupdate.htm" method="post">

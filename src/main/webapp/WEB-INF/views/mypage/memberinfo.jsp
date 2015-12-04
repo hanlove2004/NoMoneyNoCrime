@@ -3,7 +3,6 @@
 <div id="memberinfo" align="center">
    <div class="well well-lg" align="center" style="margin: auto; height: 85%; width: 50%;">
       <div style="width: 400px;">
-
             <div class="form-group">
                <label for="m_id" class="col-sm-4 control-label">아이디</label>
                <div class="col-sm-8">
