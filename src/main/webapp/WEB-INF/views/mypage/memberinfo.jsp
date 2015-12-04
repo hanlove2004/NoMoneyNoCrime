@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div id="memberinfo" align="center" class="collapse">
+<div id="memberinfo" align="center">
    <div class="well well-lg" align="center" style="margin: auto; height: 85%; width: 50%;">
       <div style="width: 400px;">
 
@@ -56,13 +56,13 @@
             <hr>
             
             <input type="button" onclick="memberupdate.htm" value="개인정보 수정" class="btn btn-info"> 
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteMember">ID / PWD 찾기</button>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteMember">회원탈퇴</button>
 
       </div>
    </div>
 </div>
 <!-- 회원탈퇴 모달창 -->
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="deleteMember" role="dialog">
 	<div class="modal-dialog">
 
 		<!-- Modal content-->
@@ -77,7 +77,7 @@
 						<h4 class="modal-title" style="text-align: left;"></h4>
 						<label for="id" class="col-sm-3 control-label">아이디:</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="id" name="id" readonly>${memberdto.id}
+							<input type="text" class="form-control" id="id" name="id" value="${memberdto.id}" readonly>
 						</div>
 					</div>
 					<div class="form-group form-inline">
