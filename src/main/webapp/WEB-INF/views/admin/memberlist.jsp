@@ -100,6 +100,7 @@
 									id="panalty" value="${memberlist.panalty}" readonly="readonly">
 							</div>
 						</div>
+						<hr>
 						<div class="form-group">
 							<button type="submit" class="btn btn-default">회원강퇴</button>
 						</div>

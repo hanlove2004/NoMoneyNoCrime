@@ -4,15 +4,15 @@
 <%@ taglib prefix="se"
 	uri="http://www.springframework.org/security/tags"%>
 
-<nav class="navbar">
-	<div class="container-fluid" style="background-image: url('<%=request.getContextPath()%>/images/free.jpg');">
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="<%=request.getContextPath()%>/submain.htm" style="padding-bottom: 0px; padding-right: 10px; padding-top: 0px;"><img src="<%=request.getContextPath()%>/images/무전무죄_logo_fin_04.png" style="width: 75px; height: 55px;"></a>
 		</div>
 		<div>
 			<ul class="nav navbar-nav">
 				<li><a href="<%=request.getContextPath()%>/notice/noticelist.htm">공지사항</a></li>
-				<li><a href="<%=request.getContextPath()%>/workboard/workboardlist.htm">귀인만나기</a></li>
+				<li><a href="<%=request.getContextPath()%>/workboard/worklist.htm">귀인만나기</a></li>
 				<li><a href="<%=request.getContextPath()%>/epilogue/epiloguelist.htm">여행후기</a></li>
 				<li><a href="<%=request.getContextPath()%>/freeboard/freelist.htm">자유게시판</a></li>
 			</ul>
