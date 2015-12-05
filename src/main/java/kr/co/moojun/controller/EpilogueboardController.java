@@ -116,9 +116,9 @@ public class EpilogueboardController {
        return jsonview;
 	}
 	
-	// 여행후기 상세보기 (epiloguereplydetail.htm)
+	// 여행후기 댓글 리스트 (epiloguereplydetail.htm)
 	@RequestMapping(value = "epiloguereplydetail.htm", method = RequestMethod.POST)
-	public View epiloguereplydetail(String num , ModelMap modelmap) {
+	public View epiloguereplydetail(String num , ModelMap modelmap, Principal principal) {
 		System.out.println("epiloguereplydetail start");
 		System.out.println(num);
 		
@@ -131,6 +131,7 @@ public class EpilogueboardController {
 		
 		
 		modelmap.addAttribute("reply_epiloguelist",reply_epiloguelist);
+		modelmap.addAttribute("userid", principal.getName());
 
 		return jsonview;
 	}
@@ -151,11 +152,29 @@ public class EpilogueboardController {
 		
 		Reply_EpilogueDAO reply_epiloguedao = sqlsession.getMapper(Reply_EpilogueDAO.class);
 		reply_epiloguedao.insertEpilogueBoardReply(reply_epiloguedto);
+		reply_epiloguedto.setNum(reply_epiloguedao.getMaxNumByIdx(num));
 		
 		model.addAttribute("reply_epiloguedto", reply_epiloguedto);
 		
 		return jsonview;
 	}
+	
+	// 여행 후기 댓글 삭제
+		@RequestMapping(value = "reply_epiloguedelete.htm", method = RequestMethod.POST)
+		public View reply_epiloguedelete(String num, Principal principal, Model model){	
+			
+			System.out.println("reply_epiloguedelete start");
+			System.out.println("num:" + num);
+			
+			Reply_EpilogueDTO reply_epiloguedto = new Reply_EpilogueDTO();
+			reply_epiloguedto.setNum(Integer.parseInt(num));
+			
+			Reply_EpilogueDAO reply_epiloguedao = sqlsession.getMapper(Reply_EpilogueDAO.class);
+			int result = reply_epiloguedao.deleteEpilogueBoardReply(reply_epiloguedto);
+			model.addAttribute("result", result);
+			
+			return jsonview;
+		}
 
 	// 여행후기 쓰기 (epilogueinsert.htm)
 	@RequestMapping(value = "epilogueinsert.htm", method = RequestMethod.GET)
