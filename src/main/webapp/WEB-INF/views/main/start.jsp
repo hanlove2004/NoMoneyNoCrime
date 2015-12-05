@@ -52,7 +52,7 @@
             </div>
          </div>
          <hr>
-         <button type="submit" class="btn btn-success">로그인</button>&nbsp;&nbsp;&nbsp;
+         <button type="submit" class="btn btn-success">로그인</button>&nbsp;&nbsp;
          
          <!-- 모달이동 -->
          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">ID / PWD 찾기</button>
@@ -62,66 +62,60 @@
 
 <!-- ID / PWD 찾기 Modal -->
 <div class="modal fade" id="myModal" role="dialog">
-   <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content" style=" background-color: #F2EFC2;">
-      
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">ID / PWD 찾기</h4>
-         </div>
-         
-         <!-- ID 찾기 -->
-         <div class="modal-footer">
-            <form action="${pageContext.request.contextPath}/main/searchid.htm" method="post">
-               <div class="form-group form-inline">
-                  <h4 class="modal-title" style="text-align: left;">ID 찾기</h4>
-                  <label for="name" class="col-sm-3 control-label">이름:</label>
-                  <div class="col-sm-8">
-                     <input type="text" class="form-control" id="name" name="name" placeholder="name">
-                  </div>
-               </div>
-               
-               <div class="form-group form-inline">
-                  <label for="email" class="col-sm-3 control-label">이메일:</label>
-                  <div class="col-sm-8">
-                     <input type="text" class="form-control" id="email" name="email" placeholder="email">
-                  </div>
-               </div>
-               
-               <button type="submit" class="btn btn-default">확인</button>
-            </form>
-         </div>
-
-         <!-- PWD 찾기 -->
-         <div class="modal-footer">
-            <form action="${pageContext.request.contextPath}/main/searchpwd.htm" method="post">
-               <div class="form-group form-inline">
-                  <h4 class="modal-title"style="text-align: left;">PWD 찾기</h4>
-                  <label for="id" class="col-sm-3 control-label">아이디:</label>
-                  <div class="col-sm-8">
-                     <input type="text" class="form-control" id="searchid" name="searchid" placeholder="id">
-                  </div>
-               </div>
-               
-               <div class="form-group form-inline">
-                  <label for="pwd" class="col-sm-3 control-label">이메일:</label>
-                  <div class="col-sm-8">
-                     <input type="text" class="form-control" id="email" name="email" placeholder="email">
-                  </div>
-               </div>
-               
-               <button type="submit" class="btn btn-default">확인</button>
-               
-            </form>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-         </div>
-      </div>
-
-   </div>
+	<div class="modal-dialog" style="width: 400px;">
+		
+		<!-- Modal content-->
+		<div class="modal-content" style="background-color: #A8D5F6;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" style="font-family: myfont05;">ID / PWD 찾기</h4>
+			</div>
+			<!-- ID 찾기 -->
+			<form action="${pageContext.request.contextPath}/main/searchid.htm"	method="post">
+				<div class="modal-body">
+					<h4 class="modal-title" style="text-align: left;">ID 찾기</h4>
+					<div class="form-group form-inline">
+						<br>
+						<label for="name" class="col-sm-3 control-label" style="font-size: 15px; text-align: right; vertical-align: middle;">이름</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="name" name="name" placeholder="name">
+						</div>
+					</div>
+					<div class="form-group form-inline">
+						<label for="email" class="col-sm-3 control-label" style="font-size: 15px; text-align: right; vertical-align: middle;">이메일</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="email" name="email"	placeholder="email">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-search"></span> 찾기</button>
+				</div>
+			</form>
+			<!-- PWD 찾기 -->
+			<form action="${pageContext.request.contextPath}/main/searchpwd.htm" method="post">
+				<div class="modal-body">
+					<h4 class="modal-title" style="text-align: left;">PWD 찾기</h4>
+					<div class="form-group form-inline">
+						<br>
+						<label for="id" class="col-sm-3 control-label" style="font-size: 15px; text-align: right; vertical-align: middle;">아이디</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="searchid" name="searchid" placeholder="id">
+						</div>
+					</div>
+					<div class="form-group form-inline">
+						<label for="pwd" class="col-sm-3 control-label" style="font-size: 15px; text-align: right; vertical-align: middle;">이메일</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="email" name="email"	placeholder="email">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-search"></span> 찾기</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
 <!-- 회원가입 -->
@@ -183,12 +177,11 @@
                   <input type="text" class="form-control input-sm" name="email" id="email" placeholder="(예시) kosta@kosta.co.kr">
                </div>
             </div>
-            <br>
-            <input type="submit" value="JOIN" class="btn btn-success"> 
-            <input type="button" onclick="location.href='javascript:joinform.reset()'" value="RESET" class="btn btn-info"> 
-            <input type="button" onclick="location.href='main.start'" value="CANCEL" class="btn btn-danger">
+               <button type="submit" class="btn btn-success" name="check" id="check">가입</button>
+		       <button type="reset" class="btn btn-info" onclick="location.href='javascript:joinform.reset()'">재작성</button>
+            <!-- <input type="submit" value="JOIN" class="btn btn-success">&nbsp;&nbsp;
+            <input type="button" onclick="location.href='javascript:joinform.reset()'" value="RESET" class="btn btn-info"> --> 
          </form>
-      <!-- </div> -->
    </div>
 </div>
 

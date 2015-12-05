@@ -23,9 +23,11 @@
 					<li><a href="<%=request.getContextPath()%>/admin/memberlist.htm"><span class="glyphicon glyphicon-user"></span>
 							회원현황</a></li>
 				</se:authorize>
-				<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+				<se:authorize ifNotGranted="ROLE_ADMIN">
 					<li><a href="<%=request.getContextPath()%>/mypage/memberinfo.htm"><span class="glyphicon glyphicon-user"></span>
 							MyPage</a></li>
+				</se:authorize>
+				<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
 					<li><a href="<%=request.getContextPath()%>/logout"> (${LoingUser})님 로그아웃</a></li>
 				</se:authorize>
 			</ul>
