@@ -14,5 +14,7 @@ public interface Reply_EpilogueDAO {
 
 	int deleteEpilogueBoardReply(Reply_EpilogueDTO dto); // 여행후기게시판 댓글 삭제하기
 
-	int getEpilogueBoardReplyCount(int num); // 자유겟판 댓글  수
+	int getEpilogueBoardReplyCount(int num); // 여행후기글의 댓글 총  수
+	
+	int getMaxNumByIdx(String idx); // 시퀀스 CURRVAL
 }

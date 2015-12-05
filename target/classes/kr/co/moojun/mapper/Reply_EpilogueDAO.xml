@@ -64,5 +64,8 @@
       WHERE IDX = #{num}
    </select>
 
+	<select id="getMaxNumByIdx" resultType="Integer">
+		SELECT MAX(NUM) FROM REPLY_EPILOGUE WHERE IDX = #{idx}
+	</select>
 
 </mapper>

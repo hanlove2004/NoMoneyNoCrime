@@ -9,6 +9,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,7 +138,7 @@ public class MemberController {
 		
 		// Tiles 적용 (UrlBase 방식)
 		System.out.println("joinsuccess end");
-		return "main.start";
+		return "redirect:/main.htm";
 	}
 	
 	//회원 탈퇴 성공 (delete.htm)
