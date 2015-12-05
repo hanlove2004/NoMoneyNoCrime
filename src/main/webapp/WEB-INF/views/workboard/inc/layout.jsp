@@ -11,6 +11,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- 폰트 적용 -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/font.css">
 <title>무전무죄 프로젝트</title>
 </head>
 <body>

@@ -16,6 +16,8 @@
 <script src="<%=request.getContextPath() %>/js/jquery.form.min.js"></script>
 <!-- jQuery MultiFile Plugin import -->
 <script src="<%=request.getContextPath() %>/js/jQuery.MultiFile.min.js"></script>
+<!-- 폰트 css -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/font.css">
 
 <script>
 $(document).ready(function(){

@@ -102,7 +102,8 @@
 						</div>
 						<hr>
 						<div class="form-group">
-							<button type="submit" class="btn btn-default">회원강퇴</button>
+							<button type="submit" class="btn btn-danger">
+								<a href="javascript:deleteMember(${memberlist.num})">회원강퇴</a></button>
 						</div>
 					</form>
 				</div>

@@ -40,8 +40,9 @@ public class AdminController {
 		int start = (pg * rowSize) - (rowSize - 1);
 		int end = pg * rowSize;
 
-		// 총 게시물수
+		// mapper 설정
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
+		// 총 게시물수
 		int total = memberdao.getMemberCount();
 
 		int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
@@ -90,4 +91,27 @@ public class AdminController {
 		// Tiles 적용 (UrlBase 방식)
 		return "admin.memberlist";
 	}
+	
+	@RequestMapping(value="memberdelete.htm",method=RequestMethod.GET)
+	public String memberdelete(int num){
+		
+		System.out.println("회원 강퇴 start");
+		
+		//mapper 설정
+		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
+		
+		int result = memberdao.admindeleteMember(num);
+		if(result > 0){
+			System.out.println("회원 강퇴 성공");
+		}else{
+			System.out.println("회원 강퇴 실패");
+		}
+		
+		System.out.println("회원 강퇴 end");
+		
+		// Tiles 적용 (UrlBase 방식)
+		return "redirect:memberlist.htm";
+	}
+	
+	
 }
