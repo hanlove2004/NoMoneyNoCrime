@@ -21,15 +21,6 @@
 			height: 100%;
 		}
 		
-		@font-face 
-		{
-		    font-family: myfont01;
-		    src: url(font/365달콤한머핀.ttf);
-		    
-		    font-family: myfont02;
-		    src: url(font/a대한늬우스M.ttf);
-		}
-		
 		a
 		{
 			color: white;
@@ -48,20 +39,23 @@
 		
 		p
 		{
-			color: yellow;
-			font-family: myfont02;
+			color: #A8D5F6;
+			font-family: myfont05;
+		}
+		
+		h3
+		{
+			font-family: myfont05;
 		}
 	</style>
 </head>
 <body>
-
+	
 		<!-- header 영역 -->
 		<tiles:insertAttribute name="header"/>
 		
 		<!-- main 영역 -->
-		<div class="maincontent">
 		<tiles:insertAttribute name="content"/>
-		</div>
 		
 		<!-- footer 영역 -->
 		<tiles:insertAttribute name="footer"/>
