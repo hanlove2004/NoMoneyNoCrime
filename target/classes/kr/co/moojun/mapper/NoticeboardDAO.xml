@@ -22,11 +22,22 @@
    <!-- 공지게시판 리스트(여러개) -->
    <select id="getNoticeBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.NoticeboardDTO">
       SELECT 
-             * 
-        FROM NOTICEBOARD
-      WHERE NUM >= #{start} 
-        AND NUM &lt;= #{end}
-      ORDER BY NUM ASC
+             *
+        FROM
+          (
+            SELECT 
+                   N.*
+                 , ROWNUM AS R 
+              FROM
+                ( 
+                  SELECT 
+                         * 
+                    FROM NOTICEBOARD 
+                   ORDER BY num DESC
+                ) N
+         )
+      WHERE R >= #{start} 
+        AND R &lt;= #{end}
    </select>
 
    <!-- 공지게시판 디테일(상세보기) -->
@@ -41,7 +52,7 @@
    <delete id="deleteNoticeBoard" parameterType="kr.co.moojun.model.DTO.NoticeboardDTO">
       DELETE 
         FROM NOTICEBOARD
-       WHERE NUM=#{num}
+       WHERE NUM = #{num}
    </delete>
 
    <!-- 공지게시판 수정하기 -->
@@ -65,7 +76,7 @@
       VALUES
       (
         NOTICE_SEQ.NEXTVAL
-      , #{id}
+      , 'admin'
       , #{title}
       , #{content}
       , SYSDATE

@@ -3,7 +3,7 @@
 
 <!-- 메인 -->
 <div id="start" align="center" class="collapse in" style="margin-top: 90px;">
-	<div class="jumbotron text-center" style="vertical-align: middle; margin: auto; width: 500px; border-radius: 0.5em; background-color: #F2E966;">
+	<div class="jumbotron text-center" style="vertical-align: middle; margin: auto; width: 500px; border-radius: 0.5em; background-color: #E5F1B5;">
 		<h2 style="font-family: myfont05;">돈 없는 것은 죄가 아니다!</h2> 
 		<b style="font-family: myfont05; font-size: 20px; color: #DC0429">떠나세요! 여러분의 무전여행을 도와드립니다.</b>
 		<hr>
@@ -19,7 +19,7 @@
 <!-- 로그인 -->
 <div id="login" class="collapse" style="margin: 80px;" >
    <div class="well" 
-   		style="text-align: center; vertical-align: middle; margin: auto; width: 350px; border-radius: 0.5em; background-color: #F2E966;">
+   		style="text-align: center; vertical-align: middle; margin: auto; width: 350px; border-radius: 0.5em; background-color: #E5F1B5;">
       <h1 style="font-family: myfont05;">로그인</h1>
       <hr>
       <!-- SECURITY 적용부분 -->
@@ -120,9 +120,9 @@
 
 <!-- 회원가입 -->
 <div id="join" align="center" class="collapse">
-   <div class="well well-lg" align="center" style="margin: auto; height: 85%; width: 40%; background-color: #F2E966;">
+   <div class="well well-lg" align="center" style="margin: auto; height: 85%; width: 40%; background-color: #E5F1B5;">
       <!-- <div style="width: 400px;"> -->
-         <form class="form-horizontal" name="joinform" action="main/join.htm" method="post" onsubmit="return CheckForm();">
+         <form class="form-horizontal" name="joinform" action="main/join.htm" method="post">
             
             <div class="form-group">
                <label for="id" class="col-sm-4 control-label">아이디</label>
@@ -187,7 +187,7 @@
 
 <!-- 사용방법 -->
 <div id="howtouse" class="collapse">
-	<div class="well well-lg" style="margin: auto; height: 85%; width: 90%; background-color: #F2E966;">
+	<div class="well well-lg" style="margin: auto; height: 85%; width: 90%; background-color: #E5F1B5;">
 		<div class="container">
 			<h3 style="font-family: myfont05;">무전무죄 이용은 어떻게 하나요?</h3>
 			<p>

@@ -15,40 +15,50 @@
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<!-- 폰트 적용 -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/font.css">
+	<!-- 파비콘 적용 -->
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
 	<title>무전무죄 프로젝트</title>
 	<script type="text/javascript">
-		function NoticeDetail(num){
-	        $.ajax(
-	           {
-	              type:"POST", //전송타입
-	              url:"noticedetail.htm"  , //서버 요청 주소생성
-	              data:"num="+num,   //jsp?user_id=aaa&user_pw=1004&is_Ajax=1
-	               //dataType:"html" ,  //서버가 클라이언트에 응답 dataType
-	               success:function(data){ //response 서버가 전달한 데이터
-	                        console.log(data.noticeboarddto.content);
-	                    //alert(num);
-	                    
-	                   $('#noticedetail'+num).html(
-	                       '<div class="col col-xs-10">'+data.noticeboarddto.content+'</div>'
-	                       +'<div class="col-btn col-xs-2">'
-	                       +'<button type="button" class="btn btn-info">'
-	                       +'<a href="#">수정</a>'
-	                       +'</button>  '
-	                       +'<button type="button" class="btn btn-danger">'
-	                       +'<a type="submit">삭제</a>'
-	                       +'</button>'
-	                       +'</div>'
-	                       +'<div>'
-	                       +'<hr>'
-	                       +'</div>'
-	                    ); 
-	                   $('#noticedetail'+num).slideToggle('slow');
-	                   } ,
-	                                         
-	               error:function(status){alert('ERROR');}  
-	           }
-	           );
-	     };
+	      function NoticeDetail(num){
+	           $.ajax(
+	              {
+	                 type:"POST", //전송타입
+	                 url:"noticedetail.htm"  , //서버 요청 주소생성
+	                 data:"num="+num,       //noticedetail.htm?num=num
+	                  success:function(data){ //response 서버가 전달한 데이터
+	                      console.log(data.noticeboarddto.content);
+	                      console.log(data.id);
+	                       //alert(num);
+	                  if(data.id == "admin"){
+	                     $('#noticedetail'+num).html(
+	                    		 '<div class="col col-xs-10">'+data.noticeboarddto.content+'</div>'
+			                       +'<div class="col-btn col-xs-2">'
+			                       +'<button type="button" class="btn btn-info btn-sm">'
+			                       +'<a href="noticeupdate.htm?num='+num+'">수정</a>'
+			                       +'</button>&nbsp;&nbsp;'
+			                       +'<button type="button" class="btn btn-danger btn-sm">'
+			                       +'<a href="noticedelete.htm?num='+num+'">삭제</a>'
+			                       +'</button>'
+			                       +'</div>'
+			                       +'<div>'
+			                       +'<hr>'
+			                       +'</div>'
+	                          ); 
+	                  } else {
+	                     $('#noticedetail'+num).html(
+	                        '<div class="col col-xs-10">'+data.noticeboarddto.content+'</div>'
+	                        +'<div><hr></div>'
+	                     );
+	                  }
+	                  
+                      $('#noticedetail'+num).slideToggle('slow');
+                      } ,
+	                                            
+	                  error:function(status){alert('ERROR');}  
+	              }
+	              );
+	        };
 	</script>
 	<style type="text/css">
 	
@@ -66,6 +76,7 @@
 			border: 2px solid silver;
 			height: 300px;
 			overflow: auto;
+			margin-bottom: 10px;
 		}
 		
 		div .col-btn {
@@ -74,6 +85,9 @@
 		
 		div .notice {
 			display: none;
+			height: 310px;
+			overflow: auto;
+			overflow-x: hidden;
 		}
 		
 		hr {
@@ -104,7 +118,7 @@
 		
 		a:hover
 		{
-			color: rgb(0, 153, 0);
+			color: black;
 			text-decoration: underline;
 		}
 		
@@ -116,12 +130,12 @@
 		p
 		{
 			color: #A8D5F6;
-			font-family: myfont03;
+			font-family: myfont05;
 		}
 		
 		h3
 		{
-			font-family: myfont01;
+			font-family: myfont05;
 		}
 		
 		hr
@@ -133,12 +147,27 @@
 		{
 			background-color: #fff;
 			border-radius: 0.5em;
+			width: 800px;
+			margin-top: 30px;
+			margin-bottom: 30px;
+			font-family: myfont05;
+			text-align: center;
+		}
+		
+		div #noticehead
+		{
+			padding-top: 20px;
+		}
+		
+		nav
+		{
+			font-family: myfont05;
 		}
 	</style>
 	
 </head>
 <body>
-	<div class="main" style="background-image: url(<%=request.getContextPath()%>/images/notice.jpg)">
+	<div class="main">
 
 		<!-- header 영역 -->
 		<tiles:insertAttribute name="header"/>

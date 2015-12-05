@@ -14,7 +14,7 @@ public interface NoticeboardDAO {
 
 	int updateNoticeBoard(NoticeboardDTO dto); // 공지게시판 수정하기
 
-	int deleteNoticeBoard(NoticeboardDTO dto); // 공지게시판 삭제하기
+	int deleteNoticeBoard(int num); // 공지게시판 삭제하기
 
 	int getNoticeBoardCount(); // 공지게시판 게시글의 수 
 }

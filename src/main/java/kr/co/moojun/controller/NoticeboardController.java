@@ -1,5 +1,6 @@
 package kr.co.moojun.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class NoticeboardController {
          pg = Integer.parseInt(strPg);
       }
       
-      int rowSize = 10;   //한번에 볼 수 있는 그리드 수
+      int rowSize = 5;   //한번에 볼 수 있는 글의 수
       int start = (pg * rowSize) - (rowSize - 1);
       int end = pg * rowSize;
       System.out.println(strPg + "/" + rowSize + "/" + start + "/" + end);
@@ -56,7 +57,7 @@ public class NoticeboardController {
       int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
       // int totalPage = total/rowSize + (total%rowSize==0?0:1);
 
-      int block = 10; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
+      int block = 5; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
                   // [10] >>
       int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
       // ((1-1)/10*10)
@@ -104,17 +105,23 @@ public class NoticeboardController {
    
    // 공지사항 상세보기 (noticedetail.htm)
    @RequestMapping(value = "noticedetail.htm", method = RequestMethod.POST)
-   public View noticedetail(int num, Model model) {
+   public View noticedetail(int num, Model model, Principal principal) {
 
       System.out.println("noticedetail 시작");
+      
+      String id = principal.getName();
+      
+      System.out.println("로그인한 아이디 : " +id);
 
       NoticeboardDAO noticeboarddao= sqlsession.getMapper(NoticeboardDAO.class); 
       NoticeboardDTO noticeboarddto =noticeboarddao.getNoticeBoard(num);
       
       System.out.println(noticeboarddto.toString());
-      model.addAttribute("noticeboarddto", noticeboarddto); // 모델앤 뷰중에서 모델~
+      model.addAttribute("noticeboarddto", noticeboarddto);
+      model.addAttribute("id",id);
       
       System.out.println("noticedetail 끝");
+      
       // Tiles 적용 (UrlBase 방식)
       return jsonview;
    }
@@ -141,24 +148,34 @@ public class NoticeboardController {
       
       System.out.println("noticeinsertsuccess 끝");
       // Tiles 적용 (UrlBase 방식)
-      return "notice.noticelist";
+      return "redirect:noticelist.htm";
    }
    
    // 공지사항 수정 (noticeupdate.htm)
    @RequestMapping(value = "noticeupdate.htm", method = RequestMethod.GET)
-   public String noticeupdate(int num, int pg, Model model) {
-      System.out.println("noticeupdate 시작");
+   public String noticeupdate(int num, HttpServletRequest request, Model model) {
       
+	  System.out.println("noticeupdate 시작");
       System.out.println("글번호(num) : " + num);
+      
+      int pg = 1;
+      
+      String strPg = request.getParameter("pg");
+      
+      if (strPg != null) 
+      {
+         pg = Integer.parseInt(strPg);
+      }
+      
       System.out.println("페이지번호(pg) : " + pg);
       
       NoticeboardDAO noticeboarddao= sqlsession.getMapper(NoticeboardDAO.class);  
-      NoticeboardDTO noticeboarddto =noticeboarddao.getNoticeBoard(num);
+      NoticeboardDTO noticeboarddto = noticeboarddao.getNoticeBoard(num);
       
       System.out.println("noticeboarddto.toString()");
       System.out.println(noticeboarddto.toString());
       model.addAttribute("noticeboarddto", noticeboarddto);
-      model.addAttribute("pg", pg);
+      model.addAttribute("pg" + pg);
       
       System.out.println("noticeupdate 끝");
       
@@ -168,14 +185,25 @@ public class NoticeboardController {
    
    // 공지사항 수정 성공 (noticeupdate.htm)
    @RequestMapping(value = "noticeupdate.htm", method = RequestMethod.POST)
-   public String noticeupdatesuccess(NoticeboardDTO dto, int pg, Model model) {
+   public String noticeupdatesuccess(NoticeboardDTO dto, HttpServletRequest request, Model model) {
 
       System.out.println("noticeupdatesuccess 시작");
-      System.out.println("페이지번호(pg)" + pg);
-      System.out.println(dto.toString());
+      System.out.println("dto.toString() : " + dto.toString());
       
+      int pg = 1;
+      
+      String strPg = request.getParameter("pg");
+      
+      if (strPg != null) 
+      {
+         pg = Integer.parseInt(strPg);
+      }
+      
+      System.out.println("페이지번호(pg) : " + pg);
+
       //int result = 실패 : 0 , 성공 : 1
-      NoticeboardDAO noticeboarddao= sqlsession.getMapper(NoticeboardDAO.class);  
+      NoticeboardDAO noticeboarddao = sqlsession.getMapper(NoticeboardDAO.class);
+      
       int result = noticeboarddao.updateNoticeBoard(dto);
       
       System.out.println("updateNoticeBoard result=>" + result);
@@ -185,27 +213,34 @@ public class NoticeboardController {
       System.out.println("noticeupdatesuccess 끝");
       
       // Tiles 적용 (UrlBase 방식)
-      return "notice.noticedetail";
+      return "redirect:noticelist.htm";
    }
    
    // 공지사항 삭제 (noticedelete.htm)
    @RequestMapping(value = "noticedelete.htm", method = RequestMethod.GET)
-   public String noticedelete(NoticeboardDTO dto, int pg, Model model) {
+   public String noticedelete(int num, HttpServletRequest request, Model model) {
 
       System.out.println("noticedelete 시작");
-      System.out.println(dto.toString());
-      System.out.println("pg" + pg);
+      System.out.println("글번호(num) : " + num);
+      
+      int pg = 1;
+      
+      String strPg = request.getParameter("pg");
+      
+      if (strPg != null) 
+      {
+         pg = Integer.parseInt(strPg);
+      }
       
       NoticeboardDAO noticeboarddao= sqlsession.getMapper(NoticeboardDAO.class);  
-      int result = noticeboarddao.deleteNoticeBoard(dto);
+      int result = noticeboarddao.deleteNoticeBoard(num);
       
       model.addAttribute("result", result); //실패 : 0 , 성공 : 1
-      model.addAttribute("pg", pg);
       
       System.out.println("noticedelete 끝");
       
       // Tiles 적용 (UrlBase 방식)
-      return "notice.noticelist";
+      return "redirect:noticelist.htm?pg="+pg;
    }
    
 }

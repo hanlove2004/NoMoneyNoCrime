@@ -1,5 +1,6 @@
 package kr.co.moojun.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,10 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.FreeboardDAO;
 import kr.co.moojun.model.DAO.Reply_FreeDAO;
@@ -23,6 +26,10 @@ public class FreeboardController {
    
    @Autowired
    private SqlSession sqlsession;
+   
+   @Autowired
+   @Qualifier("jsonview")
+   private View jsonview;
    
    //자유게시판 목록 (freelist.htm)
    @RequestMapping(value="freelist.htm",method=RequestMethod.GET)
@@ -96,9 +103,11 @@ public class FreeboardController {
    }
    
    // 자유게시판 상세보기 (freedetail.htm)
-   @RequestMapping(value = "freedetail.htm", method = RequestMethod.GET)
-   public String freedetail(int num, Model model, HttpServletRequest request) {
+   @RequestMapping(value = "freedetail.htm", method = RequestMethod.POST)
+   public View freedetail(int num, Model model, HttpServletRequest request, Principal principal) {
       System.out.println("freedetail 시작");
+      
+      String id = principal.getName();
       
       //자유게시판 상세조회
       FreeboardDAO freeboarddao= sqlsession.getMapper(FreeboardDAO.class); 
@@ -106,6 +115,7 @@ public class FreeboardController {
       
       System.out.println(freeboarddto.toString());
       model.addAttribute("freeboarddto", freeboarddto); // 모델앤 뷰중에서 모델
+      model.addAttribute("id",id);
       
       //자유게시판 댓글 리스트조회 함수 호출
       int pg = 1; //처음 시작페이지
@@ -171,7 +181,7 @@ public class FreeboardController {
       System.out.println("freedetail 끝");
 
       // Tiles 적용 (UrlBase 방식)
-      return "freeboard.freedetail";
+      return jsonview;
    }
    
    
