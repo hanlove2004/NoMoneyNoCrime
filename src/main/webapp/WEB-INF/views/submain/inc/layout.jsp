@@ -47,6 +47,11 @@
 		{
 			font-family: myfont05;
 		}
+		
+		nav
+		{
+			font-family: myfont05;
+		}
 	</style>
 </head>
 <body>

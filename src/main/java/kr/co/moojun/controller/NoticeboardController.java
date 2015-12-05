@@ -240,7 +240,7 @@ public class NoticeboardController {
       System.out.println("noticedelete 끝");
       
       // Tiles 적용 (UrlBase 방식)
-      return "redirect:noticelist.htm?pg="+pg;
+      return "redirect:noticelist.htm";
    }
    
 }

@@ -28,7 +28,8 @@
 							MyPage</a></li>
 				</se:authorize>
 				<se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-					<li><a href="<%=request.getContextPath()%>/logout"> (${LoingUser})님 로그아웃</a></li>
+					<li><a href="<%=request.getContextPath()%>/logout">
+							<span class="glyphicon glyphicon-log-out"></span>  [${LoingUser}]님 로그아웃</a></li>
 				</se:authorize>
 			</ul>
 		</div>

@@ -14,12 +14,12 @@
    <se:authorize ifNotGranted="ROLE_ADMIN">
       <div align="right" style="width: 97%; height: 30px;">
          <button type="submit" class="btn btn-info btn-sm">
-            <a href="noticeinsert.htm">
+            <a href="freeinsert.htm">
                <span class="glyphicon glyphicon-pencil"></span> 글쓰기
             </a>
       </div>
    </se:authorize>
-   <div class="freehead">
+   <div class="freehead" style="padding-top: 20px;">
       <div class="col col-xs-2">글번호</div>
       <div class="col col-xs-2">작성자</div>
       <div class="col col-xs-6">제목</div>
@@ -43,7 +43,8 @@
             </div>
          </div>
          <!-- detail -->
-         <div class="free" id="freedetail${freelist.num}"></div>
+         <div class="free" id="freedetail${freelist.num}" style="text-align: left;">
+         </div>
       </div>
    </c:forEach>
 

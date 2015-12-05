@@ -46,7 +46,7 @@ public class FreeboardController {
          pg = Integer.parseInt(strPg);
       }
       
-      int rowSize = 9;   //한번에 볼 수 있는 그리드 수
+      int rowSize = 5;   //한번에 볼 수 있는 글의 수
       int start    = (pg * rowSize) - (rowSize - 1);
       int end    =  pg * rowSize;
 
@@ -57,7 +57,7 @@ public class FreeboardController {
       int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
       // int totalPage = total/rowSize + (total%rowSize==0?0:1);
 
-      int block = 10; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
+      int block = 5; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
                   // [10] >>
       int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
       // ((1-1)/10*10)
@@ -268,12 +268,17 @@ public class FreeboardController {
    
    // 자유게시판 쓰기 성공 (freeinsert.htm)
    @RequestMapping(value = "freeinsert.htm", method = RequestMethod.POST)
-   public String freeinsertsuccess(FreeboardDTO dto, Model model) {
+   public String freeinsertsuccess(FreeboardDTO dto, Model model, Principal principal) {
 
       System.out.println("freeinsertsuccess 시작");
       System.out.println(dto.toString());
       
       FreeboardDAO freeboarddao = sqlsession.getMapper(FreeboardDAO.class);
+      
+      //로그인한 아이디 받아오기
+      String id = principal.getName();
+      dto.setId(id);
+      
       int result = freeboarddao.insertFreeBoard(dto);
       System.out.println("updateNoticeBoard result=>" + result);
       
@@ -282,15 +287,25 @@ public class FreeboardController {
       System.out.println("freeinsertsuccess 끝");
 
       // Tiles 적용 (UrlBase 방식)
-      return "freeboard.freelist";
+      return "redirect:freelist.htm";
    }
    
    // 자유게시판 수정 (freeupdate.htm)
    @RequestMapping(value = "freeupdate.htm", method = RequestMethod.GET)
-   public String freeupdate(int num, int pg, Model model) {
+   public String freeupdate(int num, HttpServletRequest request, Model model) {
       System.out.println("freeupdate 시작");
       
       System.out.println("글번호(num) : " + num);
+      
+      int pg = 1;
+      
+      String strPg = request.getParameter("pg");
+      
+      if (strPg != null) 
+      {
+         pg = Integer.parseInt(strPg);
+      }
+      
       System.out.println("페이지번호(pg) : " + pg);
       
       FreeboardDAO freeboarddao= sqlsession.getMapper(FreeboardDAO.class);  
@@ -309,10 +324,21 @@ public class FreeboardController {
    
    // 자유게시판 수정 성공 (freeupdate.htm)
    @RequestMapping(value = "freeupdate.htm", method = RequestMethod.POST)
-   public String freeupdatesuccess(FreeboardDTO dto, int pg, Model model) {
-      System.out.println("freeupdatesuccess 시작");
-      System.out.println("페이지번호(pg)" + pg);
+   public String freeupdatesuccess(FreeboardDTO dto, HttpServletRequest request, Model model) {
+      
+	  System.out.println("freeupdatesuccess 시작");
       System.out.println(dto.toString());
+      
+      int pg = 1;
+      
+      String strPg = request.getParameter("pg");
+      
+      if (strPg != null) 
+      {
+         pg = Integer.parseInt(strPg);
+      }
+      
+      System.out.println("페이지번호(pg) : " + pg);
       
       //int result = 실패 : 0 , 성공 : 1
       FreeboardDAO freeboarddao= sqlsession.getMapper(FreeboardDAO.class);  
@@ -325,26 +351,34 @@ public class FreeboardController {
       System.out.println("freeupdatesuccess 끝");
       
       // Tiles 적용 (UrlBase 방식)
-      return "freeboard.freedetail";
+      return "redirect:freelist.htm";
    }
    
    // 자유게시판 삭제 (freedelete.htm)
    @RequestMapping(value = "freedelete.htm", method = RequestMethod.GET)
-   public String freedelete(FreeboardDTO dto, int pg, Model model) {
+   public String freedelete(FreeboardDTO dto, HttpServletRequest request, Model model) {
       System.out.println("freedelete 시작");
       System.out.println(dto.toString());
-      System.out.println("pg" + pg);
+      
+      int pg = 1;
+      
+      String strPg = request.getParameter("pg");
+      
+      if (strPg != null) 
+      {
+         pg = Integer.parseInt(strPg);
+      }
       
       FreeboardDAO freeboarddao= sqlsession.getMapper(FreeboardDAO.class);  
       int result = freeboarddao.deleteFreeBoard(dto);
       
-      model.addAttribute("result", result); //실패 : 0 , 성공 : 1
+      //model.addAttribute("result", result); //실패 : 0 , 성공 : 1
       model.addAttribute("pg", pg);
       
-      
       System.out.println("freedelete 끝");
+      
       // Tiles 적용 (UrlBase 방식)
-      return "freeboard.freelist";
+      return "redirect:freelist.htm";
    }
    
    ///////////////////////////////////////////////////////////////////////////////////자유게시판 댓글 controll//////////

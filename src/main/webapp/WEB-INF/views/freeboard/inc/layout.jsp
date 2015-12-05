@@ -13,6 +13,9 @@
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<!-- 폰트 적용 -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/font.css">
+	<!-- 파비콘 적용 -->
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
 	<title>무전무죄 프로젝트</title>
 	<style type="text/css">
 		
@@ -73,11 +76,6 @@
 			text-decoration: underline;
 		}
 		
-		.maincontent 
-		{
-			height: 470px;
-		}
-		
 		p 
 		{
 			color: #A8D5F6;
@@ -104,59 +102,66 @@
 			font-family: myfont05;
 			text-align: center;
 		}
-</style>
+		
+		div #freehead
+		{
+			padding-top: 20px;
+		}
+		
+		nav
+		{
+			font-family: myfont05;
+		}
+	</style>
 	<script type="text/javascript">
 		function FreeDetail(num) {
-			$
-					.ajax({
-						type : "POST", //전송타입
-						url : "freedetail.htm", //서버 요청 주소생성
-						data : "num=" + num, //jsp?user_id=aaa&user_pw=1004&is_Ajax=1
-						//dataType:"html" ,  //서버가 클라이언트에 응답 dataType
-						success : function(data) { //response 서버가 전달한 데이터
-							console.log(data.freeboarddto.content);
-							console.log(data.id);
-							//alert(num);
-							if (data.id == data.freeboarddto.id) {
-								$('#freedetail' + num)
-										.html(
-												'<div class="col col-xs-10">'
-														+ data.freeboarddto.content
-														+ '</div>'
-														+ '<div class="col-btn col-xs-2">'
-														+ '<button type="button" class="btn btn-info btn-sm">'
-														+ '<a href="#">수정</a>'
-														+ '</button>  '
-														+ '<button type="button" class="btn btn-danger btn-sm">'
-														+ '<a type="submit">삭제</a>'
-														+ '</button>'
-														+ '</div>' + '<div>'
-														+ '<hr>' + '</div>');
-							} else if (data.id == "admin") {
-								$('#freedetail' + num)
-										.html(
-												'<div class="col col-xs-10">'
-														+ data.freeboarddto.content
-														+ '</div>'
-														+ '<div class="col-btn col-xs-2">'
-														+ '<button type="button" class="btn btn-danger btn-sm">'
-														+ '<a type="submit">삭제</a>'
-														+ '</button>'
-														+ '</div>' + '<div>'
-														+ '<hr>' + '</div>');
-							} else {
-								$('#freedetail' + num).html(
-										'<div class="col col-xs-10">'
-												+ data.freeboarddto.content
-												+ '</div>' + '<div><hr></div>');
-							}
-							$('#freedetail' + num).slideToggle('slow');
-						},
-
-						error : function(status) {
-							alert('ERROR');
+				$.ajax({
+					type : "POST", //전송타입
+					url : "freedetail.htm", //서버 요청 주소생성
+					data : "num=" + num,
+					//dataType:"html" ,  //서버가 클라이언트에 응답 dataType
+					success : function(data) { //response 서버가 전달한 데이터
+						console.log(data.freeboarddto.content);
+						console.log(data.id);
+						//alert(num);
+						if (data.id == data.freeboarddto.id) {
+							$('#freedetail'+num).html(
+									'<div class="col col-xs-10">'
+									+ data.freeboarddto.content
+									+ '</div>'
+									+ '<div class="col-btn col-xs-2">'
+									+ '<button type="button" class="btn btn-info btn-sm">'
+									+ '<a href="freeupdate.htm?num='+num+'">수정</a>'
+									+ '</button>  '
+									+ '<button type="button" class="btn btn-danger btn-sm">'
+									+ '<a href="freedelete.htm?num='+num+'">삭제</a>'
+									+ '</button>'
+									+ '</div>' + '<div>'
+									+ '<hr>' + '</div>');
+						} else if (data.id == "admin") {
+							$('#freedetail' + num).html(
+									'<div class="col col-xs-10">'
+									+ data.freeboarddto.content
+									+ '</div>'
+									+ '<div class="col-btn col-xs-2">'
+									+ '<button type="button" class="btn btn-danger btn-sm">'
+									+ '<a href="freedelete.htm?num='+num+'">삭제</a>'
+									+ '</button>'
+									+ '</div>' + '<div>'
+									+ '<hr>' + '</div>');
+						} else {
+							$('#freedetail' + num).html(
+									'<div class="col col-xs-10">'
+									+ data.freeboarddto.content
+									+ '</div>' + '<div><hr></div>');
 						}
-					});
+						$('#freedetail' + num).slideToggle('slow');
+					},
+
+					error : function(status) {
+						alert('ERROR');
+					}
+				});
 		};
 	</script>
 </head>
@@ -167,9 +172,7 @@
 		<tiles:insertAttribute name="header"/>
 		
 		<!-- main 영역 -->
-		<div class="maincontent" style="overflow: auto;">
 		<tiles:insertAttribute name="content"/>
-		</div>
 		
 		<!-- footer 영역 -->
 		<tiles:insertAttribute name="footer"/>

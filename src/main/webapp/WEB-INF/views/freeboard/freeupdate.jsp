@@ -10,17 +10,18 @@
 	</table>
 	<div style="height: 390px;">
 		<form name="freeupdateform" action="freeupdate.htm" method="post">
+			<input type="hidden" name="num" value="${freeboarddto.num}">
 			<table class="table table-striped" style="text-align: center; margin-bottom: 0;">
 				<tr>
 					<td>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 					<td colspan="2" align="left">
-						<input type="text" name="title" style="width: 320px;">
+						<input type="text" name="title" style="width: 320px;" value="${freeboarddto.title}">
 					</td>
 				</tr>
 				<tr>
 					<td>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 					<td colspan="2" style="height: 150px" align="left">
-						<textarea name="content" cols="70" rows="16"></textarea>
+						<textarea name="content" cols="70" rows="16">${freeboarddto.content}</textarea>
 					</td>
 				</tr>
 				<tr>

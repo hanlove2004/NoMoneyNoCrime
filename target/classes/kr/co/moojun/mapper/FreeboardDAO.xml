@@ -67,16 +67,14 @@
       UPDATE FREEBOARD
          SET TITLE    = #{title}
            , CONTENT    = #{content}
-       WHERE ID    = #{id} 
-         AND NUM    = #{num}
+       WHERE NUM    = #{num}
    </update>
    
    <!-- 자유게시판 삭제하기 -->
    <delete id="deleteFreeBoard" parameterType="kr.co.moojun.model.DTO.FreeboardDTO">
       DELETE 
         FROM FREEBOARD 
-       WHERE ID    = #{id} 
-         AND NUM    = #{num}
+       WHERE NUM    = #{num}
    </delete>
    
    <!-- 자유게시판 게시글의 수 -->

@@ -60,7 +60,7 @@ public class MemberController {
 		return "submain.main";
 	}*/
 	
-	//아이디, 비밀번호 찾기(searchinfo.htm)
+	/*//아이디, 비밀번호 찾기(searchinfo.htm)
 	@RequestMapping(value="searchinfo.htm",method=RequestMethod.GET)
 	public String searchform(){
 		
@@ -68,7 +68,7 @@ public class MemberController {
 		
 		// Tiles 적용 (UrlBase 방식)
 		return "main.searchform";
-	}
+	}*/
 	
 	//아이디 찾기 성공 (serchid.htm)
 	@RequestMapping(value="searchid.htm",method=RequestMethod.POST)

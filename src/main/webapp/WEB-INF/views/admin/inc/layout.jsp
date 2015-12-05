@@ -47,6 +47,11 @@
 		{
 			font-family: myfont01;
 		}
+		
+		nav
+		{
+			font-family: myfont05;
+		}
 	</style>
 	<script type="text/javascript">
 		function deleteMember(num) {
