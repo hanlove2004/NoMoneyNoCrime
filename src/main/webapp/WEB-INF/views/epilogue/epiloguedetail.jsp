@@ -10,7 +10,11 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<input type="hidden" id="modal-num">
+				<input type="hidden" id="path" value="<%=request.getContextPath()%>">
 				<h4 class="modal-title" id="modal-title"></h4>
+			</div>
+			<div class="modal-body" id="modal-image">
+				
 			</div>
 			<div class="modal-body" id="modal-body">
 				<p></p>
@@ -42,6 +46,8 @@
 			    success:function(data){
 			    	console.log(data.epilogueboarddto.title);
 			    	$("#modal-num").val(data.epilogueboarddto.num);
+			    	$("#modal-image").empty();
+			    	$("#modal-image").html("<img src=' " + $("#path").val()  + "/upload/" + data.epilogueboarddto.photoname1 +" ' >");		    	
 			        $("#modal-title").empty();
 			        $("#modal-title").html(data.epilogueboarddto.title);
 			        $("#modal-body").empty();
