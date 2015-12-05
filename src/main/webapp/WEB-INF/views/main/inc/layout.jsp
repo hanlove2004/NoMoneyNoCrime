@@ -76,61 +76,49 @@
 			});
 			
 			//회원가입 유효성 검사
-			var re_id = /^(\w+)(((\.?)(\w+))*)[@](((\w+)[.])+)(\w{2,3})$/; // 아이디 검사식
-			var re_pw = /^[a-z0-9_-]{6,18}$/; // 비밀번호 검사식
-			var re_email = /^(\w+)(((\.?)(\w+))*)[@](((\w+)[.])+)(\w{2,3})$/;  // 이메일 검사식 */
-			var re_url = /^(\d+)+[0|1](\d)+([0|1|2|3]\d)$/;
+			var re_id = /^[a-z0-9_-]{4,16}$/; //아이디 검사식 (4~16글자)
+			var re_pw = /^[a-z0-9_-]{6,18}$/; // 비밀번호 검사식 (6~18글자)
+			var re_email = /^(\w+)(((\.?)(\w+))*)[@](((\w+)[.])+)(\w{2,3})$/;  // 이메일 검사식
 			var re_tel = /^[0-9]{8,11}$/; // 전화번호 검사식
-			   
-			// 선택할 요소를 변수에 할당
-			// 변수에 할당하지 않으면 매번 HTML 요소를 선택해야 하기 때문에 귀찮고 성능에도 좋지 않다
-			// 쉼표를 이용해서 여러 변수를 한 번에 선언할 수 있다
-			// 보기 좋으라고 쉼표 단위로 줄을 바꿨다 
-			   
-			var uid = document.getElementById("id");
-			var upw = document.getElementById("pwd");
-			var upw2 = document.getElementById("confirmpwd");
-			var name = document.getElementById("name");
-			var phone = document.getElementById("phone");
-			var birth = document.getElementById("birth");
-			var email = document.getElementById("email");
 			
-			console.log(uid.value);
-			console.log(upw.value);
-			console.log(upw2.value);
-			console.log(birth.value);
-			console.log(name.value);
-			console.log(birth.value);
-			console.log(email.value);
-			console.log(phone.value);
-			
-			// 선택한 form에 서밋 이벤트가 발생하면 실행한다
-			// if (사용자 입력 값이 정규식 검사에 의해 참이 아니면) {포함한 코드를 실행}
-			// if 조건절 안의 '정규식.test(검사할값)' 형식은 true 또는 false를 반환한다
-			// if 조건절 안의 검사 결과가 '!= true' 참이 아니면 {...} 실행
-			// 사용자 입력 값이 참이 아니면 alerxt을 띄운다
-			// 사용자 입력 값이 참이 아니면 오류가 발생한 input으로 포커스를 보낸다
-			// 사용자 입력 값이 참이 아니면 form 서밋을 중단한다
-			function CheckForm() {
-           		alert("CheckForm");
+			$('#check').click(function() {
+           		
+           		//일력한 값 변수 할당
+           		var uid = document.joinform.id.value;
+    			var upw = document.joinform.pwd.value;
+    			var upw2 = document.joinform.confirmpwd.value;
+    			var name = document.joinform.name.value;
+    			var phone = document.joinform.phone.value;
+    			var birth = document.joinform.birth.value;
+    			var email = document.joinform.email.value;
+    			
+    			console.log(uid.value);
+    			console.log(upw.value);
+    			console.log(upw2.value);
+    			console.log(birth.value);
+    			console.log(name.value);
+    			console.log(birth.value);
+    			console.log(email.value);
+    			console.log(phone.value);
+    			
 				var result= true;
-				if (re_id.test(uid.val()) != true) { // 아이디 검사
+				if (re_id.test(uid) != true) { // 아이디 검사
 					alert('[아이디 입력 오류] 유효한 ID를 입력해 주세요.');
 					id.focus();
 					return false;
-				} else if (re_pw.test(upw.val()) != true) { // 비밀번호 검사
+				} else if (re_pw.test(upw) != true) { // 비밀번호 검사
 					alert('[비밀번호 입력 오류] 유효한 비밀번호 를 입력해 주세요.');
 					pwd.focus();
 					return false;
-				} else if (re_pw.test(upw2.val()) != true) { // 비밀번호 검사
+				} else if (re_pw.test(upw2) != true) { // 비밀번호 검사
 					alert('[비밀번호 입력 오류] 유효한 비밀번호 를 입력해 주세요.');
 					pwd2.focus();
 					return false;
-				} else if (name.value == "") { // 이름 검사
+				} else if (name == "") { // 이름 검사
 					alert('[이름 입력 오류] 이름 을 입력해 주세요.');
 					name.focus();
 					return false;
-				} else if (re_tel.test(phone.val()) != true) { // 전화번호 검사
+				} else if (re_tel.test(phone) != true) { // 전화번호 검사
 					alert('[Tel 입력 오류] 유효한 전화번호를 입력해 주세요.');
 					tel.focus();
 					return false;
@@ -138,12 +126,12 @@
 					alert('[생년월일 입력 오류] 생년월일을 입력해 주세요.');
 					birth.focus();
 					return false;
-				} else if (re_email.test(email.val()) != true) { // 이메일 검사
+				} else if (re_email.test(email) != true) { // 이메일 검사
 					alert('[이메일 입력 오류] 유효한 이메일을 입력해 주세요.');
 					email.focus();
 					return false;
 				}
-			}
+			});
 
 		});
 	</script>
@@ -171,13 +159,12 @@
 		{
 			width: 100%;
 			height: 100%;
-			background-image: url(images/moojun01.jpg);
 			background-repeat: no-repeat;
 		}
 		
 		.maincontent
 		{
-			height: 530px;
+			height: 540px;
 			padding-top: 65px;
 		}
 		
@@ -196,10 +183,15 @@
 		{
 			font-family: myfont05;
 		}
+		
+		h1,h2,h3,h4,h5
+		{
+			font-family: myfont05;
+		}
 	</style>
 </head>
 <body>
-	<div class="main">
+	<div class="main" style="background-image: url(<%=request.getContextPath()%>/images/moojun01.jpg);">
 			<!-- header 영역 -->
 			<tiles:insertAttribute name="header" />
 			
