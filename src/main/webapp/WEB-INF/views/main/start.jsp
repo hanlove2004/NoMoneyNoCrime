@@ -195,7 +195,7 @@
 				makes sure that all collapsible elements under the specified parent
 				will be closed when one of the collapsible item is shown.
 			</p>
-			<div class="panel-group" id="accordion">
+			<div class="panel-group" id="accordion" style="font-family: myfont05;">
 				<div class="panel panel-danger">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -205,11 +205,9 @@
 					</div>
 					<div id="collapse1" class="panel-collapse collapse in">
 						<div class="panel-body">
-							Lorem ipsum dolor sit amet,
-							consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-							labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-							nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-							commodo consequat.
+							회원 여러분의 무전여행을 도와주는 소중한 분들을 말합니다.<br>
+							여러분의 무전여행이 무전여행이기에 힘들고 어렵기만 한 것이 아니라 소중한 추억으로 
+							채워질 수 있도록 도와주시는 분들이 바로 귀인입니다.
 						</div>
 					</div>
 				</div>
@@ -222,11 +220,9 @@
 					</div>
 					<div id="collapse2" class="panel-collapse collapse">
 						<div class="panel-body">
-							Lorem ipsum dolor sit amet,
-							consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-							labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-							nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-							commodo consequat.
+							귀인 만나기 게시판을 통해서 귀인과의 만남이 성사될 수 있습니다. 
+							귀인 만나기 게시글 중에서 회원 여러분이 원하시는 게시글에 대해 신청을 하시면 귀인에게 신청 양식이 전달됩니다.<br>
+							귀인이 승인을 하게 되면 매칭이 완료됩니다.
 						</div>
 					</div>
 				</div>
@@ -239,11 +235,9 @@
 					</div>
 					<div id="collapse3" class="panel-collapse collapse">
 						<div class="panel-body">
-							Lorem ipsum dolor sit amet,
-							consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-							labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-							nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-							commodo consequat.
+							어플리케이션을 설치하시면 저희 사이트에서 이용하실 수 있는 서비스를 모두 이용하실 수 있으며,
+							추가적으로 길찾기 / 귀인찾기 등을 이용할 수 있는 지도 서비스를 함께 제공하고 있습니다. <br>
+							무전여행 다니실 때의 불편함을 해결해 드리기 위해서 제공되는 어플리케이션이니 회원 여러분의 많은 이용 부탁드립니다.
 						</div>
 					</div>
 				</div>
@@ -256,11 +250,8 @@
 					</div>
 					<div id="collapse4" class="panel-collapse collapse">
 						<div class="panel-body">
-							Lorem ipsum dolor sit amet,
-							consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-							labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-							nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-							commodo consequat.
+							각종 문의는 평일 오전 9시부터 오후 6시까지 아래의 전화번호를 통해서 연락을 주시면 문의에 대한 답변이 가능합니다.<br>
+							그리고 서류를 전달하셔야 하는 분들은 아래의 팩스 번호로 보내주시면 바로 처리해 드리겠습니다.
 						</div>
 					</div>
 				</div>

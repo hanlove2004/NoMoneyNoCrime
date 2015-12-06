@@ -8,13 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.View;
 
+import kr.co.moojun.model.DAO.EpilogueboardDAO;
 import kr.co.moojun.model.DAO.MemberDAO;
 import kr.co.moojun.model.DAO.WorkboardDAO;
+import kr.co.moojun.model.DTO.EpilogueboardDTO;
 import kr.co.moojun.model.DTO.MemberDTO;
 import kr.co.moojun.model.DTO.ReferenceDTO;
 import kr.co.moojun.model.DTO.WorkboardDTO;
@@ -25,11 +30,15 @@ public class MypageController {
 	
 	@Autowired
 	private SqlSession sqlsession;
+	
+	@Autowired
+	@Qualifier("jsonview")
+	private View jsonview;
 
 	// 마이페이지 회원정보 (memberinfo.htm)
 	@RequestMapping(value = "memberinfo.htm", method = RequestMethod.GET)
 	public String memberinfo(String id, Model model, HttpServletRequest request, Principal principal) {
-
+		
 		System.out.println("memberinfo 시작");
 		
 		//mapper 설정
@@ -243,8 +252,97 @@ public class MypageController {
 		return "mypage.workrequestlist";
 	}
 	
-	// 내 여행후기 목록 ()
+	// 내 여행후기 목록 (myepiloguelist.htm)
+	@RequestMapping(value = "myepiloguelist.htm", method = RequestMethod.GET)
+	public String epiloguelist(HttpServletRequest request, Principal principal) {
+		
+		System.out.println("myepiloguelist 시작");
+		
+		int pg = 1;
+		
+		String strPg = request.getParameter("pg");
+		
+		if (strPg != null) {
+			pg = Integer.parseInt(strPg);
+		}
+		
+		int rowSize = 6;
+		int start = (pg * rowSize) - (rowSize - 1);
+		int end = pg * rowSize;
+		
+		//수정해야할 부분
+		EpilogueboardDAO epilogueboarddao =  sqlsession.getMapper(EpilogueboardDAO.class);
+		int total = epilogueboarddao.getEpilogueBoardCount(); // 총 게시물수
+		System.out.println("시작 : " + start + " 끝:" + end);
+		System.out.println("글의 수 : " + total);
+
+		int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
+		// int totalPage = total/rowSize + (total%rowSize==0?0:1);
+		System.out.println("페이지수 : " + allPage);
+
+		int block = 5; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8]
+						// [9] [10] >>
+		int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
+		// ((1-1)/10*10)
+		int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
+		if (toPage > allPage) { // 예) 20>17
+			toPage = allPage;
+		}
+		
+		//접속자 아이디 받아오기
+		String id = principal.getName();
+		
+		HashMap map = new HashMap();
+
+		map.put("start", start);
+		map.put("end", end);
+		map.put("id", id);
+
+		List<EpilogueboardDTO> myepiloguelist = epilogueboarddao.getMyEpilogueBoardList(map);
+		request.setAttribute("myepiloguelist", myepiloguelist);
+		request.setAttribute("pg", pg);
+		request.setAttribute("allPage", allPage);
+		request.setAttribute("block", block);
+		request.setAttribute("fromPage", fromPage);
+		request.setAttribute("toPage", toPage);
+
+		System.out.println("------------------------------------------------");
+		System.out.println("시작             : " + start + " 끝:" + end);
+		System.out.println("글의 총 개수          : " + total);
+		System.out.println("처음 시작페이지       : " + pg);
+		System.out.println("페이지수          : " + allPage);
+		System.out.println("한페이지에 보여줄 범위     : " + block);
+		System.out.println("보여줄 페이지의 시작    : " + fromPage);
+		System.out.println("보여줄 페이지의 끝       : " + toPage);
+		System.out.println("List<EpilogueboardDTO> list");
+
+		for( EpilogueboardDTO dto : myepiloguelist)
+		{
+			System.out.println(dto.toString());
+		}
+		System.out.println("-------------------------------------------------");
+		System.out.println("myepiloguelist 끝");
+		
+		// Tiles 적용 (UrlBase 방식)
+		return "mypage.myepiloguelist";
+	}
 	
+	// 나의 여행후기 상세보기 (myepiloguedetail.htm)
+	@RequestMapping(value = "myepiloguedetail.htm", method = RequestMethod.POST)
+	public View epiloguedetail(String num , ModelMap modelmap) {
+		System.out.println("myepiloguedetail 시작");
+		System.out.println(num);
+		
+		EpilogueboardDAO epilogueboarddao =  sqlsession.getMapper(EpilogueboardDAO.class);
+		EpilogueboardDTO epilogueboarddto = epilogueboarddao.getMyEpilogueBoard(Integer.parseInt(num));
+		
+		System.out.println(epilogueboarddto.toString());
+		modelmap.addAttribute("epilogueboarddto",epilogueboarddto);
+			
+		System.out.println("myepiloguedetail 끝");
+		
+		return jsonview;
+	}
 
 	// 쪽지함 목록 (messagelist.htm)
 	@RequestMapping(value = "messagelist.htm", method = RequestMethod.GET)
@@ -268,43 +366,43 @@ public class MypageController {
 	
 	
 	// 레퍼런스 목록 (referencelist.htm)
-		@RequestMapping(value = "referencelist.htm", method = RequestMethod.GET)
-		public String referencelist() {
+	@RequestMapping(value = "referencelist.htm", method = RequestMethod.GET)
+	public String referencelist() {
 
-			System.out.println("");
+		System.out.println("");
 
-			// Tiles 적용 (UrlBase 방식)
-			return "reference.worklist";
-		}
+		// Tiles 적용 (UrlBase 방식)
+		return "reference.worklist";
+	}
 
-		// 레퍼런스 쓰기 (referenceinsert.htm)
-		@RequestMapping(value = "referenceinsert.htm", method = RequestMethod.GET)
-		public String referenceinsert() {
+	// 레퍼런스 쓰기 (referenceinsert.htm)
+	@RequestMapping(value = "referenceinsert.htm", method = RequestMethod.GET)
+	public String referenceinsert() {
 
-			System.out.println("");
+		System.out.println("");
 
-			// Tiles 적용 (UrlBase 방식)
-			return "reference.workinsert";
-		}
+		// Tiles 적용 (UrlBase 방식)
+		return "reference.workinsert";
+	}
 
-		// 레퍼런스 쓰기 성공 (referenceinsert.htm)
-		@RequestMapping(value = "referenceinsert.htm", method = RequestMethod.POST)
-		public String referenceinsertsuccess(ReferenceDTO dto) {
+	// 레퍼런스 쓰기 성공 (referenceinsert.htm)
+	@RequestMapping(value = "referenceinsert.htm", method = RequestMethod.POST)
+	public String referenceinsertsuccess(ReferenceDTO dto) {
 
-			System.out.println("");
+		System.out.println("");
 
-			// Tiles 적용 (UrlBase 방식)
-			return "reference.worklist";
-		}
+		// Tiles 적용 (UrlBase 방식)
+		return "reference.worklist";
+	}
 
-		// 레퍼런스 삭제 (referencedelete.htm)
-		@RequestMapping(value = "referencedelete.htm", method = RequestMethod.GET)
-		public String referencedelete(String num) {
+	// 레퍼런스 삭제 (referencedelete.htm)
+	@RequestMapping(value = "referencedelete.htm", method = RequestMethod.GET)
+	public String referencedelete(String num) {
 
-			System.out.println("");
+		System.out.println("");
 
-			// Tiles 적용 (UrlBase 방식)
-			return "reference.worklist";
-		}
+		// Tiles 적용 (UrlBase 방식)
+		return "reference.worklist";
+	}
 
 }

@@ -19,4 +19,8 @@ public interface EpilogueboardDAO {
 	
 	int getEpilogueBoardCount(); //여행후기 게시글의 수
 	
+	List<EpilogueboardDTO> getMyEpilogueBoardList(HashMap map); // 나의 여행후기 리스트(목록)
+	
+	EpilogueboardDTO getMyEpilogueBoard(int num); // 여행후기 디테일(상세보기)
+	
 }

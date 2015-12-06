@@ -13,6 +13,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<!-- jQuery Form Plugin import -->
+	<script src="<%=request.getContextPath() %>/js/jquery.form.min.js"></script>
+	<!-- jQuery MultiFile Plugin import -->
+	<script src="<%=request.getContextPath() %>/js/jQuery.MultiFile.min.js"></script>
+		
 	<!-- 폰트 적용 -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/font.css">
 	<title>무전무죄 프로젝트</title>
@@ -21,18 +27,6 @@
 		{
 			width: 100%;
 			height: 100%;
-		}
-		
-		@font-face 
-		{
-		    font-family: myfont01;
-		    src: url(font/365dal.ttf);
-		    
-		    font-family: myfont02;
-		    src: url(font/koreanews.ttf);
-		    
-		    font-family: myfont03;
-		    src : url(font/BMDOHYEON_ttf.ttf)
 		}
 		
 		a
@@ -54,12 +48,17 @@
 		p
 		{
 			color: #A8D5F6;
-			font-family: myfont03;
+			font-family: myfont05;
 		}
 		
 		h3
 		{
-			font-family: myfont01;
+			font-family: myfont05;
+		}
+		
+		nav
+		{
+			font-family: myfont05;
 		}
 	</style>
 </head>
