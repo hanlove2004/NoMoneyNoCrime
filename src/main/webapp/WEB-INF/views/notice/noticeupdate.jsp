@@ -1,21 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div style="height: 500px; width: 700px; margin: auto;">
+<div class="container" id="noticecontainer">
 	<table class="table table-bordered"
-		style="text-align: center; font-size: 30px;">
+		style="text-align: center; font-size: 30px; font-family: myfont05; margin-top: 20px;">
 		<tr>
-			<td class="active"><b>공지사항 수정</b></td>
+			<td class="danger"><b>공지사항 수정</b></td>
 		</tr>
 	</table>
-	<div style="height: 390px;">
+	<div align="center">
 		<form name="noticeupdateform" action="noticeupdate.htm" method="post">
 			<input type="hidden" name="num" value="${noticeboarddto.num}">
-			<table class="table table-striped" style="text-align: center; margin-bottom: 0;">
+			<table class="table table-striped" style="text-align: center; margin-bottom: 0; font-family: myfont05;">
 				<tr>
 					<td>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 					<td colspan="2" align="left">
-						<input type="text" name="title" style="width: 320px;" value="${noticeboarddto.title}">
+						<input type="text" name="title" style="width: 514px;" value="${noticeboarddto.title}">
 					</td>
 				</tr>
 				<tr>
