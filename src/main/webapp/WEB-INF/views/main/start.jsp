@@ -190,10 +190,10 @@
 	<div class="well well-lg" style="margin: auto; height: 85%; width: 90%; background-color: #E5F1B5;">
 		<div class="container">
 			<h3 style="font-family: myfont05;">무전무죄 이용은 어떻게 하나요?</h3>
-			<p>
-				<strong>Note:</strong> The <strong>data-parent</strong> attribute
-				makes sure that all collapsible elements under the specified parent
-				will be closed when one of the collapsible item is shown.
+			<p style="color: gray;">
+				<strong>기타문의사항:</strong> <strong>무전무죄</strong> 사이트를 이용하시면서
+				문의사항이 있으시면 전화번호(031-1234-5678) 또는 이메일(NoMoneyNoCrime@naver.com)로
+				문의를 주시면 빠른 답변을 드리겠습니다.
 			</p>
 			<div class="panel-group" id="accordion" style="font-family: myfont05;">
 				<div class="panel panel-danger">

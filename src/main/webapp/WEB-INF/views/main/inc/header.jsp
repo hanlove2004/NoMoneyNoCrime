@@ -6,7 +6,7 @@
 <nav class="navbar navbar-fixed-top" style="margin-bottom: 0px;">
 	<div class="container-fluid">
 	   <div class="navbar-header">
-	      <a class="navbar-brand" href="main.htm" style="padding-bottom: 0px; padding-right: 10px; 
+	      <a class="navbar-brand" href="<%=request.getContextPath()%>/main.htm" style="padding-bottom: 0px; padding-right: 10px; 
 	      	padding-top: 0px;">
 	      	<img src="<%=request.getContextPath()%>/images/무전무죄_logo_fin_09.png" style="width: 75px; height: 55px;">
 	      </a>
