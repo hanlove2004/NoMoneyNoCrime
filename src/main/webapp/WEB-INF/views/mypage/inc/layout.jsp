@@ -21,6 +21,9 @@
 		
 	<!-- 폰트 적용 -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/font.css">
+	<!-- 파비콘 적용 -->
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
 	<title>무전무죄 프로젝트</title>
 	<style type="text/css">
 		.main
