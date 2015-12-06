@@ -39,7 +39,6 @@
 		
 		a:hover
 		{
-			color: rgb(0, 153, 0);
 			text-decoration: underline;
 		}
 		
@@ -69,21 +68,22 @@
 
 	<!-- header 영역 -->
 	<tiles:insertAttribute name="header"/>
-	
+	<hr>
 	<div style="text-align: center">
-		<button type="submit" class="btn btn-info">
+		<button type="submit" class="btn btn-success">
 			<a href="memberinfo.htm">회원정보</a>
 		</button>&nbsp;&nbsp;&nbsp;
-		<button type="submit" class="btn btn-info">
+		<button type="submit" class="btn btn-success">
 			<a href="workaddlist.htm">일자리현황</a>
 		</button>&nbsp;&nbsp;&nbsp;
-		<button type="submit" class="btn btn-info">
+		<button type="submit" class="btn btn-success">
 			<a href="myepiloguelist.htm">나의여행후기</a>
 		</button>&nbsp;&nbsp;&nbsp;
-		<button type="submit" class="btn btn-info">
+		<button type="submit" class="btn btn-success">
 			<a href="messagelist.htm">쪽지함</a>
 		</button>
 	</div>
+	<hr>
 	<!-- main 영역 -->
 	<tiles:insertAttribute name="content"/>
 	
