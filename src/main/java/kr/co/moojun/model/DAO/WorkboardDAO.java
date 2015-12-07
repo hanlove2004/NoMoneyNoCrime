@@ -2,6 +2,7 @@ package kr.co.moojun.model.DAO;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kr.co.moojun.model.DTO.WorkboardDTO;
 
@@ -15,6 +16,10 @@ public interface WorkboardDAO {
    int updateWorkBoard(WorkboardDTO dto); // 일자리게시판 수정하기
 
    int deleteWorkBoard(int num); // 일자리게시판 삭제하기 (실제 삭제가 아니라 유효기간만료된 글을 리스트에서 안보이게 하는것)
+   
+   List<WorkboardDTO> checkboxSearch(HashMap map);   // checkboxsearch
+   
+   List<WorkboardDTO> buttonSearch(String searchvalue);   // buttonSearch
 
    int getWorkBoardCount(); // 일자리게시판 게시글의 수
    

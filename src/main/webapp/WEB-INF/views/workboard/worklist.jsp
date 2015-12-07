@@ -1,14 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div style="height: 500px; width: 700px; margin: auto;">
+<div style=" width: 700px; margin: auto;">
    <table class="table table-bordered"
       style="text-align: center; font-size: 30px;">
+      <tr>
+         <td>
+         <!-- checkbox -->
+         <input type="checkbox" id="sukso"    name="column" value="숙소" >숙소
+         <input type="checkbox" id="siksa"    name="column" value="식사" >식사
+         <input type="checkbox" id="don"    name="column" value="급여" >급여
+         
+          &nbsp;
+          
+          <input type="search" id="searchvalue" name="searchvalue" placeholder="주소 및 제목 검색">
+            
+            &nbsp;
+            
+            <button id="search" class="btn btn-danger">
+                              검색
+            </button>
+         </td>
+      </tr>
       <tr>
          <td class="active"><b>귀인 만나기</b></td>
       </tr>
    </table>
-   <table class="table table-hover" style="text-align: center;">
+   <table id="body" class="table table-hover" style="text-align: center;">
+
       <tr style="height: 30px;" class="success">
          <td>글번호</td>
          <td>작성자</td>
@@ -16,6 +35,7 @@
          <td>보상</td>
          <td>인원</td>
       </tr>
+
       <c:forEach var="workboardlist" items="${worklist}">
          <tr style="height: 30px;">
             <td>${workboardlist.num}</td>
@@ -25,6 +45,7 @@
             <td>${workboardlist.needpeople}</td>
          </tr>
       </c:forEach>
+
    </table>
    
    <div style="text-align: right">

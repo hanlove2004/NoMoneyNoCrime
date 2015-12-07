@@ -13,18 +13,152 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <!-- 폰트 적용 -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/font.css">
+<!-- 파비콘 적용 -->
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
 <title>무전무죄 프로젝트</title>
+
+<script type="text/javascript">
+   $(document).ready(function() {
+      //search 버튼 클릭시
+      $('#search').click(function() {
+         var searchvalue = $('#searchvalue').val();
+         console.log("searchvalue : " + searchvalue);
+         
+         $.ajax({
+            type    : "post",
+            url     : "worklistbuttonsearch.htm",
+            data    : "searchvalue=" + searchvalue,
+            success : function(data) { //callback  
+               console.log("data.result : " + data.result + " / " + "data.worklist : " + data.worklist);
+            
+               var print = "";
+               
+               //값이 있을경우
+                if(data.result == "1")
+                {
+                   console.log("result = 1");
+                   //기존 자료 삭제
+                   $("#body").empty();
+                   
+                  print += "<tr style=\"height: 30px;\" class=\"success\">";
+                    print += "<td>글번호</td>";
+                    print += "<td>작성자</td>"
+                    print += "<td>제목</td>"
+                    print += "<td>보상</td>";
+                    print += "<td>인원</td>";
+                    print += "</tr>";
+                  
+                    $.each(data.worklist, function(index, obj){
+                     // \역슬러시 사용해서 ""를 문자그대로 인식하도록 했다.
+                     print += "<tr style=\"height: 30px;\">"
+                     print += "<td>" + obj.num + "</td>";
+                        print += "<td>" + obj.id + "</td>";
+                        print += "<td>" + "<a href=\"workdetail.htm?num=" + obj.num + "\">" + obj.title + "</a></td>";
+                        print += "<td>" + obj.compensate + "</td>";
+                        print += "<td>" + obj.needpeople + "</td>";
+                     print += "</tr>";
+                  });            
+                  
+                  $("#body").append(print);
+                }
+                else //값이 있을경우
+               {
+                   console.log("result = 2");
+                   $("#body").empty();                      
+                   $("#body").html("결과값이 없습니다.");
+               }
+            }
+         });
+         
+      });
+      
+      //체크박스 체크시 이벤트
+      $('input[name=column]').click(function() {
+            //각각의 체크박스 체크유무 가져오기
+            var sukso = $("input:checkbox[id='sukso']").is(":checked");
+            var siksa = $("input:checkbox[id='siksa']").is(":checked");
+            var don   = $("input:checkbox[id='don']"  ).is(":checked");
+   
+            console.log("sukso : " + sukso + " / " + "siksa : " + siksa + " / " + "don : " + don);
+            
+            $.ajax({
+               type : "post",
+               url  : "worklistchecksearch.htm",
+               data : "sukso=" + sukso + "&don=" + don + "&siksa=" + siksa,
+               success : function(data) { //callback  
+                  console.log("data.result : " + data.result + " / " + "data.worklist : " + data.worklist);
+               
+                  var print = "";
+                  
+                  //결과값이 있는경우
+                   if(data.result == "1")
+                   {
+                      console.log("result = 1");
+                      $("#body").empty();
+                      
+                     print += "<tr style=\"height: 30px;\" class=\"success\">";
+                       print += "<td>글번호</td>";
+                       print += "<td>작성자</td>"
+                       print += "<td>제목</td>"
+                       print += "<td>보상</td>";
+                       print += "<td>인원</td>";
+                       print += "</tr>";
+                     
+                       $.each(data.worklist, function(index, obj){
+                        // \역슬러시 사용해서 ""를 문자그대로 인식하도록 했다.
+                        print += "<tr style=\"height: 30px;\">"
+                        print += "<td>" + obj.num + "</td>";
+                           print += "<td>" + obj.id + "</td>";
+                           print += "<td>" + "<a href=\"workdetail.htm?num=" + obj.num + "\">" + obj.title + "</a></td>";
+                           print += "<td>" + obj.compensate + "</td>";
+                           print += "<td>" + obj.needpeople + "</td>";
+                        print += "</tr>";
+                     });            
+                     
+                     $("#body").append(print);
+                   }
+                   else //체크박스에서 선택한게 없을경우.
+                  {
+                      console.log("result = 2");
+                      $("#body").empty();                      
+                      $("#body").html("결과값이 없습니다.");
+                  }
+               }
+            });
+         });
+   });
+</script>
+<style type="text/css">
+	a 
+	{
+		color: white;
+	}
+	
+	a:hover 
+	{
+		color: black;
+		text-decoration: underline;
+	}
+	
+	p 
+	{
+		color: #A8D5F6;
+		font-family: myfont05;
+	}
+</style>
+
 </head>
 <body>
 
-	<!-- header 영역 -->
-	<tiles:insertAttribute name="header"/>
-	
-	<!-- main 영역 -->
-	<tiles:insertAttribute name="content"/>
-	
-	<!-- footer 영역 -->
-	<tiles:insertAttribute name="footer"/>
-	
+   <!-- header 영역 -->
+   <tiles:insertAttribute name="header"/>
+   
+   <!-- main 영역 -->
+   <tiles:insertAttribute name="content"/>
+   
+   <!-- footer 영역 -->
+   <tiles:insertAttribute name="footer"/>
+   
 </body>
 </html>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div style="height: 500px; width: 700px; margin: auto;">
+<div class="container" style="width: 700px; margin: auto;">
    <table class="table table-bordered"
       style="text-align: center; font-size: 30px;">
       <tr>
@@ -9,7 +9,7 @@
       </tr>
    </table>
    
-   <div style="height: 390px;">
+   <div>
       <form name="workinsertform" action="workinsert.htm" method="post">
          <table class="table table-striped" style="text-align: center; margin-bottom: 0;">
             <tr>
@@ -34,7 +34,7 @@
             </tr>
             <tr>
                <td>보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</td>
-               <td colspan="2" style="height: 150px" align="left">
+               <td colspan="2" align="left">
                   <input type="checkbox" name="compensate" value="급여"> 급여
                   <input type="checkbox" name="compensate" value="숙소"> 숙소
                   <input type="checkbox" name="compensate" value="식사"> 식사
@@ -42,19 +42,19 @@
             </tr>
             <tr>
                <td>구&nbsp;인&nbsp;인&nbsp;원</td>
-               <td colspan="2" style="height: 150px" align="left">
+               <td colspan="2" align="left">
                   <input type="text" name="needpeople" style="width: 320px;">
                </td>
             </tr>
             <tr>
                <td>전&nbsp;화&nbsp;번&nbsp;호</td>
-               <td colspan="2" style="height: 150px" align="left">
+               <td colspan="2" align="left">
                   <input type="text" name="phone" style="width: 320px;">
                </td>
             </tr>
             <tr>
                <td>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td>
-               <td colspan="2" style="height: 150px" align="left">
+               <td colspan="2" align="left">
                   <textarea name="content" cols="70" rows="16"></textarea>
                </td>
             </tr>
