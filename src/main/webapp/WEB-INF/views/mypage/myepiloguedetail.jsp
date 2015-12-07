@@ -50,6 +50,16 @@
 			    	arr.push(data.epilogueboarddto.photoname3);
 			    	
 			    	$("#modal-num").val(data.epilogueboarddto.num);
+			    	$("#modal-writer").val(data.epilogueboarddto.id);
+			    	
+			    	var LoingUser = $('#LoingUser').val();
+			    	
+			    	$('#modal-edit').empty();
+		    		$('#modal-delete').empty();
+			    	if(LoingUser == data.epilogueboarddto.id){
+			    		$('#modal-edit').append("<a href='epilogueupdate.htm?num=" + data.epilogueboarddto.num + "' style='color:#333;'>수정</a>");
+			    		$('#modal-delete').append("<a href='epiloguedelete.htm?num="+ data.epilogueboarddto.num +"' style='color:#333;'>삭제</a>");
+			    	}
 			    	
 			    	$("#modal-image").empty();
 			    	for(var i = 0 ; i < arr.length ; i++){
@@ -71,7 +81,7 @@
 			
 			$.ajax({
 				type: "post",
-				url: "epiloguereplydetail.htm",
+				url: "myepiloguereplydetail.htm",
 				cache: false,				
 				data:'num=' + num,
 			    success:function(data){
@@ -87,8 +97,8 @@
 			        		$("#modal-reply").append("<div id=reply"+ value.num +" >" 
 			        											+ "<span id='reply_id"+ value.num +"'>" + value.id+"</span>:"
 			        											+ "<span id='reply_content"+ value.num +"'>"+value.content + "</span>"
-			        											+ "|<span><a onclick='replyeditform("+ value.num +")'>수정</a></span>"
-			        											+ "|<span><a onclick='replydelete("+ value.num +")'>삭제</a></span>"
+			        											+ "|<span><a onclick='replyeditform("+ value.num +")' style='color:#333;'>수정</a></span>"
+			        											+ "|<span><a onclick='replydelete("+ value.num +")' style='color:#333;'>삭제</a></span>"
 			        											+ "</div><br>"
 			        											);
 			        	}
@@ -106,11 +116,14 @@
 		function replywrite(){
 			var num = $("#modal-num").val();
 			var replycontent = $('#replycontent').val();
-			console.log(num);
-			console.log(replycontent);
+			if(replycontent==""){
+				alert("댓글 내용을 입력해주세요");
+				$('#replycontent').focus();
+				return false;
+			}
 			$.ajax({
 				type: "post",
-				url: "reply_epiloguewrite.htm",
+				url: "myreply_epiloguewrite.htm",
 				cache: false,				
 				data:'num=' + num + "&replycontent=" + replycontent,
 			    success:function(data){
@@ -118,9 +131,9 @@
 			    	$('#replycontent').val('').empty();
 			    	$("#modal-reply").append("<div id=reply"+ data.reply_epiloguedto.num +">"
 			    										+ "<span id='reply_id"+ data.reply_epiloguedto.num +"'>" +data.reply_epiloguedto.id +"</span>:"
-			    										+ "<span id='reply_content"+ data.reply_epiloguedto.num +"'> : "+ data.reply_epiloguedto.content + "</span>"
-			    										+ "|<span><a onclick='replyeditform("+ data.reply_epiloguedto.num +")'>수정</a></span>"
-			    										+ "|<span><a onclick='replydelete("+ data.reply_epiloguedto.num +")'>삭제</a></span>"
+			    										+ "<span id='reply_content"+ data.reply_epiloguedto.num +"'>"+ data.reply_epiloguedto.content + "</span>"
+			    										+ "|<span><a onclick='replyeditform("+ data.reply_epiloguedto.num +")' style='color:#333;'>수정</a></span>"
+			    										+ "|<span><a onclick='replydelete("+ data.reply_epiloguedto.num +")' style='color:#333;'>삭제</a></span>"
 			    										+"</div><br>"
 			    										);
 			     },
@@ -135,7 +148,7 @@
 		function replydelete(num){
 			$.ajax({
 				type: "post",
-				url: "reply_epiloguedelete.htm",
+				url: "myreply_epiloguedelete.htm",
 				cache: false,				
 				data:'num=' + num ,
 			    success:function(data){
@@ -154,14 +167,11 @@
 			var html = $('#reply' + num).html();
 			var id = $('#reply_id' + num).text();
 			var content = $('#reply_content' + num).text();
-			console.log(id);
-			console.log(content);
-			console.log(html);
 			$('#reply' + num).empty().append("<div>" 
 															+ "<span id='editid'>" + id + "</span>:" 
 															+ "<textarea id='editcontent'>" + content + "</textarea>"
 															+ "<span>" 
-																+ "<input type='button' value='확인' onclick=''>"
+																+ "<input type='button' value='확인' onclick='replyeditconfirm(" + num + ")'>"
 																+ "<input type='button' value='취소' onclick='replyeditcancel(" + num + ")'>"
 															+ "</span>"
 															+ "</div>"
@@ -176,10 +186,40 @@
 														"<div id=reply"+ num +">"
 														+ "<span id='reply_id"+ num +"'>" +id +"</span>:"
 														+ "<span id='reply_content"+ num +"'>"+ content + "</span>"
-														+ "|<span><a onclick='replyeditform("+ num +")'>수정</a></span>"
-														+ "|<span><a onclick='replydelete("+ num +")'>삭제</a></span>"
+														+ "|<span><a onclick='replyeditform("+ num +")' style='color:#333;'>수정</a></span>"
+														+ "|<span><a onclick='replydelete("+ num +")' style='color:#333;'>삭제</a></span>"
 														+"</div><br>"
 														  );
 		}
 		
+		// 댓글 수정 확인
+		function replyeditconfirm(num){
+			var id = $('#editid').text();
+			var content = $('#editcontent').val();
+			if(content==""){
+				alert("댓글 수정 내용을 입력해주세요");
+				$('#editcontent').focus();
+				return false;
+			}
+			$.ajax({
+				type: "post",
+				url: "myreply_epilogueedit.htm",
+				cache: false,	
+				data:'num=' + num + '&content=' + content ,
+			    success:function(data){
+			    	console.log(data.result);
+			    	$('#reply' + num).empty().append(
+																"<div id=reply"+ num +">"
+																+ "<span id='reply_id"+ num +"'>" +id +"</span>:"
+																+ "<span id='reply_content"+ num +"'>"+ content + "</span>"
+																+ "|<span><a onclick='replyeditform("+ num +")' style='color:#333;'>수정</a></span>"
+																+ "|<span><a onclick='replydelete("+ num +")' style='color:#333;'>삭제</a></span>"
+																+"</div><br>"
+							  									);
+			     },
+				error: function(){						
+					alert('Error while request..'	);
+				}
+			});
+		}	
 </script>

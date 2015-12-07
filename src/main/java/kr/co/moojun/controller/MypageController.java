@@ -18,10 +18,12 @@ import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.EpilogueboardDAO;
 import kr.co.moojun.model.DAO.MemberDAO;
+import kr.co.moojun.model.DAO.Reply_EpilogueDAO;
 import kr.co.moojun.model.DAO.WorkboardDAO;
 import kr.co.moojun.model.DTO.EpilogueboardDTO;
 import kr.co.moojun.model.DTO.MemberDTO;
 import kr.co.moojun.model.DTO.ReferenceDTO;
+import kr.co.moojun.model.DTO.Reply_EpilogueDTO;
 import kr.co.moojun.model.DTO.WorkboardDTO;
 
 @Controller
@@ -329,7 +331,7 @@ public class MypageController {
 	
 	// 나의 여행후기 상세보기 (myepiloguedetail.htm)
 	@RequestMapping(value = "myepiloguedetail.htm", method = RequestMethod.POST)
-	public View epiloguedetail(String num , ModelMap modelmap) {
+	public View myepiloguedetail(String num , ModelMap modelmap) {
 		System.out.println("myepiloguedetail 시작");
 		System.out.println(num);
 		
@@ -341,6 +343,85 @@ public class MypageController {
 			
 		System.out.println("myepiloguedetail 끝");
 		
+		return jsonview;
+	}
+	
+	// 나의 여행후기 댓글 리스트 (epiloguereplydetail.htm)
+	@RequestMapping(value = "myepiloguereplydetail.htm", method = RequestMethod.POST)
+	public View myepiloguereplydetail(String num , ModelMap modelmap, Principal principal) {
+		System.out.println("myepiloguereplydetail start");
+		System.out.println(num);
+
+
+		HashMap map = new HashMap();
+		map.put("num", num);
+
+		Reply_EpilogueDAO reply_epiloguedao = sqlsession.getMapper(Reply_EpilogueDAO.class);
+		List<Reply_EpilogueDTO> reply_epiloguelist = reply_epiloguedao.getEpilogueBoardReplyList(map);
+
+
+		modelmap.addAttribute("reply_epiloguelist",reply_epiloguelist);
+		modelmap.addAttribute("userid", principal.getName());
+
+		return jsonview;
+	}
+
+	// 나의 여행 후기 댓글 쓰기
+	@RequestMapping(value = "myreply_epiloguewrite.htm", method = RequestMethod.POST)
+	public View reply_epiloguewrite(String num, String replycontent , Principal principal, Model model){	
+
+		System.out.println("myreply_epiloguewrite start");
+		System.out.println("num:" + num);
+		System.out.println("replycontent:" + replycontent);
+		System.out.println("principal id:" + principal.getName());
+
+		Reply_EpilogueDTO reply_epiloguedto = new Reply_EpilogueDTO();
+		reply_epiloguedto.setId(principal.getName());
+		reply_epiloguedto.setIdx(num);
+		reply_epiloguedto.setContent(replycontent);
+
+		Reply_EpilogueDAO reply_epiloguedao = sqlsession.getMapper(Reply_EpilogueDAO.class);
+		reply_epiloguedao.insertEpilogueBoardReply(reply_epiloguedto);
+		reply_epiloguedto.setNum(reply_epiloguedao.getMaxNumByIdx(num));
+
+		model.addAttribute("reply_epiloguedto", reply_epiloguedto);
+
+		return jsonview;
+	}
+			
+	// 나의 여행 후기 댓글 삭제
+	@RequestMapping(value = "myreply_epiloguedelete.htm", method = RequestMethod.POST)
+	public View reply_epiloguedelete(String num, Principal principal, Model model){	
+
+		System.out.println("myreply_epiloguedelete start");
+		System.out.println("num:" + num);
+
+		Reply_EpilogueDTO reply_epiloguedto = new Reply_EpilogueDTO();
+		reply_epiloguedto.setNum(Integer.parseInt(num));
+
+		Reply_EpilogueDAO reply_epiloguedao = sqlsession.getMapper(Reply_EpilogueDAO.class);
+		int result = reply_epiloguedao.deleteEpilogueBoardReply(reply_epiloguedto);
+		model.addAttribute("result", result);
+
+		return jsonview;
+	}
+
+	// 나의 여행 후기 댓글 수정
+	@RequestMapping(value = "myreply_epilogueedit.htm", method = RequestMethod.POST)
+	public View reply_epilogueedit(String num, String content, Principal principal, Model model){	
+
+		System.out.println("myreply_epilogueedit start");
+		System.out.println("num:" + num);
+		System.out.println("content:" + content);
+
+		Reply_EpilogueDTO reply_epiloguedto = new Reply_EpilogueDTO();
+		reply_epiloguedto.setNum(Integer.parseInt(num));
+		reply_epiloguedto.setContent(content);
+
+		Reply_EpilogueDAO reply_epiloguedao = sqlsession.getMapper(Reply_EpilogueDAO.class);
+		int result = reply_epiloguedao.updateEpilogueBoardReply(reply_epiloguedto);
+		model.addAttribute("result", result);
+
 		return jsonview;
 	}
 

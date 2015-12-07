@@ -122,8 +122,11 @@
 		function replywrite(){
 			var num = $("#modal-num").val();
 			var replycontent = $('#replycontent').val();
-			console.log(num);
-			console.log(replycontent);
+			if(replycontent==""){
+				alert("댓글 내용을 입력해주세요");
+				$('#replycontent').focus();
+				return false;
+			}
 			$.ajax({
 				type: "post",
 				url: "reply_epiloguewrite.htm",
@@ -199,9 +202,11 @@
 		function replyeditconfirm(num){
 			var id = $('#editid').text();
 			var content = $('#editcontent').val();
-			console.log(num);
-			console.log(id);
-			console.log(content);
+			if(content==""){
+				alert("댓글 수정 내용을 입력해주세요");
+				$('#editcontent').focus();
+				return false;
+			}
 			$.ajax({
 				type: "post",
 				url: "reply_epilogueedit.htm",
