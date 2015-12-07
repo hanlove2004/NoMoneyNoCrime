@@ -55,4 +55,20 @@
         FROM MESSAGE 
        WHERE NUM = #{num}
    </delete>
+   
+   <select id="messagelist" resultType="kr.co.moojun.model.DTO.MessageDTO">
+      SELECT *
+      FROM MESSAGE
+   </select>
+   <select id="messagereceivelist" resultType="kr.co.moojun.model.DTO.MessageDTO">
+      SELECT *
+      FROM MESSAGE
+      WHERE RECEIVER=#{id}
+   </select>
+   
+   <select id="messagesendlist" resultType="kr.co.moojun.model.DTO.MessageDTO">
+      SELECT *
+      FROM MESSAGE
+      WHERE SENDER=#{id}
+   </select>
 </mapper>  

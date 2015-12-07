@@ -18,10 +18,12 @@ import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.EpilogueboardDAO;
 import kr.co.moojun.model.DAO.MemberDAO;
+import kr.co.moojun.model.DAO.MessageDAO;
 import kr.co.moojun.model.DAO.Reply_EpilogueDAO;
 import kr.co.moojun.model.DAO.WorkboardDAO;
 import kr.co.moojun.model.DTO.EpilogueboardDTO;
 import kr.co.moojun.model.DTO.MemberDTO;
+import kr.co.moojun.model.DTO.MessageDTO;
 import kr.co.moojun.model.DTO.ReferenceDTO;
 import kr.co.moojun.model.DTO.Reply_EpilogueDTO;
 import kr.co.moojun.model.DTO.WorkboardDTO;
@@ -425,15 +427,47 @@ public class MypageController {
 		return jsonview;
 	}
 
-	// 쪽지함 목록 (messagelist.htm)
 	@RequestMapping(value = "messagelist.htm", method = RequestMethod.GET)
-	public String messagelist() {
-
-		System.out.println("");
-
-		// Tiles 적용 (UrlBase 방식)
-		return "mypage.messagelist";
-	}
+	   public String messagelist(Principal principal, Model model) {
+	      System.out.println("messagelist.htm");
+	      MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
+	      String id = principal.getName();
+	      HashMap map = new HashMap();
+	      map.put("id", id);
+	      System.out.println("id : " + id);
+	      List<MessageDTO> messagelist = messagedao.messagelist(map);
+	      model.addAttribute("messagelist", messagelist);
+	      System.out.println("messagereceivelist.htm 끝");
+	      return "mypage.messagelist";
+	   }
+	   
+	   @RequestMapping(value = "messagereceivelist.htm", method = RequestMethod.POST)
+	   public View messagereceivelist(Principal principal, Model model) {
+	      System.out.println("messagereceivelist.htm");
+	      MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
+	      String id = principal.getName();
+	      HashMap map = new HashMap();
+	      map.put("id", id);
+	      System.out.println("id : " + id);
+	      List<MessageDTO> messagereceivelist = messagedao.messagereceivelist(map);
+	      //System.out.println(dto.getSender() + "/" + dto.getReceiver());
+	      model.addAttribute("messagereceivelist", messagereceivelist);
+	      System.out.println("messagereceivelist.htm 끝");
+	      return jsonview;
+	   }
+	   
+	   @RequestMapping(value = "messagesendlist.htm", method = RequestMethod.POST)
+	   public View messagesendlist(Principal principal, Model model) {
+	      System.out.println("messagesendlist.htm");
+	      MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
+	      String id = principal.getName();
+	      HashMap map = new HashMap();
+	      map.put("id", id);
+	      System.out.println("id : " + id);
+	      List<MessageDTO> messagesendlist = messagedao.messagesendlist(map);
+	      model.addAttribute("messagesendlist", messagesendlist);
+	      return jsonview;
+	   }
 
 	// 쪽지 상세보기 (messagedetail.htm)
 	@RequestMapping(value = "messagedetail.htm", method = RequestMethod.GET)
