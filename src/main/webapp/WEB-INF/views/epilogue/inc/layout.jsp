@@ -18,7 +18,9 @@
 <script src="<%=request.getContextPath() %>/js/jQuery.MultiFile.min.js"></script>
 <!-- 폰트 css -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/font.css">
-
+<!-- 파비콘 적용 -->
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
 <script>
 $(document).ready(function(){
     
