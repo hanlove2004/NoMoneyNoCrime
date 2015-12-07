@@ -404,5 +404,19 @@ public class MypageController {
 		// Tiles 적용 (UrlBase 방식)
 		return "reference.worklist";
 	}
+	
+	// 회원 탈퇴
+	@RequestMapping(value = "deletemember.htm", method = RequestMethod.POST)
+	public String deletemember(MemberDTO dto, Model model) {
+		System.out.println(dto.getId() + "/" + dto.getPwd());
+		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
+		int result = memberdao.deleteMember(dto);
+		//System.out.println(dto.getId() + "/" + dto.getPwd());
+		model.addAttribute("result", result);
+		System.out.println("deletemember.htm3");
+		/* 0 : fail, 1 : success*/
+		System.out.println("deletemember 끝");
+		return "redirect:/logout";
+	}
 
 }

@@ -12,6 +12,8 @@
 				<input type="hidden" id="modal-num">
 				<input type="hidden" id="path" value="<%=request.getContextPath()%>">
 				<h4 class="modal-title" id="modal-title"></h4>
+				<a>수정</a>
+				<a>삭제</a>
 			</div>
 			<div class="modal-body" id="modal-image">
 				

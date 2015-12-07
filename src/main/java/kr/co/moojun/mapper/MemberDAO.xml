@@ -59,11 +59,10 @@
    </insert>
    
    <!-- 탈퇴 -->
-   <update id="deleteMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
-   		UPDATE MEMBER
-   		SET ENABLED = '0'
-   		WHERE ID = #{id} AND PWD = #{pwd}
-   </update>
+   <delete id="deleteMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
+         delete from member 
+         where id=#{id} and pwd=#{pwd}
+   </delete>
    
    <!-- 강퇴(관리자) -->
    <delete id="admindeleteMember" parameterType="Integer">
