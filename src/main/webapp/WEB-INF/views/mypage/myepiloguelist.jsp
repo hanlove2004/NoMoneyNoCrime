@@ -28,7 +28,7 @@
 							<p class="card-text">
 								<small class="text-muted">${myepiloguelist.regdate}</small>
 							</p>
-							<a href="#" class="btn btn-primary" id="epilogue${myepiloguelist.num}" onclick="myepiloguedetail(${myepiloguelist.num})">상세보기</a>
+							<a href="#" class="btn btn-primary" id="myepilogue${myepiloguelist.num}" onclick="myepiloguedetail(${myepiloguelist.num})">상세보기</a>
 						</div>
 					</div>
 				</c:forEach>

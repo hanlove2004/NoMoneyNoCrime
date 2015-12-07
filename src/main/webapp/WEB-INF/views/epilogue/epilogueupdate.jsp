@@ -11,19 +11,20 @@
 	</table>
 	<div style="height: 390px;">
 
-		<form name="epilogueinsertform" id="epilogueinsertform" 
-		action="<%=request.getContextPath() %>/epilogue/epilogueinsert.htm" method="post" enctype="multipart/form-data">
+		<form name="epilogueupdateform" id="epilogueinsertform" 
+		action="<%=request.getContextPath() %>/epilogue/epilogueupdate.htm" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="num" value="${epilogueboarddto.num}">
 			<table class="table table-striped" style="text-align: center; margin-bottom: 0;">
 				<tr>
 					<td>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 					<td colspan="2" align="left">
-						<input type="text" name="title" style="width: 320px;">
+						<input type="text" name="title" style="width: 320px;" value="${epilogueboarddto.title}">
 					</td>
 				</tr>
 				<tr>
 					<td>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 					<td colspan="2" style="height: 150px" align="left">
-						<textarea name="content" cols="70" rows="10"></textarea>
+						<textarea name="content" cols="70" rows="10">${epilogueboarddto.content}</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -36,9 +37,9 @@
 				</tr>
 				<tr>
 					<td colspan="3">
-						<button type="button" class="btn btn-danger"><a href="javascript:epilogueinsertform.submit()">작성</a></button>&nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-danger"><a href="javascript:epilogueupdateform.submit()">작성</a></button>&nbsp;&nbsp;&nbsp;
 						<button type="button" class="btn btn-danger">
-							<a href="<%=request.getContextPath() %>/epilogue/epiloguelist.htm?pg=${pg}">취소</a>
+							<a href="<%=request.getContextPath() %>/epilogue/epiloguelist.htm">취소</a>
 						</button>&nbsp;&nbsp;&nbsp;
 						<button type="button" class="btn btn-danger">
 							<a href="<%=request.getContextPath() %>/epilogue/epiloguelist.htm">목록</a>
