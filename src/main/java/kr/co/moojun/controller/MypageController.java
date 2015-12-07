@@ -128,77 +128,69 @@ public class MypageController {
 		return "main.start";
 	}
 
-	// 나의 일자리 등록 현황 (workaddlist.htm)
 	@RequestMapping(value = "workaddlist.htm", method = RequestMethod.GET)
-	public String workaddlist(String id, HttpServletRequest request, Model model) {
+	   public String workaddlist(Principal principal, HttpServletRequest request, Model model) {
+	      System.out.println("workaddlist 시작");
+	      int pg = 1; // 처음 시작페이지
+	      String strPg = request.getParameter("pg"); // view에서 넘긴 시작페이지
+	      // request 받아온 페이지가 없을경우 1로 시작 -> 처음요청인 상태
+	      if (strPg != null) {
+	         pg = Integer.parseInt(strPg);
+	      }
 
-		System.out.println("workaddlist 시작");
+	      int rowSize = 10; // 한번에 볼 수 있는 그리드 수
+	      int start = (pg * rowSize) - (rowSize - 1);
+	      int end = pg * rowSize;
+	      String id = principal.getName();
+	      // 총 게시물수
+	      WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
+	      int total = workboarddao.getMyWorkAddListCount(id);
 
-		int pg = 1; // 처음 시작페이지
+	      int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
+	      // int totalPage = total/rowSize + (total%rowSize==0?0:1);
 
-		String strPg = request.getParameter("pg"); // view에서 넘긴 시작페이지
+	      int block = 10; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
+	      // [10] >>
+	      int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
+	      // ((1-1)/10*10)
+	      int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
+	      if (toPage > allPage) { // 예) 20>17
+	         toPage = allPage;
+	      }
+	      HashMap map = new HashMap();
+	      map.put("start", start);
+	      map.put("end", end);
+	      map.put("id", id);
+	      List<WorkboardDTO> workaddlist = workboarddao.getMyWorkAddList(map);
 
-		// request 받아온 페이지가 없을경우 1로 시작 -> 처음요청인 상태
-		if (strPg != null) {
-			pg = Integer.parseInt(strPg);
-		}
+	      model.addAttribute("workaddlist", workaddlist);
+	      model.addAttribute("pg", pg);
+	      model.addAttribute("allPage", allPage);
+	      model.addAttribute("block", block);
+	      model.addAttribute("fromPage", fromPage);
+	      model.addAttribute("toPage", toPage);
 
-		int rowSize = 10; // 한번에 볼 수 있는 그리드 수
-		int start = (pg * rowSize) - (rowSize - 1);
-		int end = pg * rowSize;
+	      System.out.println("------------------------------------------------");
+	      System.out.println("사용자 아이디    : " + id);
+	      System.out.println("시작             : " + start + " 끝:" + end);
+	      System.out.println("글의 총 개수          : " + total);
+	      System.out.println("처음 시작페이지       : " + pg);
+	      System.out.println("페이지수          : " + allPage);
+	      System.out.println("한페이지에 보여줄 범위     : " + block);
+	      System.out.println("보여줄 페이지의 시작    : " + fromPage);
+	      System.out.println("보여줄 페이지의 끝       : " + toPage);
+	      System.out.println("List<NoticeboardDTO> list");
 
-		// 총 게시물수
-		WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
-		int total = workboarddao.getMyWorkAddListCount(id);
+	      for (WorkboardDTO dto : workaddlist) {
+	         System.out.println(dto.toString());
+	      }
+	      System.out.println("-------------------------------------------------");
 
-		int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
-		// int totalPage = total/rowSize + (total%rowSize==0?0:1);
+	      System.out.println("workaddlist 끝");
 
-		int block = 10; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
-		// [10] >>
-		int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
-		// ((1-1)/10*10)
-		int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
-		if (toPage > allPage) { // 예) 20>17
-			toPage = allPage;
-		}
-
-		HashMap map = new HashMap();
-
-		map.put("start", start);
-		map.put("end", end);
-		map.put("id", id);
-
-		List<WorkboardDTO> workaddlist = workboarddao.getMyWorkAddList(map);
-
-		model.addAttribute("workaddlist", workaddlist);
-		model.addAttribute("pg", pg);
-		model.addAttribute("allPage", allPage);
-		model.addAttribute("block", block);
-		model.addAttribute("fromPage", fromPage);
-		model.addAttribute("toPage", toPage);
-
-		System.out.println("------------------------------------------------");
-		System.out.println("사용자 아이디    : " + id);
-		System.out.println("시작             : " + start + " 끝:" + end);
-		System.out.println("글의 총 개수          : " + total);
-		System.out.println("처음 시작페이지       : " + pg);
-		System.out.println("페이지수          : " + allPage);
-		System.out.println("한페이지에 보여줄 범위     : " + block);
-		System.out.println("보여줄 페이지의 시작    : " + fromPage);
-		System.out.println("보여줄 페이지의 끝       : " + toPage);
-		System.out.println("List<NoticeboardDTO> list");
-
-		for (WorkboardDTO dto : workaddlist) {
-			System.out.println(dto.toString());
-		}
-		System.out.println("-------------------------------------------------");
-
-		System.out.println("workaddlist 끝");
-
-		// Tiles 적용 (UrlBase 방식)
-		return "mypage.workaddlist";
-	}
+	      // Tiles 적용 (UrlBase 방식)
+	      return "mypage.workaddlist";
+	   }
 	
 	// 일자리 등록 상세보기 (workadddetail.htm)
 	@RequestMapping(value = "workadddetail.htm", method = RequestMethod.GET)
