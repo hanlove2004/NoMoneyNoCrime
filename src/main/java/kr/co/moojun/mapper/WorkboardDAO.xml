@@ -90,6 +90,15 @@
        WHERE NUM = #{num}
    </select>
    
+   <!-- 로그인 아이디에 대한 만나이 / 이름 (입력폼에서 사용) -->
+   <select id="getLoginidAgeName" resultType="kr.co.moojun.model.DTO.WorkformDTO">
+      SELECT 
+            TO_CHAR(FLOOR(MONTHS_BETWEEN(SYSDATE,BIRTH)/12),'99') AS age
+            , NAME
+        FROM MEMBER 
+       WHERE ID = #{id}
+   </select>
+   
    <!-- 일자리게시판 수정하기 -->
    <!-- 
        수정가능한 컬럼들 

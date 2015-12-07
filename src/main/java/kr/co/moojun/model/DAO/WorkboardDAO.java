@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.moojun.model.DTO.WorkboardDTO;
+import kr.co.moojun.model.DTO.WorkformDTO;
 
 public interface WorkboardDAO {
    int insertWorkBoard(WorkboardDTO dto); // 일자리게시판 쓰기
@@ -12,6 +13,8 @@ public interface WorkboardDAO {
    List<WorkboardDTO> getWorkBoardList(HashMap map); // 일자리게시판 리스트(여러개)
 
    WorkboardDTO getWorkBoard(int num); // 일자리게시판 디테일(상세보기)
+   
+   WorkformDTO getLoginidAgeName(String id); // 로그인한 아이디에 대한 만나이 (신청폼에서 사용)
 
    int updateWorkBoard(WorkboardDTO dto); // 일자리게시판 수정하기
 

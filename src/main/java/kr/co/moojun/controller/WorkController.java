@@ -17,6 +17,7 @@ import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.WorkboardDAO;
 import kr.co.moojun.model.DTO.WorkboardDTO;
+import kr.co.moojun.model.DTO.WorkformDTO;
 
 @Controller
 @RequestMapping(value = "/workboard/")
@@ -114,10 +115,16 @@ public class WorkController {
       // 자유게시판 상세조회
       WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
       WorkboardDTO workboarddto = workboarddao.getWorkBoard(num);
+      
+      // 로그인한 아이디 만나이 / 이름
+      WorkformDTO logininfo = workboarddao.getLoginidAgeName(id);
+      
+      System.out.println(logininfo);
 
       System.out.println(workboarddto.toString());
       model.addAttribute("workboarddto", workboarddto); // 모델앤 뷰중에서 모델
       model.addAttribute("id", id);
+      model.addAttribute("logininfo", logininfo);
 
       System.out.println("workdetail 끝");
 
