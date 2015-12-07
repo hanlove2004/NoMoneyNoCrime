@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div style="height: 500px; width: 700px; margin: auto;">
 	<button type="submit" class="btn btn-info">
-		<a href="messagelist.htm">받은쪽지함</a><!-- 링크 설정해야함 -->
+		<a href="messagereceivelist.htm">받은쪽지함</a><!-- 링크 설정해야함 -->
 	</button>&nbsp;&nbsp;&nbsp;
 	<button type="submit" class="btn btn-info">
 		<a href="messagesendlist.htm">보낸쪽지함</a><!-- 링크 설정해야함 -->
