@@ -153,7 +153,7 @@
 				data:'num=' + num ,
 			    success:function(data){
 			    	console.log(data.result);
-			    	$('#reply' + num).detach();
+			    	$('#reply' + num).remove();
 			     },
 				error: function(){						
 					alert('Error while request..'	);
