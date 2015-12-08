@@ -324,12 +324,12 @@
       
       li a
       {
-         color: white;
+         color: black;
       }
       
       li a:hover
       {
-         color: #FF0000;
+         color: black;
          text-decoration: underline;
       }
       
@@ -373,7 +373,7 @@
       }
    </style>
 </head>
-<body>
+<body style="font-family: myfont05;">
    <div class="main" style="background-image: url(<%=request.getContextPath()%>/images/moojun01.jpg);">
          <!-- header 영역 -->
          <tiles:insertAttribute name="header" />

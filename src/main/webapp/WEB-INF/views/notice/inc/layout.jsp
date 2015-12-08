@@ -126,7 +126,7 @@
 		
 		a
 		{
-			color: white;
+			color: black;
 		}
 		
 		a:hover
@@ -174,7 +174,7 @@
 	</style>
 	
 </head>
-<body>
+<body style="font-family: myfont05;">
 	<div class="main">
 
 		<!-- header 영역 -->

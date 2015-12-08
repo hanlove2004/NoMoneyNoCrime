@@ -70,7 +70,7 @@ $(document).ready(function(){
 	}
 	
 	a:hover {
-		color: red;
+		color: black;
 		text-decoration: underline;
 	}
 	

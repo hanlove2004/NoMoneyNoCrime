@@ -51,7 +51,7 @@
     <div class="item active" align="center">
       <img src="<%=request.getContextPath()%>/images/main.jpg" alt="Chania" width="100%" height="40%">
       <div class="carousel-caption">
-        <h3 style="font-family: myfont01">무전무죄</h3>
+        <h3>무전무죄</h3>
         <p>돈없는 것은 죄가 아니다.</p>
       </div>
     </div>
@@ -59,7 +59,7 @@
     <div class="item" align="center">
       <img src="<%=request.getContextPath()%>/images/walk.jpg" alt="main" width="100%" height="40%">
       <div class="carousel-caption">
-        <h3 style="font-family: myfont01">떠나보자</h3>
+        <h3>떠나보자</h3>
         <p>떠나라 떠나라!! 어디든 떠나라!</p>
       </div>
     </div>
@@ -67,7 +67,7 @@
     <div class="item" align="center">
       <img src="<%=request.getContextPath()%>/images/submain.jpg" alt="submain" width="100%" height="40%">
       <div class="carousel-caption">
-        <h3 style="font-family: myfont01">당신도 떠나요</h3>
+        <h3>당신도 떠나요</h3>
         <p>지금이라도 떠날수 있다!!</p>
       </div>
     </div>
@@ -75,7 +75,7 @@
     <div class="item" align="center">
       <img src="<%=request.getContextPath()%>/images/free.jpg" alt="free" width="100%" height="40%">
       <div class="carousel-caption">
-        <h3 style="font-family: myfont01">망설이지 마요</h3>
+        <h3>망설이지 마요</h3>
         <p>지금이 기회 입니다!</p>
       </div>
     </div>

@@ -34,12 +34,12 @@
 		
 		a
 		{
-			color: white;
+			color: black;
 		}
 		
 		a:hover
 		{
-			color: white;
+			color: black;
 			text-decoration: underline;
 		}
 		
@@ -92,7 +92,7 @@
 			<a href="myepiloguelist.htm">나의여행후기</a>
 		</button>&nbsp;&nbsp;&nbsp;
 		<button type="submit" class="btn btn-success">
-			<a href="messagelist.htm">쪽지함</a>
+			<a href="messagereceivelist.htm">쪽지함</a>
 		</button>
 	</div>
 	<hr>

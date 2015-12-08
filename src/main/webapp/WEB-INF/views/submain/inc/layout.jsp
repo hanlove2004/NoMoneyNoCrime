@@ -23,12 +23,12 @@
 		
 		a
 		{
-			color: white;
+			color: black;
 		}
 		
 		a:hover
 		{
-			color: rgb(0, 153, 0);
+			color: black;
 			text-decoration: underline;
 		}
 		
@@ -54,7 +54,7 @@
 		}
 	</style>
 </head>
-<body>
+<body style="font-family: myfont05;">
 	
 		<!-- header 영역 -->
 		<tiles:insertAttribute name="header"/>

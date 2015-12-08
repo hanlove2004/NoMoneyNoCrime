@@ -68,7 +68,7 @@
 		}
 		
 		a {
-			color: white;
+			color: black;
 		}
 		
 		a:hover {
@@ -165,7 +165,7 @@
 		};
 	</script>
 </head>
-<body>
+<body style="font-family: myfont05;">
 	<div class="main" style="background-image: url(<%=request.getContextPath()%>/images/notice.jpg)">
 	
 		<!-- header 영역 -->

@@ -92,6 +92,7 @@ public class AdminController {
 		return "admin.memberlist";
 	}
 	
+	//회원 강퇴(memberdelete.htm)
 	@RequestMapping(value="memberdelete.htm",method=RequestMethod.GET)
 	public String memberdelete(int num){
 		
@@ -100,6 +101,7 @@ public class AdminController {
 		//mapper 설정
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
 		
+		//회원 탈퇴 처리
 		int result = memberdao.admindeleteMember(num);
 		if(result > 0){
 			System.out.println("회원 강퇴 성공");

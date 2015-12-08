@@ -323,12 +323,22 @@ public class WorkController {
    
    //일자리 신청시 등록인원 증가(workenroll.htm)
    @RequestMapping(value = "workenroll.htm", method = RequestMethod.GET)
-   public String workenroll(String num) {      
-      WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
-      int enrollnum = Integer.parseInt(num);
-      System.out.println("enrollnum : " + enrollnum);
-      workboarddao.workenroll(enrollnum);
-      return "redirect:worklist.htm";
-      //return "redirect:/workboard/worklist.htm";
+   public String workenroll(String num){
+	   
+		System.out.println("신청 후 신청인원 증가 시작");
+
+		// mapper 설정
+		WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
+		int enrollnum = Integer.parseInt(num);
+		System.out.println("enrollnum : " + enrollnum);
+
+		// 신청인원 증가
+		workboarddao.workenroll(enrollnum);
+
+		System.out.println("신청 후 신청인원 증가 끝");
+
+		// Tiles 적용 (UrlBase 방식)
+		return "redirect:worklist.htm";
+
    }
 }
