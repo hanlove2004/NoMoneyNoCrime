@@ -32,6 +32,15 @@
          $('input[name=column]').click(function() {
             checkAndSearchClick();
          });
+         
+         // id 옆에 dropdown 메뉴 이벤트
+         $(".dropdown").on("hide.bs.dropdown", function(){
+       		$("#writerdropdown").html('<span class="caret"></span>');
+         });
+         $(".dropdown").on("show.bs.dropdown", function(){
+        	$("#writerdropdown").html('<span class="caret caret-up"></span>');
+         });
+         
    });//$(document).ready(function()
       
     //체크박스 와 검색버튼 클릭시 공통된 함수
@@ -90,6 +99,9 @@
            }// success : function(data)
         });//$.ajax({
    }//function checkAndSearchClick()
+   
+   
+   
 </script>
 <style type="text/css">
 	a 
@@ -110,6 +122,18 @@
 	}
 </style>
 
+<!-- dropdown style -->
+<style>
+  /* Style to reverse the caret icon from pointing downwards to upwards */
+  .caret.caret-up {
+    border-top-width: 0;
+    border-bottom: 4px solid #fff;
+  }
+  
+  .dropdown-menu {
+  	min-width: 100px;
+  }
+  </style>
 </head>
 <body style="font-family: myfont05;">
 

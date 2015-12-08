@@ -20,7 +20,18 @@
 			</tr>
 			<tr>
 				<td>귀&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인</td>
-				<td colspan="2" align="left">${workboarddto.id}</td>
+				<td colspan="2" align="left">${workboarddto.id}
+					<input type="hidden" id="writername" value="${workboarddto.id}">
+					<!-- dropdown span -->
+					<span class="dropdown">
+					    <button id="writerdropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+					    <span class="caret" id="caret"></span></button>
+					    <ul class="dropdown-menu">
+					      <li><a href="#">회원정보</a></li>
+					      <li><a href="#">쪽지보내기</a></li>
+					    </ul>
+					</span>
+				</td>
 			</tr>
 			<tr>
 				<td>기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;간</td>
@@ -146,3 +157,4 @@
 
    </div>
 </div>
+
