@@ -59,6 +59,21 @@
 	              }
 	              );
 	        };
+	        
+	        /* function Paging(pg) {
+	            $.ajax({
+	               type : "GET",
+	               url : "noticelist.htm",
+	               data : "pg=" + pg,
+	               success : function(result) {
+	                  console.log(pg);
+	                  $('.noticecontainer').load("noticelist.htm?pg="+pg);
+	               },
+	               error : function(status) {
+	                  alert('ERROR');
+	               }
+	            });
+	         }; */
 	</script>
 	<style type="text/css">
 	
@@ -86,8 +101,6 @@
 		div .notice {
 			display: none;
 			height: 310px;
-			overflow: auto;
-			overflow-x: hidden;
 		}
 		
 		hr {
@@ -121,12 +134,7 @@
 			color: black;
 			text-decoration: underline;
 		}
-		
-		.maincontent
-		{
-			height: 470px;
-		}
-		
+
 		p
 		{
 			color: #A8D5F6;
