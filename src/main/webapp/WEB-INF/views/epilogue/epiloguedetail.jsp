@@ -7,25 +7,25 @@
 	<div class="modal-dialog">
 
 		<!-- Modal content-->
-		<div class="modal-content">
+		<div class="modal-content" style="background-color: #D9DED3;">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<input type="hidden" id="modal-num">
 				<se:authentication property="name" var="LoingUser" />
-				<input type="hidden" id="LoingUser" value="${LoingUser}">
-				<input type="hidden" id="path" value="<%=request.getContextPath()%>">
+					<input type="hidden" id="LoingUser" value="${LoingUser}">
+					<input type="hidden" id="path" value="<%=request.getContextPath()%>">
 				<h4 class="modal-title" id="modal-title"></h4>
-				<span>작성자 : <input type="text" id="modal-writer"></span>
+				<span>작성자 : <input type="text" id="modal-writer" readonly></span>
 				<span id="modal-edit"></span>
 				<span id="modal-delete"></span>				
 			</div>
-			<div class="modal-body" id="modal-image">
+			<div class="modal-body" id="modal-image" style="width: 100%;">
 				
 			</div>
 			<div class="modal-body" id="modal-body">
 				<p></p>
 			</div>
-			<div class="modal-body" id="modal-reply">
+			<div class="modal-body" id="modal-reply" style="background-color: white;">
 				
 			</div>
 			<div class="modal-body" id="reply-text">
@@ -70,7 +70,7 @@
 			    	$("#modal-image").empty();
 			    	for(var i = 0 ; i < arr.length ; i++){
 			    		if(arr[i] != null){
-			    			$("#modal-image").append("<img style='width:300px;height:300px;' src=' " + $("#path").val()  + "/upload/" + arr[i] +" ' >");
+			    			$("#modal-image").append("<img style='width:100%;height:auto;' src=' " + $("#path").val()  + "/upload/" + arr[i] +" ' >");
 			    		}
 			    	}
 			    	
@@ -92,20 +92,22 @@
 				data:'num=' + num,
 			    success:function(data){
 			    	$("#modal-reply").empty();
-			    	$("#modal-reply").append("<div>댓      글</div>");
+			    	$("#modal-reply").append("<div><b>[댓&nbsp&nbsp&nbsp&nbsp&nbsp글]</b></div><br>");
 			        $.each(data.reply_epiloguelist,function(index,value){
 			        	if(value.id != data.userid){
 			        		$("#modal-reply").append("<div>"
-			        											+ "<span id='reply_id"+ value.num +"'>" + value.id+"</span>:"
-			        											+ "<span id='reply_content"+ value.num +"'>"+value.content + "</span>"
-			        											+ "</div><br>");
+			        											+ "<div style='float:left; width:100px; background-color:silver; border-radius: 0.2em; text-align: right; padding-right: 5px;'><span id='reply_id"+ value.num +"' style='width:200px'>" + value.id+"</span></div>"
+			        											+ "<div style='float:left; padding-left: 10px'><span id='reply_content"+ value.num +"'>" + value.content + "</span></div>"
+			        											+ "<div style='float:left; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ value.num +"'>" + value.regdate + "</span></div>"
+			        											+ "</div><br><br>");
 			        	}else{
-			        		$("#modal-reply").append("<div id=reply"+ value.num +" >" 
-			        											+ "<span id='reply_id"+ value.num +"'>" + value.id+"</span>:"
-			        											+ "<span id='reply_content"+ value.num +"'>"+value.content + "</span>"
-			        											+ "|<span><a onclick='replyeditform("+ value.num +")'>수정</a></span>"
-			        											+ "|<span><a onclick='replydelete("+ value.num +")'>삭제</a></span>"
-			        											+ "</div><br>"
+			        		$("#modal-reply").append("<div id='reply"+ value.num +"'>" 
+			        											+ "<div style='float:right'>&nbsp\;&nbsp\;|&nbsp\;&nbsp\;<span><a onclick='replyeditform("+ value.num +")'>수정</a></span>"
+			        											+ "&nbsp&nbsp|&nbsp&nbsp<span><a onclick='replydelete("+ value.num +")'>삭제</a></span></div>"
+			        											+ "<div style='float:right; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ value.num +"'>" + value.regdate + "</span></div>"
+			        											+ "<div style='float:right; padding-left: 10px'><span id='reply_content"+ value.num +"'>"+value.content + "</span></div>"
+			        											+ "<div style='float:right; width:100px; background-color:yellow; border-radius: 0.2em; text-align: right; padding-right: 5px;'><span id='reply_id"+ value.num +"'>" + value.id+"</span></div>"
+			        											+ "</div><br><br>"
 			        											);
 			        	}
 				          
@@ -136,10 +138,11 @@
 			    	console.log(data.reply_epiloguedto);
 			    	$('#replycontent').val('').empty();
 			    	$("#modal-reply").append("<div id=reply"+ data.reply_epiloguedto.num +">"
-			    										+ "<span id='reply_id"+ data.reply_epiloguedto.num +"'>" +data.reply_epiloguedto.id +"</span>:"
-			    										+ "<span id='reply_content"+ data.reply_epiloguedto.num +"'>"+ data.reply_epiloguedto.content + "</span>"
-			    										+ "|<span><a onclick='replyeditform("+ data.reply_epiloguedto.num +")'>수정</a></span>"
-			    										+ "|<span><a onclick='replydelete("+ data.reply_epiloguedto.num +")'>삭제</a></span>"
+			    										+ "<div style='float:right'>&nbsp\;&nbsp\;|&nbsp\;&nbsp\;<span><a onclick='replyeditform("+ data.reply_epiloguedto.num +")'>수정</a></span>"
+			    										+ "&nbsp&nbsp|&nbsp&nbsp<span><a onclick='replydelete("+ data.reply_epiloguedto.num +")'>삭제</a></span></div>"
+			    										+ "<div style='float:right; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ data.reply_epiloguedto.num +"'>" + "오늘" + "</span></div>"
+			    										+ "<span id='reply_content"+ data.reply_epiloguedto.num +"' style='float:right; padding-left: 10px'>"+ data.reply_epiloguedto.content + "</span>"
+			    										+ "<span id='reply_id"+ data.reply_epiloguedto.num +"' style='float:right; width:100px; background-color:yellow; border-radius: 0.2em; text-align: right; padding-right: 5px;'>" +data.reply_epiloguedto.id +"</span>"
 			    										+"</div><br>"
 			    										);
 			     },
