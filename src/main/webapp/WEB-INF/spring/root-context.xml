@@ -44,4 +44,24 @@
 	<!-- jsonview -->
 	<bean name="JsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
 	
+	<!-- Mail -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="username" value="nomoneynocrime1004@gmail.com" />
+		<property name="password" value="anwjsanwhl" />
+		<property name="port" value="25" />
+		<property name="protocol" value="smtp"></property>
+		<property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+	</bean>
+	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="nomoneynocrime1004@gmail.com" />
+		<property name="subject" value="Your Info from NoMoneyNoCrimeOnline" />
+	</bean>
+	
 </beans>
