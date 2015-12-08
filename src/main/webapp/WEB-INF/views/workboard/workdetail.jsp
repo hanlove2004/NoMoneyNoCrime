@@ -19,6 +19,10 @@
 				<td colspan="2" align="left">${workboarddto.title}</td>
 			</tr>
 			<tr>
+				<td>귀&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인</td>
+				<td colspan="2" align="left">${workboarddto.id}</td>
+			</tr>
+			<tr>
 				<td>기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;간</td>
 				<td colspan="2" align="left">${workboarddto.startdate}
 					&nbsp;&nbsp;~&nbsp;&nbsp; ${workboarddto.enddate}</td>

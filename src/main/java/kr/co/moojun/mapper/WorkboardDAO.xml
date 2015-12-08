@@ -237,5 +237,12 @@
         WHERE id = #{id}
    </select>
    
+   <!-- 일자리 등록 신청시 등록인원 증가 -->
+   <update id="workenroll">
+         UPDATE WORKBOARD
+         SET REGPEOPLE = REGPEOPLE + '1'
+         WHERE NUM = #{NUM}
+   </update>
+   
    
 </mapper>

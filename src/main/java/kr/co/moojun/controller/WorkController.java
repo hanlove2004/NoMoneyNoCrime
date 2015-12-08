@@ -1,6 +1,7 @@
 package kr.co.moojun.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.WorkboardDAO;
+import kr.co.moojun.model.DTO.MemberDTO;
 import kr.co.moojun.model.DTO.WorkboardDTO;
 import kr.co.moojun.model.DTO.WorkformDTO;
 
@@ -71,6 +73,8 @@ public class WorkController {
       map.put("end", end);
 
       List<WorkboardDTO> worklist = workboarddao.getWorkBoardList(map);
+      
+      System.out.println(worklist.toString());
 
       model.addAttribute("worklist", worklist);
       model.addAttribute("pg", pg);
@@ -88,10 +92,17 @@ public class WorkController {
       System.out.println("보여줄 페이지의 시작    : " + fromPage);
       System.out.println("보여줄 페이지의 끝       : " + toPage);
       System.out.println("List<NoticeboardDTO> list");
-
+      
+      /*List<String> writersexlist = new ArrayList<String>();*/
+      
       for (WorkboardDTO dto : worklist) {
          System.out.println(dto.toString());
+         /*String writersex = workboarddao.getWriterSex(dto.getId());*/
+         /*System.out.println(dto.getId() + "의 성별 : " + writersex);
+         writersexlist.add(writersex);*/
       }
+      
+      /*model.addAttribute("writersexlist", writersexlist);*/
       System.out.println("-------------------------------------------------");
 
       System.out.println("worklist 끝");
@@ -308,5 +319,16 @@ public class WorkController {
 
       // Tiles 적용 (UrlBase 방식)
       return jsonview;
+   }
+   
+   //일자리 신청시 등록인원 증가(workenroll.htm)
+   @RequestMapping(value = "workenroll.htm", method = RequestMethod.GET)
+   public String workenroll(String num) {      
+      WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
+      int enrollnum = Integer.parseInt(num);
+      System.out.println("enrollnum : " + enrollnum);
+      workboarddao.workenroll(enrollnum);
+      return "redirect:worklist.htm";
+      //return "redirect:/workboard/worklist.htm";
    }
 }

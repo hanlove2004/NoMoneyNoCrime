@@ -3,6 +3,7 @@ package kr.co.moojun.model.DAO;
 import java.util.HashMap;
 import java.util.List;
 
+import kr.co.moojun.model.DTO.MemberDTO;
 import kr.co.moojun.model.DTO.WorkboardDTO;
 import kr.co.moojun.model.DTO.WorkformDTO;
 
@@ -28,4 +29,7 @@ public interface WorkboardDAO {
    int getMyWorkAddListCount(String id); // 내 일자리 등록 게시글의 수
    
    int deletemMyWorkboard(int num);   // 회원목록에서 등록 일자리 삭제
+   
+   int workenroll(int num); // 일자리 신청시 등록인원 증가
+   
 }
