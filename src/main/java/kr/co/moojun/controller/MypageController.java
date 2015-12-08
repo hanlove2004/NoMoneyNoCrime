@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -83,7 +85,10 @@ public class MypageController {
 		System.out.println(memberdto.toString());
 		model.addAttribute("memberdto", memberdto);
 		
-		System.out.println("memberupdate 끝");
+		UserDetails user = 
+	               (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(user.getUsername() + user.getAuthorities());
+	    System.out.println("memberinfo 끝");
 		
 		// Tiles 적용 (UrlBase 방식)
 		return "mypage.memberupdate";
