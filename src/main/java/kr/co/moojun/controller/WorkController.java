@@ -231,15 +231,25 @@ public class WorkController {
       System.out.println("worklistchecksearch 시작");
 
       // View 에서 넘긴 값 받아오기
-      String sukso = request.getParameter("sukso");
-      String siksa = request.getParameter("siksa");
-      String don = request.getParameter("don");
-
+      String sukso          = request.getParameter("sukso");
+      String siksa          = request.getParameter("siksa");
+      String don            = request.getParameter("don");
+      String searchvalue    = request.getParameter("searchvalue");
+      
+      // searchvalue null -> '%' 세팅
+      if (searchvalue.length() == 0) {
+         System.out.println("searchvalue : null 이므로  % 세팅 ");
+         searchvalue = "%";
+      }
+      
       // 결과값 유무
       String result = "0";
 
-      System.out.println("sukso : " + sukso + " / " + "siksa : " + siksa + " / " + "don : " + don);
-
+      System.out.println("sukso : "      + sukso + " / " 
+                       + "siksa : "      + siksa + " / " 
+                     + "don   : "      + don   + " / "
+                     + "searchvalue : " + searchvalue);
+      
       HashMap map = new HashMap(); // collection
 
       // 체크박스 체크된것만 Map에 추가
@@ -255,9 +265,11 @@ public class WorkController {
          System.out.println("3");
          map.put("don", "don");
       }
+      
+      //searchvalue 
+      map.put("searchvalue", searchvalue);
 
       WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
-      ;
       List<WorkboardDTO> worklist = workboarddao.checkboxSearch(map);
 
       // 체크박스중 하나라도 선택했을때 -> jdbcType=VARCHAR
@@ -293,49 +305,6 @@ public class WorkController {
       model.addAttribute("worklist", worklist);
 
       System.out.println("worklistchecksearch 끝");
-
-      // Tiles 적용 (UrlBase 방식)
-      return jsonview;
-   }
-
-   // 일자리게시판 검색버튼 검색 (비동기식) (worklistbuttonsearch.htm)
-   @RequestMapping(value = "worklistbuttonsearch.htm", method = RequestMethod.POST)
-   public View worklistbuttonsearch(Model model, HttpServletRequest request) {
-      System.out.println("worklistbuttonsearch 시작");
-
-      // View 에서 넘긴 값 받아오기
-      String searchvalue = request.getParameter("searchvalue");
-      // 결과값 유무
-      String result = "0";
-
-      // searchvalue null -> '%' 세팅
-      if (searchvalue.length() == 0) {
-         System.out.println("searchvalue : null 이므로  % 세팅 ");
-         searchvalue = "%";
-      }
-
-      System.out.println("searchvalue : " + searchvalue);
-
-      WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
-      ;
-      List<WorkboardDTO> worklist = workboarddao.buttonSearch(searchvalue);
-
-      // 결과값이 있을 경우..
-      if (worklist.size() != 0) {
-         result = "1";
-      }
-
-      System.out.println("최종 넘어가는 값 (result): " + result);
-
-      // 최종 list결과값 출력
-      for (WorkboardDTO dto : worklist) {
-         System.out.println(dto.toString());
-      }
-
-      model.addAttribute("result", result);
-      model.addAttribute("worklist", worklist);
-
-      System.out.println("worklistbuttonsearch 끝");
 
       // Tiles 적용 (UrlBase 방식)
       return jsonview;

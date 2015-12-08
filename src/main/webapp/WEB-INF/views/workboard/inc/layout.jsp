@@ -20,114 +20,73 @@
 
 <script type="text/javascript">
    $(document).ready(function() {
-      //search 버튼 클릭시
-      $('#search').click(function() {
-         var searchvalue = $('#searchvalue').val();
-         console.log("searchvalue : " + searchvalue);
-         
-         $.ajax({
-            type    : "post",
-            url     : "worklistbuttonsearch.htm",
-            data    : "searchvalue=" + searchvalue,
-            success : function(data) { //callback  
-               console.log("data.result : " + data.result + " / " + "data.worklist : " + data.worklist);
-            
-               var print = "";
-               
-               //값이 있을경우
-                if(data.result == "1")
-                {
-                   console.log("result = 1");
-                   //기존 자료 삭제
-                   $("#body").empty();
-                   
-                  print += "<tr style=\"height: 30px;\" class=\"success\">";
-                    print += "<td>글번호</td>";
-                    print += "<td>작성자</td>"
-                    print += "<td>제목</td>"
-                    print += "<td>보상</td>";
-                    print += "<td>인원</td>";
-                    print += "</tr>";
-                  
-                    $.each(data.worklist, function(index, obj){
-                     // \역슬러시 사용해서 ""를 문자그대로 인식하도록 했다.
-                     print += "<tr style=\"height: 30px;\">"
-                     print += "<td>" + obj.num + "</td>";
-                        print += "<td>" + obj.id + "</td>";
-                        print += "<td>" + "<a href=\"workdetail.htm?num=" + obj.num + "\">" + obj.title + "</a></td>";
-                        print += "<td>" + obj.compensate + "</td>";
-                        print += "<td>" + obj.needpeople + "</td>";
-                     print += "</tr>";
-                  });            
-                  
-                  $("#body").append(print);
-                }
-                else //값이 있을경우
-               {
-                   console.log("result = 2");
-                   $("#body").empty();                      
-                   $("#body").html("결과값이 없습니다.");
-               }
-            }
+         //search 버튼 클릭시
+         $('#search').click(function() {
+            checkAndSearchClick();
          });
-         
-      });
-      
-      //체크박스 체크시 이벤트
-      $('input[name=column]').click(function() {
-            //각각의 체크박스 체크유무 가져오기
-            var sukso = $("input:checkbox[id='sukso']").is(":checked");
-            var siksa = $("input:checkbox[id='siksa']").is(":checked");
-            var don   = $("input:checkbox[id='don']"  ).is(":checked");
    
-            console.log("sukso : " + sukso + " / " + "siksa : " + siksa + " / " + "don : " + don);
-            
-            $.ajax({
-               type : "post",
-               url  : "worklistchecksearch.htm",
-               data : "sukso=" + sukso + "&don=" + don + "&siksa=" + siksa,
-               success : function(data) { //callback  
-                  console.log("data.result : " + data.result + " / " + "data.worklist : " + data.worklist);
-               
-                  var print = "";
-                  
-                  //결과값이 있는경우
-                   if(data.result == "1")
-                   {
-                      console.log("result = 1");
-                      $("#body").empty();
-                      
-                     print += "<tr style=\"height: 30px;\" class=\"success\">";
-                       print += "<td>글번호</td>";
-                       print += "<td>작성자</td>"
-                       print += "<td>제목</td>"
-                       print += "<td>보상</td>";
-                       print += "<td>인원</td>";
-                       print += "</tr>";
-                     
-                       $.each(data.worklist, function(index, obj){
-                        // \역슬러시 사용해서 ""를 문자그대로 인식하도록 했다.
-                        print += "<tr style=\"height: 30px;\">"
-                        print += "<td>" + obj.num + "</td>";
-                           print += "<td>" + obj.id + "</td>";
-                           print += "<td>" + "<a href=\"workdetail.htm?num=" + obj.num + "\">" + obj.title + "</a></td>";
-                           print += "<td>" + obj.compensate + "</td>";
-                           print += "<td>" + obj.needpeople + "</td>";
-                        print += "</tr>";
-                     });            
-                     
-                     $("#body").append(print);
-                   }
-                   else //체크박스에서 선택한게 없을경우.
-                  {
-                      console.log("result = 2");
-                      $("#body").empty();                      
-                      $("#body").html("결과값이 없습니다.");
-                  }
-               }
-            });
+         //체크박스 체크시 이벤트
+         $('input[name=column]').click(function() {
+            checkAndSearchClick();
          });
-   });
+   });//$(document).ready(function()
+      
+    //체크박스 와 검색버튼 클릭시 공통된 함수
+   function checkAndSearchClick(){
+        //각각의 체크박스 체크유무 가져오기
+        var sukso     = $("input:checkbox[id='sukso']").is(":checked");
+        var siksa     = $("input:checkbox[id='siksa']").is(":checked");
+        var don       = $("input:checkbox[id='don']"  ).is(":checked");
+        var searchvalue = $('#searchvalue').val();
+
+        console.log("searchvalue : " + searchvalue);
+        console.log("sukso : " + sukso + " / " + "siksa : " + siksa + " / " + "don : " + don);
+
+        $.ajax({
+           type : "post",
+           url  : "worklistchecksearch.htm",
+           data : "sukso=" + sukso + "&don=" + don + "&siksa=" + siksa + "&searchvalue=" + searchvalue,
+           success : function(data) { //callback
+              console.log("data.result : " + data.result + " / " + "data.worklist : " + data.worklist);
+
+              var print = "";
+
+              //결과값이 있는경우
+               if(data.result == "1")
+               {
+                  console.log("result = 1");
+                  $("#body").empty();
+
+                     print += "<tr style=\"height: 30px;\" class=\"success\">";
+                   print += "<td>글번호</td>";
+                   print += "<td>작성자</td>"
+                   print += "<td>제목</td>"
+                   print += "<td>보상</td>";
+                   print += "<td>인원</td>";
+                   print += "</tr>";
+
+                   $.each(data.worklist, function(index, obj){
+                      // \역슬러시 사용해서 ""를 문자그대로 인식하도록 했다.
+                      print += "<tr style=\"height: 30px;\">"
+                      print += "<td>" + obj.num + "</td>";
+                      print += "<td>" + obj.id + "</td>";
+                      print += "<td>" + "<a href=\"workdetail.htm?num=" + obj.num + "\">" + obj.title + "</a></td>";
+                      print += "<td>" + obj.compensate + "</td>";
+                      print += "<td>" + obj.needpeople + "</td>";
+                      print += "</tr>";
+                 });
+
+                 $("#body").append(print);
+               }
+               else //체크박스에서 선택한게 없을경우.
+              {
+                  console.log("result = 2");
+                  $("#body").empty();
+                  $("#body").html("결과값이 없습니다.");
+              }
+           }// success : function(data)
+        });//$.ajax({
+   }//function checkAndSearchClick()
 </script>
 <style type="text/css">
 	a 
