@@ -9,10 +9,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,12 @@ public class MemberController {
 	
 	@Autowired
 	private SqlSession sqlsession;
+	
+	@Autowired
+	private MailSender mailSender;
+	@Autowired
+	private SimpleMailMessage templateMessage;
+	
 	/*
 	//로그인(login.htm)
 	@RequestMapping(value="login.htm",method=RequestMethod.GET)
@@ -76,11 +83,17 @@ public class MemberController {
 		
 		System.out.println("searchidsuccess start");
 		
+		SimpleMailMessage msg = new SimpleMailMessage(templateMessage); // 메일생성
+		
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
 		MemberDTO memberdto = memberdao.searchIdByNameAndEmail(name , email);
 		System.out.println(memberdto);
 		if(memberdto != null){
-			this.sendEmail(email, memberdto, true);
+			// 메일 발송
+			msg.setTo(email); // to
+			msg.setText(name+" 님의 아이디는 "+memberdto.getId()+" 입니다."); //content
+			mailSender.send(msg); // 메일발송
+			System.out.println("메일이 발송 되었습니다.");
 		}else{
 			System.out.println("일치하는 정보 없음");
 		}
@@ -92,15 +105,21 @@ public class MemberController {
 	
 	//비밀번호 찾기 성공 (searchpwd.htm)
 	@RequestMapping(value="searchpwd.htm",method=RequestMethod.POST)
-	public String searchpwdsuccess(String id , String email){
+	public String searchpwdsuccess(String searchid , String email){
 		
 		System.out.println("searchpwdsuccess start");
+		System.out.println(searchid + "/" + email);
+		SimpleMailMessage msg = new SimpleMailMessage(templateMessage); // 메일생성
 		
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		MemberDTO memberdto = memberdao.searchPwdByIdAndEmail(id , email);
+		MemberDTO memberdto = memberdao.searchPwdByIdAndEmail(searchid , email);
 		System.out.println(memberdto);
 		if(memberdto != null){
-			this.sendEmail(email, memberdto, false);
+			// 메일 발송
+			msg.setTo(email); // to
+			msg.setText(searchid + " 님의 비밀번호는 "+memberdto.getPwd()+" 입니다."); //content
+			mailSender.send(msg); // 메일발송
+			System.out.println("메일이 발송 되었습니다.");
 		}else{
 			System.out.println("일치하는 정보 없음");
 		}
@@ -158,52 +177,5 @@ public class MemberController {
 		// Tiles 적용 (UrlBase 방식)
 		return "main.start";
 	}
-	
-	// send email 함수
-	public void sendEmail(String email, MemberDTO memberdto, boolean bool){
-    	String host = "smtp.gmail.com"; //smtp 서버
-    	String subject = "무전무죄 입니다.";
-    	String fromName = "무전무죄 관리자";
-    	String from = "gisubsub@gmail.com";
-    	String to = email;
-    	String content = "";
-    	
-    	if(bool)
-    		content = "당신의 ID는" + memberdto.getId() + "입니다";
-    	else
-    		content = "당신의 PWD는" + memberdto.getPwd() + "입니다";
-    	
-    	try{
-	    	Properties props = new Properties();
-	    	
-	    	props.put("mail.smtp.starttls.enable", "true");
-	    	props.put("mail.transport.protocol", "smtp");
-	    	props.put("mail.smtp.host", host);
-	    	props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-	    	props.put("mail.smtp.port", "465");
-	    	props.put("mail.smtp.user", from);
-	    	props.put("mail.smtp.auth", "true");
-	    	
-	    	Session mailSession = Session.getInstance(props, 
-	    			new javax.mail.Authenticator(){
-	    					protected PasswordAuthentication getPasswordAuthentication(){
-	    							return new PasswordAuthentication("gisubsub", "rltjqtjq7887");
-	    					}
-	    			});
-	    	Message msg = new MimeMessage(mailSession);
-	    	msg.setFrom(new InternetAddress(from, MimeUtility.encodeText(fromName, "UTF-8", "B")));
-    	
-	    	InternetAddress[] address = { new InternetAddress(to)};
-	    	msg.setRecipients(Message.RecipientType.TO, address); //받는 사람설정1
-	    	msg.setSubject(subject);// 제목 설정
-	    	msg.setSentDate(new java.util.Date());; //보내는 날짜 설정
-	    	msg.setContent(content, "text/html;charset=UTF-8"); //내용 설정 (HTML 형식)
-	    	
-	    	Transport.send(msg); //메일 보내기
-	    	
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}
-    }
 	
 }
