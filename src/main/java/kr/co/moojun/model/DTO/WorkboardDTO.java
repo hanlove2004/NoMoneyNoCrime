@@ -19,6 +19,9 @@ public class WorkboardDTO {
    private Date enddate;           /* 완료날짜    ENDDATE       DATE          NOT NULL */
    private String expire;          /* 활성화      EXPIRE        VARCHAR2(20)  NOT NULL */
    
+   // 예외 사항 추가
+   private String sex;			   /* 작성자(ID)에 대한 성별 */
+
    public int getNum() {
       return num;
    }
@@ -102,6 +105,12 @@ public class WorkboardDTO {
    }
    public void setExpire(String expire) {
       this.expire = expire;
+   }
+   public String getSex() {
+      return sex;
+   }
+   public void setSex(String sex) {
+	  this.sex = sex;
    }
    
    @Override

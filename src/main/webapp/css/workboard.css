@@ -1,0 +1,160 @@
+@CHARSET "UTF-8";
+
+.swiper-container {
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    direction: ltr;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    z-index: 1;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.work-list-box .work-list a {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    text-decoration: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.swiper-wrapper{
+	position: relative;
+	max-width: 870px;
+	width: 100%;
+	transition-property: transform, left, top
+	transition-duration: 0s;
+	transform: translate3d(0px, 0, 0);
+	transition-timing-function: ease;
+	box-sizing: content-box;
+}
+
+.work-list-box .work-list{
+	display: block;
+	margin: 0 auto;
+}
+
+.work-list-box .work-list .work-thumb{
+    display: block;
+    position: relative;
+    height: 153px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.work-thumb{
+    background-image: url(//d276fqercnuq4h.cloudfront.net/assets/roma/city/offer_default-3c1a4516937851f03e35027de113dfb4b4b051a33d027bf4b992f8d29e249aa3.png);
+    background-position: center center;
+}
+
+.work-list-box .work-list .work-thumb .work-name{
+display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 0 12px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 1.3em;
+    color: #fff;
+    background: #03A9F4;
+    z-index: 20;
+}
+
+.work-list-box .work-list .work-content{
+display: block;
+    position: relative;
+    padding: 32px 8px 0 8px;
+    height: 100px;
+    z-index: 20;
+}
+
+.work-list-box .work-list .profile-img {
+    position: absolute;
+    left: 10px;
+    top: -30px;
+}
+
+.work-list-box .work-list .profile-img .img-wrap {
+    display: block;
+    float: left;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0 0 0 3px white;
+    background-color: #FFFFFF;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.work-list-box .work-list .profile-img .profile-name {
+    float: left;
+    margin: 33px 0 0 5px;
+    font-size: 1.2em;
+    color: #757575;
+}
+
+.work-list-box .work-list .work-thumb .img {
+    display: block;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+.work-list-box .work-list .work-info {
+    display: block;
+    padding: 4px 0;
+    margin: 0 8px;
+    text-align: center;
+    border-top: 1px solid #e6e6e6;
+}
+.work-list-box .work-list .work-info .text {
+    display: block;
+    font-size: 1.2em;
+    color: #bdbdbd;
+}
+.work-list .work-info .text {
+    color: #757575 !important;
+}
+
+.work-list-box .work-list .work-card{
+	padding-bottom: 20px;
+}
+
+@media screen and (max-width: 767px){
+	.work-list-box .work-list .work-card{
+		width: 100%;
+	}
+	
+	.work-list-box .work-list .work-card .text{
+		text-align: center;
+		font-size: large;
+	}
+}
+
+.work-list-box .work-list .work-content .howmany {
+    display: block;
+    position: absolute;
+    right: 10px;
+    bottom: 4px;
+    font-size: 1em;
+    color: #757575;
+}
+
+.work-list-box .work-list .work-content .howmany b {
+    font-weight: 600;
+    letter-spacing: 0px;
+    margin-left: 7px;
+    font-size: 1.1em;
+    color: #03A9F4;
+}

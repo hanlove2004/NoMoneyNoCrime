@@ -16,6 +16,9 @@
 <!-- 파비콘 적용 -->
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
 <link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
+
+<!-- 카드 디자인 css 적용 -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/workboard.css">
 <title>무전무죄 프로젝트</title>
 
 <script type="text/javascript">

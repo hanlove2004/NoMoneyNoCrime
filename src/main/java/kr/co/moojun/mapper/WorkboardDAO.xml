@@ -62,24 +62,35 @@
    
    <!-- 일자리게시판 리스트(여러개) -->
    <select id="getWorkBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.WorkboardDTO">
-      SELECT 
-             * 
-        FROM
-          ( 
-            SELECT 
-                   A.*
-                 , ROWNUM R 
-              FROM
-                (
-                  SELECT 
-                         * 
-                    FROM WORKBOARD 
-                   ORDER BY num DESC
-                ) A
-         )
-      WHERE EXPIRE = '1' 
-        AND R >= #{start} 
-        AND R &lt;= #{end}
+      SELECT
+	          *
+	   FROM (
+               SELECT
+                      ROWNUM                 AS R
+                    , WORKBOARD.NUM          AS NUM
+                    , WORKBOARD.ID           AS ID
+                    , WORKBOARD.TITLE        AS TITLE
+                    , WORKBOARD.COMPENSATE   AS COMPENSATE
+                    , WORKBOARD.NEEDPEOPLE   AS NEEDPEOPLE
+                    , WORKBOARD.PHONE        AS PHONE
+                    , WORKBOARD.CONTENT      AS CONTENT
+                    , WORKBOARD.REGDATE      AS REGDATE
+                    , WORKBOARD.STATE        AS STATE
+                    , WORKBOARD.REGPEOPLE    AS REGPEOPLE
+                    , WORKBOARD.ADDR         AS ADDR
+                    , WORKBOARD.STARTDATE    AS STARTDATE
+                    , WORKBOARD.ENDDATE      AS ENDDATE
+                    , WORKBOARD.EXPIRE       AS EXPIRE
+                    , MEMBER.SEX             AS SEX
+                 FROM WORKBOARD WORKBOARD 
+                      INNER JOIN 
+                      MEMBER MEMBER
+                   ON WORKBOARD.ID = MEMBER.ID
+                WHERE EXPIRE = '1'
+	        )
+	    WHERE R >= #{start}
+	     AND R &lt;= #{end}
+	   ORDER BY NUM DESC
    </select>
    
    <!-- 일자리게시판 디테일(상세보기) -->
@@ -203,7 +214,7 @@
         
    </select>
    
-    <!-- 내 일자리 등록 게시글의 수 -->
+   <!-- 내 일자리 등록 게시글의 수 -->
    <select id="getMyWorkAddListCount" resultType="Integer">
       SELECT 
              COUNT(*) 
@@ -217,6 +228,14 @@
          FROM WORKBOARD
          WHERE NUM=#{NUM}
    </delete>
+   
+   <!-- 내 일자리 등록 게시글의 수 -->
+   <select id="getWriterSex">
+      SELECT 
+             SEX 
+        FROM MEMBER
+        WHERE id = #{id}
+   </select>
    
    
 </mapper>
