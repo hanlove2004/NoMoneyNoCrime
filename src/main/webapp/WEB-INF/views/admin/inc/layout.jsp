@@ -35,11 +35,6 @@
 			text-decoration: underline;
 		}
 		
-		.maincontent
-		{
-			height: 470px;
-		}
-		
 		p
 		{
 			color: #A8D5F6;
@@ -54,6 +49,23 @@
 		nav
 		{
 			font-family: myfont05;
+		}
+		
+		div #admincontainer 
+		{
+			background-color: #fff;
+			border-radius: 0.5em;
+			width: 800px;
+			margin-top: 30px;
+			margin-bottom: 30px;
+			font-family: myfont05;
+			text-align: center;
+		}
+		
+		label
+		{
+			margin-bottom: 0px;
+			margin-top: 7px;
 		}
 	</style>
 	<script type="text/javascript">
@@ -73,9 +85,7 @@
 		<tiles:insertAttribute name="header"/>
 		
 		<!-- main 영역 -->
-		<div class="maincontent" style="overflow: auto;">
 		<tiles:insertAttribute name="content"/>
-		</div>
 		
 		<!-- footer 영역 -->
 		<tiles:insertAttribute name="footer"/>

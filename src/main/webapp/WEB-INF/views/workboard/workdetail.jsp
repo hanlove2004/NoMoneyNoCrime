@@ -54,8 +54,7 @@
 					<!-- 로그인한 아이디와 작성자와 같을때 신청버튼 활성화 -->
 					<c:if test="${dtoid != loginid}">
 						<button type="button" class="btn btn-success" data-toggle="modal"
-							data-target="#requestForm">
-							<a href="worklist.htm">신청</a>
+							data-target="#requestForm">신청
 						</button>
                     &nbsp;&nbsp;&nbsp;
                     </c:if> <!-- 만약 관리자 일 경우 삭제버튼 활성화 --> 

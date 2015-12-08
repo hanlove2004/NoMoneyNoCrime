@@ -7,7 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.moojun.model.DAO.MessageDAO;
 import kr.co.moojun.model.DAO.WorkformDAO;
+import kr.co.moojun.model.DTO.MessageDTO;
 import kr.co.moojun.model.DTO.WorkformDTO;
 
 @Controller
@@ -22,7 +24,7 @@ public class WorkformController {
    
    // 일자리신청폼 작성 (/workboard/workrequest.htm)
    @RequestMapping(value = "/workboard/workrequest.htm", method = RequestMethod.POST)
-   public String workforminsert(WorkformDTO dto, Model model) {
+   public String workforminsert(WorkformDTO dto, MessageDTO messagedto, Model model) {
 
       System.out.println("workforminsert 시작");
       System.out.println(dto.toString());
@@ -30,14 +32,28 @@ public class WorkformController {
       WorkformDAO workformdao = sqlsession.getMapper(WorkformDAO.class);
       int result = workformdao.insertWorkform(dto);
       
-      System.out.println("updateNoticeBoard result=>" + result);
+      String receiver = dto.getOwner();
+      String sender = "admin";
+      String content = "[ " + dto.getWorker() + " ]" + "님으로 부터 신청이 들어왔습니다.";
       
-      model.addAttribute("result", result); //실패 : 0 , 성공 : 1
+      MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
+      
+      messagedto.setReceiver(receiver);
+      messagedto.setSender(sender);
+      messagedto.setContent(content);
+      
+      int result2 = messagedao.insertMessage(messagedto);
+      
+      System.out.println("insertWorkform result=>" + result);
+      System.out.println("글번호 : " + dto.getNum());
+      System.out.println("insertMessage result=>" + result2);
+      //model.addAttribute("result", result); //실패 : 0 , 성공 : 1
+      model.addAttribute("num", dto.getNum());
       
       System.out.println("workforminsert 끝");
       
       // Tiles 적용 (UrlBase 방식)
-      return "workboard.workdetail";
+      return "redirect:workdetail.htm";
    }
    
    // 일자리신청폼 디테일(/mypage/workformdetail.htm)
