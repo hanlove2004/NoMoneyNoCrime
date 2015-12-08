@@ -7,6 +7,7 @@
 	<definition name="main.*" template="/WEB-INF/views/main/inc/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/main/inc/header.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+		<put-attribute name="searchdiv" value="/WEB-INF/views/main/searchdiv.jsp" />
 		<put-attribute name="content" value="/WEB-INF/views/main/{1}.jsp" />
 	</definition>
 	

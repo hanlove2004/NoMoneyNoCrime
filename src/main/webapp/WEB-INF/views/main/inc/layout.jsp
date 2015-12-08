@@ -204,6 +204,11 @@
 			<div class="maincontent">
 			<tiles:insertAttribute name="content" />
 			</div>
+			
+			<!-- searchdiv 영역 -->
+			<div>
+			<tiles:insertAttribute name="searchdiv" />
+			</div>
 
 			<!-- footer 영역 -->
 			<tiles:insertAttribute name="footer" />
