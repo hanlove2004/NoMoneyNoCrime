@@ -60,7 +60,7 @@
                   console.log("result = 1");
                   $("#body").empty();
 
-                     print += "<tr style=\"height: 30px;\" class=\"success\">";
+                   print += "<tr style=\"height: 30px;\" class=\"success\">";
                    print += "<td>글번호</td>";
                    print += "<td>작성자</td>"
                    print += "<td>제목</td>"
