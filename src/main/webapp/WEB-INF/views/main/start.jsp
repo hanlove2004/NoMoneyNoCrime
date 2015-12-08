@@ -3,17 +3,28 @@
 
 <!-- 메인 -->
 <div id="start" align="center" class="collapse in" style="margin-top: 90px;">
-	<div class="jumbotron text-center" style="vertical-align: middle; margin: auto; width: 500px; border-radius: 0.5em; background-color: #E5F1B5;">
-		<h2 style="font-family: myfont05;">돈 없는 것은 죄가 아니다!</h2> 
-		<b style="font-family: myfont05; font-size: 20px; color: #DC0429">떠나세요! 여러분의 무전여행을 도와드립니다.</b>
-		<hr>
-		<form class="form-inline">
-			<input type="text" class="form-control" size="35" placeholder="여행후기 검색">&nbsp;&nbsp;&nbsp;
-			<a href="#" class="btn btn-danger">
-				<span class="glyphicon glyphicon-search"></span> Search
-			</a> 
-		</form>
-	</div>
+   <div class="jumbotron text-center" style="vertical-align: middle; margin: auto; width: 500px; border-radius: 0.5em; background-color: #E5F1B5;">
+      <h2 style="font-family: myfont05;">돈 없는 것은 죄가 아니다!</h2> 
+      <b style="font-family: myfont05; font-size: 20px; color: #DC0429">떠나세요! 여러분의 무전여행을 도와드립니다.</b>
+      <hr>
+      <form class="form-inline">
+         <input type="text" id="mainsearch" class="form-control" size="35" placeholder="여행후기 검색">
+         
+         &nbsp;&nbsp;&nbsp;
+         
+         <a href="#" class="btn btn-danger" id="searchbutton">
+            <span class="glyphicon glyphicon-search"></span> Search
+         </a> 
+         
+      </form>
+      
+      <!-- mainsearch 결과 list -->
+      <div id="suggest" style=" margin-left:47px;" >
+         <ul style="list-style:none;position: absolute;background-color: white;padding-left: 10px" id="keywordlist">
+         </ul>
+      </div> 
+      
+   </div>
 </div>
 
 <!-- 로그인 -->

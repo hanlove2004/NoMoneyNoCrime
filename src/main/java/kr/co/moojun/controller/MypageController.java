@@ -129,7 +129,8 @@ public class MypageController {
 		// Tiles 적용 (UrlBase 방식)
 		return "main.start";
 	}
-
+	
+	// 나의 일자리 등록현황(workaddlist.htm)
 	@RequestMapping(value = "workaddlist.htm", method = RequestMethod.GET)
 	   public String workaddlist(Principal principal, HttpServletRequest request, Model model) {
 	      System.out.println("workaddlist 시작");
@@ -203,25 +204,26 @@ public class MypageController {
 		// Tiles 적용 (UrlBase 방식)
 		return "mypage.workadddetail";
 	}
+	
 	// 일자리 등록 취소 / 삭제 (workadddelete.htm)
 	@RequestMapping(value = "workadddelete.htm", method = RequestMethod.GET)
 	public String workadddelete(String num) {
 		
 		System.out.println("workadddelete 시작");
-		
+
 		WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
 		// 취소할 글의 번호 받아오기
 		int workboardnum = Integer.parseInt(num);
 		System.out.println("num : " + workboardnum);
-		
-		//삭제 처리
+		// 삭제 처리
 		workboarddao.deletemMyWorkboard(workboardnum);
-		
+
 		System.out.println("workadddelete 끝");
 		
 		// Tiles 적용 (UrlBase 방식)
-		return "mypage.workaddlist";
+		return "redirect:/mypage/workaddlist.htm";
 	}
+
 	
 	// 일자리 등록에 대한 신청 양식 상세보기 ()
 	

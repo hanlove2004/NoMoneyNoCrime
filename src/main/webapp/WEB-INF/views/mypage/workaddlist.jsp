@@ -23,12 +23,12 @@
       <c:forEach var="workaddlist" items="${workaddlist}">
          <tr style="height: 30px;">
             <td>${workaddlist.num}</td>
-            <td><a href="workadddatail.htm?num=${workboardlist.num}">${workaddlist.title}</a></td>
+            <td><a href="workadddatail.htm?num=${workaddlist.num}">${workaddlist.title}</a></td>
             <td>${workaddlist.startdate} ~ ${workaddlist.enddate}</td>
             <td>${workaddlist.state}</td>
             <!-- 확정인원 받아와서 어떻게 할지 결정해야함. 일단 matching된 것에 대한 count를 구해서 여기에 뿌리는 걸로 -->
             <td>${matchingcount}&nbsp;/&nbsp;${workaddlist.needpeople}</td>
-            <td><a href="workadddelete.htm">취소</a></td>
+            <td><a href="workadddelete.htm?num=${workaddlist.num}">취소</a></td>
          </tr>
       </c:forEach>
    </table>
