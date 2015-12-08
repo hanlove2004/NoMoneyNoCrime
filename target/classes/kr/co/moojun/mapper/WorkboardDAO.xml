@@ -131,36 +131,6 @@
        WHERE NUM       = #{num} 
    </update>
    
-   <!-- search -->
-  <!--  <select id="getSearch" parameterType="hashMap" resultType="kr.co.moojun.model.DTO.WorkboardDTO">
-       
-           1. Java 코드
-           Map<String, String> map = new HashMap<>(); //collection
-             map.put("column",column ); //column : name or email or home
-             map.put("keyvalue", keyvalue); //keyvalue : 홍길동
-             
-             2. 함수 호출시 
-             session.selectList("GUEST.selectSearch" ,map);
-       
-            3. xml에서 
-           parameterType="hashMap"
-          
-          map key   : column , keyvalue
-          map value : #{column} , ${column}
-          
-          Tip : ${column} : 컬럼명
-      
-      SELECT 
-             * 
-        FROM WORKBOARD
-        
-        where name like '%김유신%'
-       <if test="column != null">
-          WHERE ${column} LIKE '%' || #{keyvalue} || '%'
-            AND EXPIRE = '1'      
-       </if>
-   </select> -->
-   
    <!-- checkbox search -->
    <select id="checkboxSearch" parameterType="hashMap" resultType="kr.co.moojun.model.DTO.WorkboardDTO">
       <!--  
@@ -184,9 +154,10 @@
              * 
         FROM (
                SELECT 
-                      * 
-                 FROM WORKBOARD 
-                WHERE EXPIRE = '1'
+                      *                 
+                 FROM (SELECT * FROM WORKBOARD WHERE EXPIRE = '1')
+                WHERE TITLE LIKE  '%' || #{searchvalue} || '%'
+                   OR ADDR  LIKE  '%' || #{searchvalue} || '%'
              )
         <where>
           <if test="sukso == 'sukso'">
@@ -200,30 +171,6 @@
          </if>  
         </where>
    </select>
-   
-   <!-- button search -->
-   <!--
-     설명 : 제목이나 보상을 입력시 모두 불러와야한다. 
-   -->
-   <select id="buttonSearch" parameterType="String" resultType="kr.co.moojun.model.DTO.WorkboardDTO">
-         SELECT 
-             * 
-        FROM (
-               SELECT 
-                      *                 
-                 FROM (SELECT * FROM WORKBOARD WHERE EXPIRE = '1')
-                WHERE TITLE LIKE  '%' || #{searchvalue} || '%'
-      
-                UNION
-                
-                SELECT
-                        *
-                  FROM (select * from WORKBOARD WHERE EXPIRE = '1')
-                 WHERE COMPENSATE LIKE '%' || #{searchvalue} || '%'
-               )
-           ORDER BY NUM DESC
-   </select>
-   
    
    <!-- /////////////////////////////////////////MYPAGE///////////////////////////////////////// -->
    <!-- 일자리게시판 게시글의 수 -->
@@ -247,8 +194,8 @@
                   SELECT 
                          * 
                     FROM WORKBOARD
-                    WHERE id = #{id}
-                   ORDER BY num DESC
+                   WHERE id = #{id}
+                   ORDER BY NUM DESC
                 ) A
          )
       WHERE R >= #{start} 
@@ -264,10 +211,12 @@
         WHERE id = #{id}
    </select>
    
+   <!-- 내 일자리 등록 게시글 삭제 -->
    <delete id="deletemMyWorkboard" parameterType="Integer">
          DELETE
          FROM WORKBOARD
          WHERE NUM=#{NUM}
    </delete>
+   
    
 </mapper>

@@ -21,8 +21,6 @@ public interface WorkboardDAO {
    
    List<WorkboardDTO> checkboxSearch(HashMap map);   // checkboxsearch
    
-   List<WorkboardDTO> buttonSearch(String searchvalue);   // buttonSearch
-
    int getWorkBoardCount(); // 일자리게시판 게시글의 수
    
    List<WorkboardDTO> getMyWorkAddList(HashMap map); // 내 일자리 등록 리스트
