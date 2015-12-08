@@ -14,7 +14,7 @@ public interface MemberDAO {
 	
 	int admindeleteMember(int num); // 회원 강퇴
 	
-	int updateMember(MemberDTO memberdto);// 회원 정보 수정
+	int updateMember(String newpwd , String phone , String email , String pwd , String id);// 회원 정보 수정
 	
 	/*int loginMember(MemberDTO memberdto); // 로그인 */
 	

@@ -59,59 +59,56 @@ public class MypageController {
 		
 		System.out.println(memberdto.toString());
 		model.addAttribute("memberdto", memberdto);
-		
+
 		System.out.println("memberinfo 끝");
 
 		// Tiles 적용 (UrlBase 방식)
 		return "mypage.memberinfo";
 	}
-	
+
 	// 마이페이지 회원정보 수정 (memberupdate.htm)
 	@RequestMapping(value = "memberupdate.htm", method = RequestMethod.GET)
 	public String memberupdate(String id, Model model, Principal principal) {
 
 		System.out.println("memberupdate 시작");
-		
-		//mapper 설정
+
+		// mapper 설정
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		
-		//LOGIN 상태인 id 받아오기
+
+		// LOGIN 상태인 id 받아오기
 		id = principal.getName();
 		System.out.println(id);
-		
-		//회원정보 수정정보 상세보기 (readonly 부분)
+
+		// 회원정보 수정정보 상세보기 (readonly 부분)
 		MemberDTO memberdto = memberdao.getMemberDetail(id);
-		
+
 		System.out.println(memberdto.toString());
 		model.addAttribute("memberdto", memberdto);
-		
-		UserDetails user = 
-	               (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(user.getUsername() + user.getAuthorities());
-	    System.out.println("memberinfo 끝");
-		
+
+		System.out.println("memberupdate 끝");
+
 		// Tiles 적용 (UrlBase 방식)
 		return "mypage.memberupdate";
 	}
 
 	// 마이페이지 회원정보 수정 성공 (memberupdate.htm)
 	@RequestMapping(value = "memberupdate.htm", method = RequestMethod.POST)
-	public String memberupdatesuccess(MemberDTO dto, Model model) {
+	public String memberupdatesuccess(String newpwd, String phone, String email, String pwd, String id, Model model) {
 
 		System.out.println("memberupdatesuccess 시작");
-		
-		//result 1 : 수정성공, result 0 : 수정 실패
+		System.out.println(newpwd + "/" + phone + "/" + email);
+		// result 1 : 수정성공, result 0 : 수정 실패
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		int result = memberdao.updateMember(dto);
-		
+		int result = memberdao.updateMember(newpwd, phone, email, pwd, id);
+
 		System.out.println("memberupdate result : " + result);
-		
+
 		model.addAttribute("result" + result);
-		
+
 		System.out.println("memberupdatesuccess 끝");
 
 		// Tiles 적용 (UrlBase 방식)
-		return "mypage.memberinfo";
+		return "redirect:memberinfo.htm";
 	}
 
 	// 마이페이지 회원탈퇴 (memberdelete.htm)
@@ -206,13 +203,22 @@ public class MypageController {
 		// Tiles 적용 (UrlBase 방식)
 		return "mypage.workadddetail";
 	}
-	
-	// 일자리 등록 취소 (workaddcancle.htm)
-	@RequestMapping(value = "workaddcancle.htm", method = RequestMethod.GET)
-	public String workaddcancle(String num) {
-
-		System.out.println("");
-
+	// 일자리 등록 취소 / 삭제 (workadddelete.htm)
+	@RequestMapping(value = "workadddelete.htm", method = RequestMethod.GET)
+	public String workadddelete(String num) {
+		
+		System.out.println("workadddelete 시작");
+		
+		WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
+		// 취소할 글의 번호 받아오기
+		int workboardnum = Integer.parseInt(num);
+		System.out.println("num : " + workboardnum);
+		
+		//삭제 처리
+		workboarddao.deletemMyWorkboard(workboardnum);
+		
+		System.out.println("workadddelete 끝");
+		
 		// Tiles 적용 (UrlBase 방식)
 		return "mypage.workaddlist";
 	}

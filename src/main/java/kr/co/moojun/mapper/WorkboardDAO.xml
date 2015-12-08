@@ -264,4 +264,10 @@
         WHERE id = #{id}
    </select>
    
+   <delete id="deletemMyWorkboard" parameterType="Integer">
+         DELETE
+         FROM WORKBOARD
+         WHERE NUM=#{NUM}
+   </delete>
+   
 </mapper>

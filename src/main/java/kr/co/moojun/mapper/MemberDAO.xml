@@ -72,13 +72,13 @@
    </delete>
    
    <!-- 회원 정보 수정 -->
-   <update id="updateMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
+   <update id="updateMember">
       UPDATE MEMBER <!-- 회원테이블 -->
-         SET PWD   = #{pwd}    
-           , PHONE = #{phone}
-           , EMAIL = #{email} 
-       WHERE ID  = #{id}  
-         AND PWD = #{pwd} 
+         SET PWD   = #{param1}    
+           , PHONE = #{param2}
+           , EMAIL = #{param3} 
+       WHERE ID  = #{param5}  
+         AND PWD = #{param4} 
    </update>
    
    <!-- 로그인 -->

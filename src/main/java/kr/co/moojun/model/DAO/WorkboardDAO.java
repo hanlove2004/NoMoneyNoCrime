@@ -28,4 +28,6 @@ public interface WorkboardDAO {
    List<WorkboardDTO> getMyWorkAddList(HashMap map); // 내 일자리 등록 리스트
    
    int getMyWorkAddListCount(String id); // 내 일자리 등록 게시글의 수
+   
+   int deletemMyWorkboard(int num);   // 회원목록에서 등록 일자리 삭제
 }
