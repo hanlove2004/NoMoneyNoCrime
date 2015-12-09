@@ -1,50 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
+<!-- Modal -->
+<div class="modal fade" id="epilogueModal" role="dialog">
+   <div class="modal-dialog">
 
-<div style="height: 500px; width: 700px; margin: auto;">
-      <!-- 비동기시 path를 못불러오기 때문에 담아놓고 가공하기 위해서.. -->
-      <input type="hidden" id="requestgetContextPath">
-   <!-- 목록(카드 디자인) 테스트 -->
-   <div style="margin: 0 auto; width: 700px; height: 500px;">
-      <div class="card-deck-wrapper" style="margin: 0 auto;">
-         <div class="card-deck">
-            <div id="searchdiv">
-               <!-- 비동기올부분 -->
-            </div>
+      <!-- Modal content-->
+      <div class="modal-content" style="background-color: #D9DED3;">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <input type="hidden" id="modal-num">
+            <se:authentication property="name" var="LoingUser" />
+               <input type="hidden" id="LoingUser" value="${LoingUser}">
+               <input type="hidden" id="path" value="<%=request.getContextPath()%>">
+            <h4 class="modal-title" id="modal-title"></h4>
+            <span>작성자 : <input type="text" id="modal-writer" readonly></span>
+            <span id="modal-edit"></span>
+            <span id="modal-delete"></span>            
+         </div>
+         <div class="modal-body" id="modal-image" style="width: 100%;">
+            
+         </div>
+         <div class="modal-body" id="modal-body">
+            <p></p>
+         </div>
+         <div class="modal-body" id="modal-reply" style="background-color: white;">
+            
+         </div>
+         <!-- 비로그인한 사람들이 보기위해서 삭제했습니다. 
+         <div class="modal-body" id="reply-text">
+            <textarea rows="4" cols="60" id="replycontent" name="replycontent">댓글쓰기</textarea>
+            <button id="replywrite" onclick="replywrite()">확인</button>
+         </div> -->
+         <div class="modal-footer" id="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
          </div>
       </div>
+
    </div>
-   
-   <div style="margin: 0 auto; width: 300px;">
-      <nav style="text-align: center;">
-         <ul class="pagination pagination-sm"">
-            <!-- 처음 , 이전 페이지로 이동 -->
-            <c:if test="${pg>block}">
-               <li><a href="epiloguelist.htm?pg=1">처음</a></li>
-               <li>
-                  <a href="epiloguelist.htm?pg=${fromPage-1}" aria-label="Previous">
-                     <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-             </c:if> 
-             <!-- 각 페이지로 이동 -->
-             <c:forEach begin="${fromPage}" end="${toPage}" var="i">
-                <c:if test="${i==pg}"><li class="active"><a>${i}</a></li></c:if>
-               <c:if test="${i!=pg}">
-                  <li><a href="epiloguelist.htm?pg=${i}">${i}</a></li>
-               </c:if>
-            </c:forEach> 
-            <!-- 마지막 , 다음 페이지로 이동 -->
-            <c:if test="${toPage<allPage}">
-               <li>
-                  <a href="epiloguelist.htm?pg=${toPage+1}" aria-label="Next">
-                     <span aria-hidden="true">&raquo;</span>
-                  </a>
-               </li>
-               <li><a href='epiloguelist.htm?pg=${allPage}'>마지막</a></li>
-            </c:if>
-         </ul>
-      </nav>
-   </div>
-   <%@ include file="epiloguedetail.jsp" %>
 </div>

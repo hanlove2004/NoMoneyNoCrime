@@ -30,7 +30,8 @@
 								<small class="text-muted">${epiloguelist.regdate}</small>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 								<small class="text-muted">${epiloguelist.id}</small>
 							</p>
-							<a href="#" class="btn btn-primary" id="epilogue${epiloguelist.num}" onclick="epiloguedetail(${epiloguelist.num})">상세보기</a>
+							<a href="#" class="btn btn-primary" id="epilogue${epiloguelist.num}" onclick="epiloguedetail(${epiloguelist.num})"
+							data-target="#epilogueModal" data-toggle="modal" >상세보기</a>
 						</div>
 					</div>
 				</c:forEach>

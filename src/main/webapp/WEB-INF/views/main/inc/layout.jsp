@@ -417,7 +417,7 @@
          <tiles:insertAttribute name="content" />
          </div>
 
-       <!-- searchdiv -->
+         <!-- searchdiv -->
          <tiles:insertAttribute name="searchdiv" />
          
          <!-- footer 영역 -->

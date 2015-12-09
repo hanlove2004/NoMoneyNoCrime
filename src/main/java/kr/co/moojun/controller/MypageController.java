@@ -432,47 +432,119 @@ public class MypageController {
 		return jsonview;
 	}
 
-	@RequestMapping(value = "messagelist.htm", method = RequestMethod.GET)
-	   public String messagelist(Principal principal, Model model) {
-	      System.out.println("messagelist.htm");
-	      MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
-	      String id = principal.getName();
-	      HashMap map = new HashMap();
-	      map.put("id", id);
-	      System.out.println("id : " + id);
-	      List<MessageDTO> messagelist = messagedao.messagelist(map);
-	      model.addAttribute("messagelist", messagelist);
-	      System.out.println("messagereceivelist.htm 끝");
-	      return "mypage.messagelist";
-	   }
-	   
-	   @RequestMapping(value = "messagereceivelist.htm", method = RequestMethod.POST)
-	   public View messagereceivelist(Principal principal, Model model) {
-	      System.out.println("messagereceivelist.htm");
-	      MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
-	      String id = principal.getName();
-	      HashMap map = new HashMap();
-	      map.put("id", id);
-	      System.out.println("id : " + id);
-	      List<MessageDTO> messagereceivelist = messagedao.messagereceivelist(map);
-	      //System.out.println(dto.getSender() + "/" + dto.getReceiver());
-	      model.addAttribute("messagereceivelist", messagereceivelist);
-	      System.out.println("messagereceivelist.htm 끝");
-	      return jsonview;
-	   }
-	   
-	   @RequestMapping(value = "messagesendlist.htm", method = RequestMethod.POST)
-	   public View messagesendlist(Principal principal, Model model) {
-	      System.out.println("messagesendlist.htm");
-	      MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
-	      String id = principal.getName();
-	      HashMap map = new HashMap();
-	      map.put("id", id);
-	      System.out.println("id : " + id);
-	      List<MessageDTO> messagesendlist = messagedao.messagesendlist(map);
-	      model.addAttribute("messagesendlist", messagesendlist);
-	      return jsonview;
-	   }
+	// 쪽지함 리스트
+	/*@RequestMapping(value = "messagelist.htm", method = RequestMethod.GET)
+	public String messagelist(Principal principal, Model model) {
+		System.out.println("messagelist.htm");
+		MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
+		String id = principal.getName();
+		HashMap map = new HashMap();
+		map.put("id", id);
+		System.out.println("id : " + id);
+		List<MessageDTO> messagelist = messagedao.messagelist(map);
+		model.addAttribute("messagelist", messagelist);
+		System.out.println("messagelist.htm 끝");
+		return "mypage.messagelist";
+	}*/
+
+	// 받은 쪽지함 리스트
+	@RequestMapping(value = "messagereceivelist.htm", method = RequestMethod.GET)
+	public String messagereceivelist(String strPg, Principal principal, Model model) {
+		System.out.println("messagereceivelist.htm");
+		System.out.println("controller가 받은 페이지 번호 strPg : " + strPg);
+		
+		// mapper 생성
+		MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
+		
+		// paging 처리를 위한 코드
+		int pg = 1;
+		
+		if (strPg != null) {
+			pg = Integer.parseInt(strPg);
+		}
+		
+		int rowSize = 6;
+		int start = (pg * rowSize) - (rowSize - 1);
+		int end = pg * rowSize;
+		
+		int total = messagedao.getReceiveMessageCount(principal.getName()); // 총 게시물수
+
+		int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
+
+		int block = 5; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8]
+		int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
+		// ((1-1)/10*10)
+		int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
+		if (toPage > allPage) { // 예) 20>17
+			toPage = allPage;
+		}
+		
+		String id = principal.getName();
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("start", start);
+		map.put("end", end);
+
+		
+		List<MessageDTO> messagereceivelist = messagedao.messagereceivelist(map);
+
+		model.addAttribute("messagereceivelist", messagereceivelist);
+		model.addAttribute("pg", pg);
+		model.addAttribute("allPage", allPage);
+		model.addAttribute("block", block);
+		model.addAttribute("fromPage", fromPage);
+		model.addAttribute("toPage", toPage);
+
+		System.out.println("messagereceivelist.htm 끝");
+		return "mypage.messagereceivelist";
+	}
+	
+	// 보낸 쪽지함 리스트
+	@RequestMapping(value = "messagesendlist.htm", method = RequestMethod.GET)
+	public String messagesendlist(String strPg, Principal principal, Model model) {
+		System.out.println("messagesendlist.htm 시작");
+		MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
+		
+		// paging 처리를 위한 코드
+		int pg = 1;
+
+		if (strPg != null) {
+			pg = Integer.parseInt(strPg);
+		}
+
+		int rowSize = 6;
+		int start = (pg * rowSize) - (rowSize - 1);
+		int end = pg * rowSize;
+
+		int total = messagedao.getReceiveMessageCount(principal.getName()); // 총 게시물수
+
+		int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
+
+		int block = 5; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8]
+		int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
+		// ((1-1)/10*10)
+		int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
+		if (toPage > allPage) { // 예) 20>17
+			toPage = allPage;
+		}
+		
+		String id = principal.getName();
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("start", start);
+		map.put("end", end);
+
+		List<MessageDTO> messagesendlist = messagedao.messagesendlist(map);
+		model.addAttribute("messagesendlist", messagesendlist);
+		model.addAttribute("pg", pg);
+		model.addAttribute("allPage", allPage);
+		model.addAttribute("block", block);
+		model.addAttribute("fromPage", fromPage);
+		model.addAttribute("toPage", toPage);
+		
+		System.out.println("messagesendlist.htm 끝");
+		return "mypage.messagesendlist";
+	}
 
 	// 쪽지 상세보기 (messagedetail.htm)
 	@RequestMapping(value = "messagedetail.htm", method = RequestMethod.GET)

@@ -102,17 +102,10 @@
                $("#work-list").html("결과값이 없습니다.");
            }
 
-<<<<<<< HEAD
            }// success : function(data)
         });//$.ajax({
    }//function checkAndSearchClick()
-   
-=======
-	      }// success : function(data)
-	   });//$.ajax({
-	}//function checkAndSearchClick()
-	
->>>>>>> 0aaf548c62e0b871a4983737a51f5c0e03800cfb
+
 	// sendmessage() start
 	function sendMessage() {
 		var sender = $('#sender').val();
@@ -126,13 +119,13 @@
 			success : function(data) { //callback
 				if(data != null){
 					alert("쪽지를 성공적으로 보냈습니다");
+					$('#messagecontent').val("");
 				}
 				
 			}// success : function(data)
 		});//$.ajax({
 	}//function sendMessage() end
 	
-<<<<<<< HEAD
 	// getMemberInfo() start
 	function getMemberInfo(id) {
 		var contextpath = $('#contextpath').val();
@@ -151,7 +144,6 @@
 		});//$.ajax({
 	}//function getMemberInfo() end
 	
-=======
 	// Paging 처리
 	function Paging(pg) {
         $.ajax({
@@ -203,7 +195,6 @@
            }
         });
      };
->>>>>>> 0aaf548c62e0b871a4983737a51f5c0e03800cfb
 </script>
 <style type="text/css">
 	a 

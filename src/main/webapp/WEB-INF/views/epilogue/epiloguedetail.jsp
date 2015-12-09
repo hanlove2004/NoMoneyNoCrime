@@ -117,7 +117,6 @@
 					alert('Error while request..'	);
 				}
 			});
-			$("#epilogueModal").modal();
 		}
 		
 		//여행 후기 댓글 쓰기 ajax

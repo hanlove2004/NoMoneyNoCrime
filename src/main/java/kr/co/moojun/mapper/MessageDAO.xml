@@ -55,20 +55,55 @@
         FROM MESSAGE 
        WHERE NUM = #{num}
    </delete>
+
+	<!-- 전체 메세지 리스트 -->
+	<select id="messagelist" resultType="kr.co.moojun.model.DTO.MessageDTO">
+		SELECT *
+		FROM MESSAGE
+	</select>
+
+	<!-- 받은 메세지 리스트 -->
+	<select id="messagereceivelist" resultType="kr.co.moojun.model.DTO.MessageDTO">
+		SELECT 
+             * 
+        FROM (
+        		  SELECT ROWNUM AS NUM1, N.* 
+        		  FROM (SELECT * 
+        		  			FROM MESSAGE 
+        		  			WHERE RECEIVER=#{id} 
+        		  			ORDER BY REGDATE DESC) N
+        		 )
+      	WHERE NUM1 >= #{start} 
+        AND NUM1 &lt;= #{end}
+	</select>
+
+	<!-- 보낸 메세지 리스트 -->
+	<select id="messagesendlist" resultType="kr.co.moojun.model.DTO.MessageDTO">
+		SELECT 
+             * 
+        FROM (
+        		  SELECT ROWNUM AS NUM1, N.* 
+        		  FROM (SELECT * 
+        		  			FROM MESSAGE 
+        		  			WHERE SENDER=#{id} 
+        		  			ORDER BY REGDATE DESC) N
+        		 )
+      	WHERE NUM1 >= #{start} 
+        AND NUM1 &lt;= #{end}
+	</select>
+
+	<!-- 받은 메세지 수 -->
+	<select id="getReceiveMessageCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM MESSAGE
+		WHERE RECEIVER=#{id}
+	</select>
+
+	<!-- 보낸 메세지 수 -->
+	<select id="getSendMessageCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM MESSAGE
+		WHERE SENDER=#{id}
+	</select>
    
-   <select id="messagelist" resultType="kr.co.moojun.model.DTO.MessageDTO">
-      SELECT *
-      FROM MESSAGE
-   </select>
-   <select id="messagereceivelist" resultType="kr.co.moojun.model.DTO.MessageDTO">
-      SELECT *
-      FROM MESSAGE
-      WHERE RECEIVER=#{id}
-   </select>
-   
-   <select id="messagesendlist" resultType="kr.co.moojun.model.DTO.MessageDTO">
-      SELECT *
-      FROM MESSAGE
-      WHERE SENDER=#{id}
-   </select>
 </mapper>  

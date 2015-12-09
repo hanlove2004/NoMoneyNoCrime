@@ -18,5 +18,9 @@ public interface MessageDAO {
    
    List<MessageDTO> messagereceivelist(HashMap map);   // 받은 메세지 리스트
    
+   int getReceiveMessageCount(String id); // 총 받은 메세지 수
+   
    List<MessageDTO> messagesendlist(HashMap map);   // 보낸 메세지 리스트
+   
+   int getSendMessageCount(String id); // 총 보낸 메세지 수
 }
