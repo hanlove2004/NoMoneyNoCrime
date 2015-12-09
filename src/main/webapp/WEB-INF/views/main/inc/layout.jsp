@@ -189,36 +189,70 @@
          //검색버튼 누를시와 keywordlist를 비동기로 불러온후 그중 클릭시에도 호출된다.
          $("#searchbutton").click(function() {
             var mainsearch = $("#mainsearch").val();
+            var requestgetcontextpath = $("#requestgetContextPath").val();
             console.log("searchbutton click function() mainsearch 값 : " + mainsearch);
+            console.log("requestgetcontextpath : " + requestgetcontextpath);
             
              $.ajax({
                type : "post",
                url  : "searchbuttonclick.htm",
                data : "keyword=" + mainsearch,
                success : function(data) { //callback
-                  console.log("data.result       : " + data.result);
-                  console.log("data.keywordlist    : " + data.keywordlist);
+                 /*   
+                   model.addAttribute("epiloguelist", mainepiloguelist);
+                    model.addAttribute("pg"          , pg);
+                    model.addAttribute("allPage"    , allPage);
+                    model.addAttribute("block"       , block);
+                    model.addAttribute("fromPage"    , fromPage);
+                    model.addAttribute("toPage"       , toPage);
+                    model.addAttribute("total"       , total); 
+                   */
+                  console.log("data.pg       : " + data.pg);
+                  console.log("data.allPage : " + data.allPage);
+                  console.log("data.block    : " + data.block);
+                  console.log("data.fromPage: " + data.fromPage);
+                  console.log("data.toPage    : " + data.toPage);
+                  console.log("data.total   : " + data.total);
+                  console.log("data.mainepiloguelist : " + data.mainepiloguelist);
                   
                   var print = "";    
                   
-                   //결과값이 없는경우
-                  if(data.result == "0")
+                  //결과값이 없는경우
+                  if(data.total == 0)
                   {
-                     console.log("결과값이 없는 경우 : data.result == 0");
-                     print += "<li style='width:287px; text-align:left'>결과값이 없습니다.</li>";
+                     console.log("결과값이 없는 경우 : data.total == 0");
+                     print += "결과값이 없습니다.";
                   }
                   else //결과값이 있는경우
                   {
-                     console.log("결과값이 있는 경우 : data.result == 1");
-                     $.each(data.keywordlist , function(index,value){
-                        //print += "<li style='width:287px; text-align:left' onclick=\"aa('sss')\">" + value + "</li>";
-                        print += "<li style='width:287px; text-align:left' onclick=\"keywordclick('" + value + "')\">" + value + "</li>";
-                      });
-                  }
+                     console.log("결과값이 있는 경우 : data.total != 0");
+                     $.each(data.mainepiloguelist , function(index,value){
+                  print += "<div class=\"card\" style=\"float: left;";
+                  print += "margin: 30px; padding: 10px;";
+                  print += "background-color: silver;";
+                  print += "-moz-box-shadow: 30px 3px 5px 5px black;";
+                  print += "-webkit-box-shadow: 3px 3px 85px 5px black;";
+                  print += "box-shadow: 10px 10px 30px 5px black;";
+                  print += "border-top-right-radius: 1em;";
+                  print += "border-top-left-radius: 1em;";
+                  print += "border-bottom-right-radius: 1em;";
+                  print += "border-bottom-left-radius: 1em;\">";
+                  print += "<img class=\"card-img-top\" src=\"" + requestgetcontextpath + "/upload/" + value.photoname1 + "\" alt=\"" + value.title + "\" height=\"100px\" width=\"150px\">";
+                           print += "<div class=\"card-block\">";
+                                 print += "<h4 class=\"card-title\"><b>" + value.title + "</b></h4>";
+                                 print += "<p class=\"card-text\">";
+                                    print += "<small class=\"text-muted\">" + value.regdate + "</small>";
+                                    print += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+                                    print += "<small class=\"text-muted\">" + value.id + "</small>";
+                                 print += "</p>";
+                                 print += "<a href=\"#\" class=\"btn btn-primary\" id=\"epilogue" + value.num +" \" onclick=\"epiloguedetail(" + value.num + ")\">상세보기<//a>";
+                           print += "</div>";
+                  print += "</div>";
+                      });//$.each
+                  }//else
                   
                   //화면에 뿌리기.
-                  $('#searchdiv').html(print).show(); 
-                  
+                  $('#searchdiv').html(print).show();  
                }//success
             });//ajax 
          });//$("#mainsearch").keyup(function()
@@ -232,16 +266,15 @@
          $("#keywordlist").empty();
       }
       
-      
-      
       // 여행후기 상세보기(modal)
       function epiloguedetail(num){         
+        alert("num : " + num);
          $.ajax({
-            type: "post",
-            url: "epiloguedetail.htm",
+            type : "post",
+            url  : "mainepiloguedetail.htm",
             cache: false,            
-            data:'num=' + num,
-             success:function(data){
+            data :'num=' + num,
+            success:function(data){
                 var arr = [];
                 arr.push(data.epilogueboarddto.photoname1);
                 arr.push(data.epilogueboarddto.photoname2);
@@ -271,22 +304,23 @@
                  
                  $("#modal-body").empty();
                  $("#modal-body").html(data.epilogueboarddto.content);
-              },
+              },//success:
+              
             error: function(){                  
                alert('Error while request..'   );
-            }
-         });
+            }// error:
+         });//$.ajax
          
-         //답글 
+         //댓      글
          $.ajax({
-            type: "post",
-            url: "epiloguereplydetail.htm",
+            type : "post",
+            url  : "mainepiloguedetail.htm",
             cache: false,            
-            data:'num=' + num,
-             success:function(data){
+            data :'num=' + num,
+            success:function(data){
                 $("#modal-reply").empty();
                 $("#modal-reply").append("<div>댓      글</div>");
-                 $.each(data.reply_epiloguelist,function(index,value){
+                $.each(data.reply_epiloguelist,function(index,value){
                     if(value.id != data.userid){
                        $("#modal-reply").append("<div>"
                                                   + "<span id='reply_id"+ value.num +"'>" + value.id+"</span>:"
@@ -300,18 +334,18 @@
                                                   + "|<span><a onclick='replydelete("+ value.num +")'>삭제</a></span>"
                                                   + "</div><br>"
                                                   );
-                    }
-                      
-                });
-              },
+                    }//else
+                });//$.each
+            },//success:function(data)
+            
             error: function(){                  
                alert('Error while request..'   );
-            }
-         });
+            }//error
+         });//댓글 $.ajax
          
          //모달호출
          $("#epilogueModal").modal();
-      }
+      }//function epiloguedetail 
    </script>
    <style type="text/css">
       body
@@ -324,12 +358,12 @@
       
       li a
       {
-         color: black;
+         color: white;
       }
       
       li a:hover
       {
-         color: black;
+         color: #FF0000;
          text-decoration: underline;
       }
       
@@ -373,7 +407,7 @@
       }
    </style>
 </head>
-<body style="font-family: myfont05;">
+<body>
    <div class="main" style="background-image: url(<%=request.getContextPath()%>/images/moojun01.jpg);">
          <!-- header 영역 -->
          <tiles:insertAttribute name="header" />
@@ -382,10 +416,10 @@
          <div class="maincontent">
          <tiles:insertAttribute name="content" />
          </div>
-         
-         <!-- searchdiv -->
-         <tiles:insertAttribute name="searchdiv" />
 
+       <!-- searchdiv -->
+         <tiles:insertAttribute name="searchdiv" />
+         
          <!-- footer 영역 -->
          <tiles:insertAttribute name="footer" />
    </div>

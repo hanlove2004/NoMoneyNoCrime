@@ -1,7 +1,6 @@
 package kr.co.moojun.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.WorkboardDAO;
-import kr.co.moojun.model.DTO.MemberDTO;
 import kr.co.moojun.model.DTO.WorkboardDTO;
 import kr.co.moojun.model.DTO.WorkformDTO;
 
@@ -47,7 +45,7 @@ public class WorkController {
          pg = Integer.parseInt(strPg);
       }
 
-      int rowSize = 10; // 한번에 볼 수 있는 그리드 수
+      int rowSize = 6; // 한번에 볼 수 있는 글의 수
       int start = (pg * rowSize) - (rowSize - 1);
       int end = pg * rowSize;
 
@@ -109,6 +107,79 @@ public class WorkController {
 
       // Tiles 적용 (UrlBase 방식)
       return "workboard.worklist";
+   }
+   
+   // 비동기 일자리게시판 목록 (ajaxworklist.htm)
+   @RequestMapping(value="ajaxworklist.htm",method=RequestMethod.GET)
+   public View ajaxworklist(HttpServletRequest request, Model model){
+      System.out.println("ajaxworklist 시작");
+      
+      int pg = 1; //처음 시작페이지
+      
+      String strPg = request.getParameter("pg");   //view에서 넘긴 시작페이지
+      
+      //request 받아온 페이지가 없을경우 1로 시작 -> 처음요청인 상태
+      if (strPg != null) 
+      {
+         pg = Integer.parseInt(strPg);
+      }
+      
+      int rowSize = 6;   //한번에 볼 수 있는 그리드 수
+      int start = (pg * rowSize) - (rowSize - 1);
+      int end = pg * rowSize;
+      System.out.println(strPg + "/" + rowSize + "/" + start + "/" + end);
+
+      //총 게시물수
+      WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
+      int total = workboarddao.getWorkBoardCount();
+
+      int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
+      // int totalPage = total/rowSize + (total%rowSize==0?0:1);
+
+      int block = 5; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
+                  // [10] >>
+      int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
+      // ((1-1)/10*10)
+      int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
+      if (toPage > allPage) { // 예) 20>17
+         toPage = allPage;
+      }
+      
+      System.out.println(total + "/" + toPage);
+
+      HashMap map = new HashMap();
+
+      map.put("start", start);
+      map.put("end", end);
+      
+      List<WorkboardDTO> worklist = workboarddao.getWorkBoardList(map);
+      
+      model.addAttribute("worklist", worklist); 
+      model.addAttribute("pg", pg); 
+      model.addAttribute("allPage", allPage); 
+      model.addAttribute("block", block); 
+      model.addAttribute("fromPage", fromPage);
+      model.addAttribute("toPage", toPage);
+      
+      System.out.println("------------------------------------------------");
+      System.out.println("시작             : " + start + " 끝:" + end);
+      System.out.println("글의 총 개수          : " + total);
+      System.out.println("처음 시작페이지       : " + pg);
+      System.out.println("페이지수          : " + allPage);
+      System.out.println("한페이지에 보여줄 범위     : " + block);
+      System.out.println("보여줄 페이지의 시작    : " + fromPage);
+      System.out.println("보여줄 페이지의 끝       : " + toPage);
+      System.out.println("List<WorkboardDTO> list");
+      
+      for( WorkboardDTO dto :  worklist)
+      {
+         System.out.println(dto.toString());
+      }
+      System.out.println("-------------------------------------------------");
+      System.out.println("ajaxworklist 끝");
+      
+      // Tiles 적용 (UrlBase 방식)
+      return jsonview;
    }
 
    // 일자리게시판 상세보기 (workdetail.htm)
@@ -236,7 +307,7 @@ public class WorkController {
       return "redirect:worklist.htm";
    }
 
-// 일자리게시판 체크박스 검색 (비동기식) (worklistchecksearch.htm)
+   // 일자리게시판 체크박스 검색 (비동기식) (worklistchecksearch.htm)
    @RequestMapping(value = "worklistchecksearch.htm", method = RequestMethod.POST)
    public View worklistchecksearch(Model model, HttpServletRequest request) {
       System.out.println("worklistchecksearch 시작");

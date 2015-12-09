@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
+
 <div class="container" id="workcontainer" style="background-color: #fff;
 												border-radius: 0.5em;
 												width: 700px;
@@ -68,36 +70,38 @@
    
    <input type="hidden" id="path" value="<%=request.getContextPath()%>">
    
-   <div style="text-align: right">
-      <a href="workinsert.htm" class="btn btn-success">글쓰기</a>
-   </div>
-   <div style="margin: auto;">
-      <nav>
-         <ul class="pagination">
+   <se:authentication property="name" var="LoingUser" />
+      <se:authorize ifNotGranted="ROLE_ADMIN">
+         <div style="text-align: right">
+             <a href="workinsert.htm" class="btn btn-success">글쓰기</a>
+         </div>
+      </se:authorize>
+   
+   <div style="margin: 0 auto;">
+      <nav style="text-align: center;">
+         <ul class="pagination pagination-sm">
             <!-- 처음 , 이전 페이지로 이동 -->
             <c:if test="${pg>block}">
-               <li><a href="worklist.htm?pg=1">처음</a></li>
-               <li>
-                  <a href="worklist.htm?pg=${fromPage-1}" aria-label="Previous">
-                     <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-             </c:if> 
-             <!-- 각 페이지로 이동 -->
-             <c:forEach begin="${fromPage}" end="${toPage}" var="i">
-               <c:if test="${i==pg}"><li>${i}</li></c:if>
+               <li><a onclick="Paging(1)">처음</a></li>
+               <li><a onclick="Paging(${fromPage-1})" aria-label="Previous"> 
+                  <span aria-hidden="true">&laquo;</span>
+               </a></li>
+            </c:if>
+            <!-- 각 페이지로 이동 -->
+            <c:forEach begin="${fromPage}" end="${toPage}" var="i">
+               <c:if test="${i==pg}">
+                  <li class="active"><a>${i}</a></li>
+               </c:if>
                <c:if test="${i!=pg}">
-                  <li><a href="worklist.htm?pg=${i}">${i}</a></li>
+                  <li><a onclick="Paging(${i})">${i}</a></li>
                </c:if>
             </c:forEach>
             <!-- 마지막 , 다음 페이지로 이동 -->
             <c:if test="${toPage<allPage}">
-               <li>
-                  <a href="worklist.htm?pg=${toPage+1}" aria-label="Next">
-                     <span aria-hidden="true">&raquo;</span>
-                  </a>
-               </li>
-               <li><a href='worklist.htm?pg=${allPage}'>마지막</a></li>
+               <li><a onclick="Paging(${toPage+1})" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+               </a></li>
+               <li><a onclick="Paging(${allPage})">마지막</a></li>
             </c:if>
          </ul>
       </nav>
