@@ -1,25 +1,20 @@
 package kr.co.moojun.controller;
 
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.MemberDAO;
+import kr.co.moojun.model.DAO.MessageDAO;
 import kr.co.moojun.model.DTO.MemberDTO;
+import kr.co.moojun.model.DTO.MessageDTO;
 
 @Controller
 @RequestMapping("/main/")
@@ -32,6 +27,10 @@ public class MemberController {
 	private MailSender mailSender;
 	@Autowired
 	private SimpleMailMessage templateMessage;
+	
+	@Autowired
+	@Qualifier("jsonview")
+	private View jsonview;
 	
 	/*
 	//로그인(login.htm)
@@ -178,4 +177,19 @@ public class MemberController {
 		return "main.start";
 	}
 	
+	// sendmessage.htm
+	   @RequestMapping(value="getmemberinfo.htm" , method=RequestMethod.POST)
+	   public View sendmessage(String id, Model model){
+
+	      System.out.println("sendmessage start");
+	      
+	      
+	      MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
+	      MemberDTO memberdto = memberdao.getMemberDetail(id);
+	      
+	      model.addAttribute("memberdto", memberdto);
+	      
+	      return jsonview;
+	   }
+	   
 }

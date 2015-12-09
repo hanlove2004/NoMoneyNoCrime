@@ -22,7 +22,7 @@ public class MessageController {
 	   @Qualifier("jsonview")
 	   private View jsonview;
 	      
-	   // main.htm 요청 들어오면 View 페이지 제공
+	   // sendmessage.htm
 	   @RequestMapping(value="sendmessage.htm" , method=RequestMethod.POST)
 	   public View sendmessage(MessageDTO messagedto, Model model){
 

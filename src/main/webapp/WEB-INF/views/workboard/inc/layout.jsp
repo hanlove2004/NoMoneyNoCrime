@@ -106,7 +106,7 @@
         });//$.ajax({
    }//function checkAndSearchClick()
    
-// sendmessage() start
+	// sendmessage() start
 	function sendMessage() {
 		var sender = $('#sender').val();
 		var receiver = $('#receiver').val();
@@ -124,6 +124,25 @@
 			}// success : function(data)
 		});//$.ajax({
 	}//function sendMessage() end
+	
+	// getMemberInfo() start
+	function getMemberInfo(id) {
+		var contextpath = $('#contextpath').val();
+		$.ajax({
+			type : "post",
+			url : contextpath + "/main/getmemberinfo.htm",
+			data : "id=" + id,
+			success : function(data) { //callback
+				$("#member_id").text(data.memberdto.id);
+				$("#member_name").text(data.memberdto.name);
+				$("#member_sex").text(data.memberdto.sex);
+				$("#member_birth").text(data.memberdto.birth);
+				$("#member_email").text(data.memberdto.email);
+				$("#member_panalty").text(data.memberdto.panalty);
+			}// success : function(data)
+		});//$.ajax({
+	}//function getMemberInfo() end
+	
 </script>
 <style type="text/css">
 	a 
