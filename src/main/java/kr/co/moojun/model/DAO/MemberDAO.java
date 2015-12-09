@@ -16,8 +16,6 @@ public interface MemberDAO {
 	
 	int updateMember(String newpwd , String phone , String email , String pwd , String id);// 회원 정보 수정
 	
-	/*int loginMember(MemberDTO memberdto); // 로그인 */
-	
 	List<MemberDTO> getMemberList(HashMap map); // 회원리스트 조회
 	
 	MemberDTO getMemberDetail(String id); // 회원정보 보기 (디테일)
@@ -27,4 +25,6 @@ public interface MemberDAO {
 	MemberDTO searchPwdByIdAndEmail(String id , String email); // 비밀번호 찾기
 	
 	int getMemberCount(); // 회원 현황 (전체 회원수)
+	
+	int checkMember(String id, String pwd); // 수정시 비밀번호 확인 (마이페이지에서)
 }

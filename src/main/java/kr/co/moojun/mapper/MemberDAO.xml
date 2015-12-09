@@ -140,5 +140,13 @@
         FROM MEMBER
    </select>
    
+   <!-- 비밀번호 확인 -->
+   <select id="checkMember" resultType="Integer">
+      SELECT 
+      		COUNT(*)
+      FROM MEMBER
+      WHERE ID = #{param1} 
+      	AND PWD = #{param2}
+   </select>
    
 </mapper>

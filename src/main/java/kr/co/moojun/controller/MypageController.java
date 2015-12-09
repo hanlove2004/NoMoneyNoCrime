@@ -65,6 +65,30 @@ public class MypageController {
 		// Tiles 적용 (UrlBase 방식)
 		return "mypage.memberinfo";
 	}
+	
+	// 비밀번호 일치 확인 (pwdcheck.htm)
+	@RequestMapping(value = "pwdcheck.htm", method = RequestMethod.POST)
+	public View idcheck(String id, String pwd, Model model) {
+
+		System.out.println("pwdcheck start");
+		System.out.println("수정할 id : " + id + " / 입력한 pwd : " + pwd);
+		
+		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
+		int result = memberdao.checkMember(id, pwd);
+
+		System.out.println(result);
+
+		if (result == 0) {
+			model.addAttribute("data", false); // 비밀번호 불일치
+		} else {
+			model.addAttribute("data", true); // 비밀번호 일치
+		}
+
+		System.out.println("pwdcheck end");
+
+		// Tiles 적용 (UrlBase 방식)
+		return jsonview;
+	}
 
 	// 마이페이지 회원정보 수정 (memberupdate.htm)
 	@RequestMapping(value = "memberupdate.htm", method = RequestMethod.GET)

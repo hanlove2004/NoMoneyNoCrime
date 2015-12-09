@@ -32,50 +32,6 @@ public class MemberController {
 	@Qualifier("jsonview")
 	private View jsonview;
 	
-	/*
-	//로그인(login.htm)
-	@RequestMapping(value="login.htm",method=RequestMethod.GET)
-	public String login(){
-		
-		System.out.println("LOGIN DISPLAY");
-		// Tiles 적용 (UrlBase 방식)
-		return "main.login";
-	}
-	*/
-	//로그인 성공 (login.htm)
-	/*@RequestMapping(value="login.htm",method=RequestMethod.POST)
-	public String loginsuccess(@RequestParam(value="loginid", required=false) String id, 
-							@RequestParam(value="loginpwd", required=false) String pwd) {
-		
-		System.out.println("로그인 성공");
-		
-		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		MemberDTO memberdto = new MemberDTO();
-		
-		memberdto.setId(id);
-		memberdto.setPwd(pwd);
-		
-		int result = memberdao.loginMember(memberdto);
-		System.out.println(result);
-		if(result > 0){
-			System.out.println("회원입니다.");
-		}
-		
-		System.out.println("로그인 성공 끝");
-		// Tiles 적용 (UrlBase 방식)
-		return "submain.main";
-	}*/
-	
-	/*//아이디, 비밀번호 찾기(searchinfo.htm)
-	@RequestMapping(value="searchinfo.htm",method=RequestMethod.GET)
-	public String searchform(){
-		
-		System.out.println("");
-		
-		// Tiles 적용 (UrlBase 방식)
-		return "main.searchform";
-	}*/
-	
 	//아이디 찾기 성공 (serchid.htm)
 	@RequestMapping(value="searchid.htm",method=RequestMethod.POST)
 	public String searchidsuccess(String name , String email){
@@ -127,17 +83,7 @@ public class MemberController {
 		// Tiles 적용 (UrlBase 방식)
 		return "main.start";
 	}
-	/*
-	//회원가입 (join.htm)
-	@RequestMapping(value="join.htm",method=RequestMethod.GET)
-	public String joinform(){
-		
-		System.out.println("joinform start");
-		
-		// Tiles 적용 (UrlBase 방식)
-		return "main.joinform";
-	}
-	*/
+	
 	//회원가입 성공 (join.htm)
 	@RequestMapping(value="join.htm",method=RequestMethod.POST)
 	public String joinsuccess(MemberDTO memberdto){
@@ -178,18 +124,18 @@ public class MemberController {
 	}
 	
 	// sendmessage.htm
-	   @RequestMapping(value="getmemberinfo.htm" , method=RequestMethod.POST)
-	   public View sendmessage(String id, Model model){
+   @RequestMapping(value="getmemberinfo.htm" , method=RequestMethod.POST)
+   public View sendmessage(String id, Model model){
 
-	      System.out.println("sendmessage start");
-	      
-	      
-	      MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-	      MemberDTO memberdto = memberdao.getMemberDetail(id);
-	      
-	      model.addAttribute("memberdto", memberdto);
-	      
-	      return jsonview;
-	   }
-	   
+      System.out.println("sendmessage start");
+      
+      
+      MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
+      MemberDTO memberdto = memberdao.getMemberDetail(id);
+      
+      model.addAttribute("memberdto", memberdto);
+      
+      return jsonview;
+   }
+   
 }

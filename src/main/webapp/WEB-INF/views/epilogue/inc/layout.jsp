@@ -69,7 +69,8 @@ $(document).ready(function(){
 		color: black;
 	}
 	
-	a:hover {
+	a:hover 
+	{
 		color: black;
 		text-decoration: underline;
 	}
@@ -78,17 +79,6 @@ $(document).ready(function(){
 	{
 		color: #A8D5F6;
 	}
-
-	/* div #epiloguecontainer 
-	{
-		background-color: #fff;
-		border-radius: 0.5em;
-		width: 750px;
-		margin-top: 30px;
-		margin-bottom: 30px;
-		font-family: myfont05;
-		text-align: center;
-	} */
 	
 	nav
 	{

@@ -35,15 +35,16 @@
       <hr>
       <!-- SECURITY 적용부분 -->
       <c:if test="${param.error != null}">
-         <div>
-            로그인실패<br>
-            <c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+         <div style="color: red;">
+                  로그인 실패<br><br>
+            <%-- <c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
                                이유 : <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
-            </c:if>
+                     
+            </c:if> --%>
          </div>
       </c:if>
 
-      <form action="${pageContext.request.contextPath}/login" method="post">
+      <form id="loginform" action="${pageContext.request.contextPath}/login" method="post">
          
          <div class="form-group">
             <label for="username" class="col-sm-3 control-label" style="font-size: 20px; text-align: right; vertical-align: middle;">
@@ -63,7 +64,7 @@
             </div>
          </div>
          <hr>
-         <button type="submit" class="btn btn-success">로그인</button>&nbsp;&nbsp;
+         <button type="submit" id="loginbtn" class="btn btn-success">로그인</button>&nbsp;&nbsp;
          
          <!-- 모달이동 -->
          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">ID / PWD 찾기</button>
@@ -89,13 +90,13 @@
 						<br>
 						<label for="name" class="col-sm-3 control-label" style="font-size: 15px; text-align: right; vertical-align: middle;">이름</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="name" name="name" placeholder="name">
+							<input type="text" class="form-control" id="searchname" name="searchname" placeholder="name">
 						</div>
 					</div>
 					<div class="form-group form-inline">
 						<label for="email" class="col-sm-3 control-label" style="font-size: 15px; text-align: right; vertical-align: middle;">이메일</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="email" name="email"	placeholder="email">
+							<input type="text" class="form-control" id="searchidemail" name="searchidemail" placeholder="email">
 						</div>
 					</div>
 				</div>
@@ -111,13 +112,13 @@
 						<br>
 						<label for="id" class="col-sm-3 control-label" style="font-size: 15px; text-align: right; vertical-align: middle;">아이디</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="searchid" name="searchid" placeholder="id">
+							<input type="text" class="form-control" id="searchpwdid" name="searchpwdid" placeholder="id">
 						</div>
 					</div>
 					<div class="form-group form-inline">
 						<label for="pwd" class="col-sm-3 control-label" style="font-size: 15px; text-align: right; vertical-align: middle;">이메일</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="email" name="email"	placeholder="email">
+							<input type="text" class="form-control" id="searchpwdemail" name="searchpwdemail" placeholder="email">
 						</div>
 					</div>
 				</div>
@@ -133,24 +134,24 @@
 <div id="join" align="center" class="collapse">
    <div class="well well-lg" align="center" style="margin: auto; height: 85%; width: 40%; background-color: #E5F1B5;">
       <!-- <div style="width: 400px;"> -->
-         <form class="form-horizontal" name="joinform" action="main/join.htm" method="post">
+         <form class="form-horizontal" name="joinform" id="joinform" action="main/join.htm" method="post">
             
             <div class="form-group">
                <label for="id" class="col-sm-4 control-label">아이디</label>
                <div class="col-sm-6">
-                  <input type="text" class="form-control input-sm" name="id" id="id" placeholder="ID">
+                  <input type="text" class="form-control input-sm" name="id" id="id" placeholder="ID(4~16글자 입력)">
                </div>
             </div>
             <div class="form-group">
                <label for="pwd" class="col-sm-4 control-label">비밀번호</label>
                <div class="col-sm-6">
-                  <input type="password" class="form-control input-sm" name="pwd" id="pwd" placeholder="Password">
+                  <input type="password" class="form-control input-sm" name="pwd" id="pwd" placeholder="PWD(6~18글자 입력)">
                </div>
             </div>
             <div class="form-group">
                <label for="confirmpwd" class="col-sm-4 control-label">비밀번호확인</label>
                <div class="col-sm-6">
-                  <input type="password" class="form-control input-sm" name="confirmpwd" id="confirmpwd" placeholder="Password Check">
+                  <input type="password" class="form-control input-sm" name="confirmpwd" id="confirmpwd" placeholder="PWD Check">
                </div>
             </div>
             <div class="form-group">
