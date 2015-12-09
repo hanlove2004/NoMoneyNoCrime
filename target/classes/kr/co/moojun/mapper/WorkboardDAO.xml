@@ -166,7 +166,30 @@
         FROM (
                SELECT 
                       *                 
-                 FROM (SELECT * FROM WORKBOARD WHERE EXPIRE = '1')
+                 FROM (
+                 	SELECT
+	                      ROWNUM                 AS R
+	                    , WORKBOARD.NUM          AS NUM
+	                    , WORKBOARD.ID           AS ID
+	                    , WORKBOARD.TITLE        AS TITLE
+	                    , WORKBOARD.COMPENSATE   AS COMPENSATE
+	                    , WORKBOARD.NEEDPEOPLE   AS NEEDPEOPLE
+	                    , WORKBOARD.PHONE        AS PHONE
+	                    , WORKBOARD.CONTENT      AS CONTENT
+	                    , WORKBOARD.REGDATE      AS REGDATE
+	                    , WORKBOARD.STATE        AS STATE
+	                    , WORKBOARD.REGPEOPLE    AS REGPEOPLE
+	                    , WORKBOARD.ADDR         AS ADDR
+	                    , WORKBOARD.STARTDATE    AS STARTDATE
+	                    , WORKBOARD.ENDDATE      AS ENDDATE
+	                    , WORKBOARD.EXPIRE       AS EXPIRE
+	                    , MEMBER.SEX             AS SEX
+	                 FROM WORKBOARD WORKBOARD 
+	                      INNER JOIN 
+	                      MEMBER MEMBER
+	                   ON WORKBOARD.ID = MEMBER.ID
+	                WHERE EXPIRE = '1'
+                 )
                 WHERE TITLE LIKE  '%' || #{searchvalue} || '%'
                    OR ADDR  LIKE  '%' || #{searchvalue} || '%'
              )
