@@ -102,15 +102,6 @@
                $("#work-list").html("결과값이 없습니다.");
            }
 
-<<<<<<< HEAD
-                 $("#body").append(print);
-               }
-               else //체크박스에서 선택한게 없을경우.
-              {
-                  console.log("result = 2");
-                  $("#body").empty();
-                  $("#body").html("결과값이 없습니다.");
-              }
            }// success : function(data)
         });//$.ajax({
    }//function checkAndSearchClick()
@@ -133,11 +124,6 @@
 			}// success : function(data)
 		});//$.ajax({
 	}//function sendMessage() end
-=======
-	      }// success : function(data)
-	   });//$.ajax({
-	}//function checkAndSearchClick()
->>>>>>> 065040bc49cc124374000b7ea48598e167481894
 </script>
 <style type="text/css">
 	a 
