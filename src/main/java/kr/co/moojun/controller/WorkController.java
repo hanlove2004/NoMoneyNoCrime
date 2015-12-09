@@ -236,7 +236,7 @@ public class WorkController {
       return "redirect:worklist.htm";
    }
 
-   // 일자리게시판 체크박스 검색 (비동기식) (worklistchecksearch.htm)
+// 일자리게시판 체크박스 검색 (비동기식) (worklistchecksearch.htm)
    @RequestMapping(value = "worklistchecksearch.htm", method = RequestMethod.POST)
    public View worklistchecksearch(Model model, HttpServletRequest request) {
       System.out.println("worklistchecksearch 시작");
@@ -258,22 +258,32 @@ public class WorkController {
 
       System.out.println("sukso : "      + sukso + " / " 
                        + "siksa : "      + siksa + " / " 
-                     + "don   : "      + don   + " / "
-                     + "searchvalue : " + searchvalue);
+                       + "don   : "      + don   + " / "
+                       + "searchvalue : " + searchvalue);
       
       HashMap map = new HashMap(); // collection
 
       // 체크박스 체크된것만 Map에 추가
+      if(sukso.equals("false") && siksa.equals("false") && don.equals("false"))
+      {
+         System.out.println("체크박스 체크안했을때");
+         map.put("sukso", "sukso");
+         map.put("siksa", "siksa");
+         map.put("don", "don");
+      }
+      
       if (sukso.equals("true")) {
-         System.out.println("1");
+         System.out.println("숙소체크");
          map.put("sukso", "sukso");
       }
+      
       if (siksa.equals("true")) {
-         System.out.println("2");
+         System.out.println("식사체크");
          map.put("siksa", "siksa");
       }
+      
       if (don.equals("true")) {
-         System.out.println("3");
+         System.out.println("급여체크");
          map.put("don", "don");
       }
       
@@ -283,32 +293,20 @@ public class WorkController {
       WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
       List<WorkboardDTO> worklist = workboarddao.checkboxSearch(map);
 
-      // 체크박스중 하나라도 선택했을때 -> jdbcType=VARCHAR
-      if (!(sukso.equals("false") && siksa.equals("false") && don.equals("false"))) {
-         System.out.println("체크박스중 하나라도 선택했을때");
-
-         // 결과값 출력
-         for (WorkboardDTO dto : worklist) {
-            System.out.println(dto.toString());
-         }
-
-         // 결과값이 없을경우..
-         if (worklist.size() == 0) {
-            System.out.println("result = 0");
-            result = "0";
-         } else {
-            System.out.println("result = 1");
-            result = "1";
-         }
-
-         // 결과값과 dto 전달
-      } else// 체크박스 선택 안했을시에...
-      {
-         System.out.println("체크박스 모두 선택 안했을때");
-
-         // 만약 결과값이 없다면 뷰에서 결과값이 없습니다 라고 뿌려주기.-> 비동기일때만...
-         result = "0";
-      }
+      
+     // 결과값 출력
+     for (WorkboardDTO dto : worklist) {
+        System.out.println(dto.toString());
+     }
+      
+     // 결과값이 없을경우..
+     if (worklist.size() == 0) {
+           System.out.println("result = 0");
+        result = "0";
+     } else {
+        System.out.println("result = 1");
+        result = "1";
+     }
 
       System.out.println("최종 넘어가는 값 (result): " + result);
 
@@ -325,20 +323,20 @@ public class WorkController {
    @RequestMapping(value = "workenroll.htm", method = RequestMethod.GET)
    public String workenroll(String num){
 	   
-		System.out.println("신청 후 신청인원 증가 시작");
-
-		// mapper 설정
-		WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
-		int enrollnum = Integer.parseInt(num);
-		System.out.println("enrollnum : " + enrollnum);
-
-		// 신청인원 증가
-		workboarddao.workenroll(enrollnum);
-
-		System.out.println("신청 후 신청인원 증가 끝");
-
-		// Tiles 적용 (UrlBase 방식)
-		return "redirect:worklist.htm";
+	  System.out.println("신청 후 신청인원 증가 시작");
+      
+	  //mapper 설정
+	  WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
+      int enrollnum = Integer.parseInt(num);
+      System.out.println("enrollnum : " + enrollnum);
+      
+      //신청인원 증가
+      workboarddao.workenroll(enrollnum);
+      
+      System.out.println("신청 후 신청인원 증가 끝");
+      
+      // Tiles 적용 (UrlBase 방식)
+      return "redirect:worklist.htm";
 
    }
 }

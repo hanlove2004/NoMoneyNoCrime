@@ -18,7 +18,7 @@
 				<input type="checkbox" id="don"	name="column" value="급여"> 급여 &nbsp;
 			</td>
 			<td style="font-size: 18px; width: 400px"> 
-				<input type="search" id="searchvalue" name="searchvalue" style="width: 300px;" placeholder="주소 및 제목 검색">&nbsp;&nbsp;
+				<input type="search" id="searchvalue" name="searchvalue" style="width: 300px;" placeholder="주소/제목/내용 검색">&nbsp;&nbsp;
 				<button id="search" class="btn btn-danger btn-sm">검색</button>
 			</td>
 		</tr>
