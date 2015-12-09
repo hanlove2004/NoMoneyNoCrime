@@ -3,7 +3,7 @@
 
 <div style="height: 500px; width: 700px; margin: auto;">
       <!-- 비동기시 path를 못불러오기 때문에 담아놓고 가공하기 위해서.. -->
-      <input type="hidden" id="requestgetContextPath">
+      <input type="hidden" id="requestgetContextPath" value="<%=request.getContextPath()%>">
    <!-- 목록(카드 디자인) 테스트 -->
    <div style="margin: 0 auto; width: 700px; height: 500px;">
       <div class="card-deck-wrapper" style="margin: 0 auto;">
@@ -17,7 +17,7 @@
    
    <div style="margin: 0 auto; width: 300px;">
       <nav style="text-align: center;">
-         <ul class="pagination pagination-sm"">
+         <ul class="pagination pagination-sm">
             <!-- 처음 , 이전 페이지로 이동 -->
             <c:if test="${pg>block}">
                <li><a href="epiloguelist.htm?pg=1">처음</a></li>
