@@ -8,22 +8,6 @@
 			<td class="active"><b>여행 후기</b></td>
 		</tr>
 	</table>
-	<%-- <table class="table table-hover" style="text-align: center;">
-		<tr style="height: 30px;" class="success">
-			<td>글번호</td>
-			<td>작성자</td>
-			<td>내용</td>
-			<td>작성일</td>
-		</tr>
-		<c:forEach var="epiloguelist" items="${epiloguelist}">
-			<tr style="height: 30px;">
-				<td>${epiloguelist.num}</td>
-				<td><a href="epiloguedetail.htm?num=${epiloguelist.num}">${epiloguelist.title}</a></td>
-				<td>${epiloguelist.id}</td>
-				<td>${epiloguelist.regdate}</td>
-			</tr>
-		</c:forEach>
-	</table> --%>
 	
 	<!-- 목록(카드 디자인) 테스트 -->
 	<div style="margin: 0 auto; width: 700px; height: 500px;">

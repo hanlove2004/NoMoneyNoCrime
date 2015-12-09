@@ -102,10 +102,17 @@
                $("#work-list").html("결과값이 없습니다.");
            }
 
+<<<<<<< HEAD
            }// success : function(data)
         });//$.ajax({
    }//function checkAndSearchClick()
    
+=======
+	      }// success : function(data)
+	   });//$.ajax({
+	}//function checkAndSearchClick()
+	
+>>>>>>> 0aaf548c62e0b871a4983737a51f5c0e03800cfb
 	// sendmessage() start
 	function sendMessage() {
 		var sender = $('#sender').val();
@@ -125,6 +132,7 @@
 		});//$.ajax({
 	}//function sendMessage() end
 	
+<<<<<<< HEAD
 	// getMemberInfo() start
 	function getMemberInfo(id) {
 		var contextpath = $('#contextpath').val();
@@ -143,6 +151,59 @@
 		});//$.ajax({
 	}//function getMemberInfo() end
 	
+=======
+	// Paging 처리
+	function Paging(pg) {
+        $.ajax({
+           type : "GET",
+           url : "ajaxworklist.htm",
+           data : "pg=" + pg,
+           success : function(data) {
+              var print = "";
+              $("#list").empty();
+              var nextPage = data.toPage + 1;
+              var previousPage = data.fromPage - 1;
+              $.each(data.worklist, function(index, obj){
+                 print += "<div>";
+                 print += "<div class=\"workhead\">";
+                 print += "<div class=\"col col-xs-2\">" + obj.num + "</div>";
+                 print += "<div class=\"col col-xs-2\">" + obj.id + "</div>";
+                 print += "<div class=\"col col-xs-6\" id=\"workhead" + obj.num + "\"";
+                 print += "onclick=\"WorkDetail(" + obj.num + ")\">";
+                 print += obj.title + "</div>";
+                 print += "<div class=\"col col-xs-2\">" + obj.regdate + "</div>";
+                 print += "<div><hr></div></div>";
+                 print += "<div class=\"work\" id=\"workdetail" + obj.num + "\"></div>";
+              });
+              print += "<div style=\"margin: 0 auto; width: 300px;\">";
+              print += "<nav style=\"text-align: center;\">";
+              print += "<ul class=\"pagination pagination-sm\">";
+              if(data.pg>data.block){
+                 print += "<li><a onclick=\"Paging(1)\">처음</a></li>";
+                 print += "<li><a onclick=\"Paging("+ previousPage +")\" aria-label=\"Previous\">";
+                 print += "<span aria-hidden=\"true\">\&laquo;</span></a></li>";
+              }
+              for(var i = data.fromPage; i <= data.toPage; i++){
+                 if(i==data.pg){
+                    print += "<li class=\"active\"><a>" + i + "</a></li>";
+                 }
+                 if(i!=data.pg){
+                    print += "<li><a onclick=\"Paging(" + i + ")\">" + i + "</a></li>";
+                 }
+              }
+              if(data.toPage < data.allPage){
+                 print += "<li><a onclick=\"Paging(" + nextPage + ")\" aria-label=\"Next\">";
+                 print += "<span aria-hidden=\"true\">\&raquo;</span></a></li>";
+                 print += "<li><a onclick=\"Paging(" + data.allPage + ")\">마지막</a></li></ul></nav></div>";
+              }
+              $("#list").html(print);
+           },
+           error : function(status) {
+              alert('ERROR');
+           }
+        });
+     };
+>>>>>>> 0aaf548c62e0b871a4983737a51f5c0e03800cfb
 </script>
 <style type="text/css">
 	a 

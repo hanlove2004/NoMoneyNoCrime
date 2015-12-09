@@ -192,18 +192,20 @@
                  )
                 WHERE TITLE LIKE  '%' || #{searchvalue} || '%'
                    OR ADDR  LIKE  '%' || #{searchvalue} || '%'
-             )
+                   OR CONTENT   LIKE  '%' || #{searchvalue} || '%'
+                 )
         <where>
-          <if test="sukso == 'sukso'">
-                 COMPENSATE like '%' || '숙소' || '%'
-          </if>
-           <if test="siksa == 'siksa'">
-              OR COMPENSATE like '%' || '식사' || '%' 
-           </if>
-         <if test="don == 'don'">
-            OR COMPENSATE like '%' || '급여' || '%' 
-         </if>  
-        </where>
+			<if test="sukso == 'sukso'">
+				COMPENSATE like '%' || '숙소' || '%'
+			</if>
+			<if test="siksa == 'siksa'">
+				OR COMPENSATE like '%' || '식사' || '%'
+			</if>
+			<if test="don == 'don'">
+				OR COMPENSATE like '%' || '급여' || '%'
+			</if>
+			ORDER BY NUM DESC
+		</where>
    </select>
    
    <!-- /////////////////////////////////////////MYPAGE///////////////////////////////////////// -->

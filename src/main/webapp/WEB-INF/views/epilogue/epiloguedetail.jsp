@@ -96,19 +96,19 @@
 			        $.each(data.reply_epiloguelist,function(index,value){
 			        	if(value.id != data.userid){
 			        		$("#modal-reply").append("<div>"
-			        											+ "<div style='float:left; width:100px; background-color:silver; border-radius: 0.2em; text-align: right; padding-right: 5px;'><span id='reply_id"+ value.num +"' style='width:200px'>" + value.id+"</span></div>"
-			        											+ "<div style='float:left; padding-left: 10px'><span id='reply_content"+ value.num +"'>" + value.content + "</span></div>"
-			        											+ "<div style='float:left; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ value.num +"'>" + value.regdate + "</span></div>"
-			        											+ "</div><br><br>");
+	        											+ "<div style='float:left; width:100px; background-color:silver; border-radius: 0.2em; text-align: right; padding-right: 5px;'><span id='reply_id"+ value.num +"' style='width:200px'>" + value.id+"</span></div>"
+	        											+ "<div style='float:left; padding-left: 10px'><span id='reply_content"+ value.num +"'>" + value.content + "</span></div>"
+	        											+ "<div style='float:left; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ value.num +"'>" + value.regdate + "</span></div>"
+	        											+ "</div><br><br>");
 			        	}else{
 			        		$("#modal-reply").append("<div id='reply"+ value.num +"'>" 
-			        											+ "<div style='float:right'>&nbsp\;&nbsp\;|&nbsp\;&nbsp\;<span><a onclick='replyeditform("+ value.num +")'>수정</a></span>"
-			        											+ "&nbsp&nbsp|&nbsp&nbsp<span><a onclick='replydelete("+ value.num +")'>삭제</a></span></div>"
-			        											+ "<div style='float:right; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ value.num +"'>" + value.regdate + "</span></div>"
-			        											+ "<div style='float:right; padding-left: 10px'><span id='reply_content"+ value.num +"'>"+value.content + "</span></div>"
-			        											+ "<div style='float:right; width:100px; background-color:yellow; border-radius: 0.2em; text-align: right; padding-right: 5px;'><span id='reply_id"+ value.num +"'>" + value.id+"</span></div>"
-			        											+ "</div><br><br>"
-			        											);
+	        											+ "<div style='float:right'>&nbsp\;&nbsp\;|&nbsp\;&nbsp\;<span><a onclick='replyeditform("+ value.num +")'>수정</a></span>"
+	        											+ "&nbsp&nbsp|&nbsp&nbsp<span><a onclick='replydelete("+ value.num +")'>삭제</a></span></div>"
+	        											+ "<div style='float:right; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ value.num +"'>" + value.regdate + "</span></div>"
+	        											+ "<div style='float:right; padding-left: 10px'><span id='reply_content"+ value.num +"'>"+value.content + "</span></div>"
+	        											+ "<div style='float:right; width:100px; background-color:yellow; border-radius: 0.2em; text-align: right; padding-right: 5px;'><span id='reply_id"+ value.num +"'>" + value.id+"</span></div>"
+	        											+ "</div><br><br>"
+	        											);
 			        	}
 				          
 				    });
@@ -138,13 +138,14 @@
 			    	console.log(data.reply_epiloguedto);
 			    	$('#replycontent').val('').empty();
 			    	$("#modal-reply").append("<div id=reply"+ data.reply_epiloguedto.num +">"
-			    										+ "<div style='float:right'>&nbsp\;&nbsp\;|&nbsp\;&nbsp\;<span><a onclick='replyeditform("+ data.reply_epiloguedto.num +")'>수정</a></span>"
-			    										+ "&nbsp&nbsp|&nbsp&nbsp<span><a onclick='replydelete("+ data.reply_epiloguedto.num +")'>삭제</a></span></div>"
-			    										+ "<div style='float:right; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ data.reply_epiloguedto.num +"'>" + "오늘" + "</span></div>"
-			    										+ "<span id='reply_content"+ data.reply_epiloguedto.num +"' style='float:right; padding-left: 10px'>"+ data.reply_epiloguedto.content + "</span>"
-			    										+ "<span id='reply_id"+ data.reply_epiloguedto.num +"' style='float:right; width:100px; background-color:yellow; border-radius: 0.2em; text-align: right; padding-right: 5px;'>" +data.reply_epiloguedto.id +"</span>"
-			    										+"</div><br>"
-			    										);
+	    										+ "<div style='float:right'>&nbsp\;&nbsp\;|&nbsp\;&nbsp\;<span><a onclick='replyeditform("+ data.reply_epiloguedto.num +")'>수정</a></span>"
+	    										+ "&nbsp&nbsp|&nbsp&nbsp<span><a onclick='replydelete("+ data.reply_epiloguedto.num +")'>삭제</a></span></div>"
+	    										+ "<div style='float:right; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ data.reply_epiloguedto.num +"'>" + "오늘" + "</span></div>"
+	    										+ "<span id='reply_content"+ data.reply_epiloguedto.num +"' style='float:right; padding-left: 10px'>"+ data.reply_epiloguedto.content + "</span>"
+	    										+ "<span id='reply_id"+ data.reply_epiloguedto.num
+	    										+ "' style='float:right; width:100px; background-color:yellow; border-radius: 0.2em; text-align: right; padding-right: 5px;'>" +data.reply_epiloguedto.id +"</span>"
+	    										+"</div><br><br>"
+	    										);
 			     },
 				error: function(){						
 					alert('Error while request..'	);
@@ -176,29 +177,29 @@
 			var html = $('#reply' + num).html();
 			var id = $('#reply_id' + num).text();
 			var content = $('#reply_content' + num).text();
+			var regdate = $('#reply_regdate' + num).text();
 			$('#reply' + num).empty().append("<div>" 
-															+ "<span id='editid'>" + id + "</span>:" 
-															+ "<textarea id='editcontent'>" + content + "</textarea>"
-															+ "<span>" 
-																+ "<input type='button' value='확인' onclick='replyeditconfirm(" + num + ")'>"
-																+ "<input type='button' value='취소' onclick='replyeditcancel(" + num + ")'>"
-															+ "</span>"
-															+ "</div>"
-														  );
+												+ "<div style='float:right'>&nbsp\;&nbsp\;|&nbsp\;&nbsp\;<span><input type='button' class='btn btn-default btn-xs' value='확인' onclick='replyeditconfirm("+num+")'></span>"
+												+ "&nbsp&nbsp|&nbsp&nbsp<span><input type='button' class='btn btn-default btn-xs' value='취소' onclick='replyeditcancel(" + num + ")'></span></div>"
+												+ "<div style='float:right; padding-left: 10px'><textarea id='editcontent' cols='15' rows='1'>"+content+"</textarea></div>"
+												+ "<div style='float:right;  width:100px; background-color:yellow; border-radius: 0.2em; text-align: right; padding-right: 5px;'><span id='editid'>"+id+"</span></div><br>"
+												+ "<input type='hidden' id='editregdate' value='"+regdate+"'>"
+											  );
 		}
 		
 		// 댓글 수정 취소
 		function replyeditcancel(num){
 			var id = $('#editid').text();
 			var content = $('#editcontent').text();
-			$('#reply' + num).empty().append(
-														"<div id=reply"+ num +">"
-														+ "<span id='reply_id"+ num +"'>" +id +"</span>:"
-														+ "<span id='reply_content"+ num +"'>"+ content + "</span>"
-														+ "|<span><a onclick='replyeditform("+ num +")'>수정</a></span>"
-														+ "|<span><a onclick='replydelete("+ num +")'>삭제</a></span>"
-														+"</div><br>"
-														  );
+			var regdate = $('#editregdate').text();
+			$('#reply' + num).empty().append("<div id=reply"+ num +">"
+												+ "<div style='float:right'>&nbsp\;&nbsp\;|&nbsp\;&nbsp\;<span><a onclick='replyeditform("+ num +")'>수정</a></span>"
+												+ "&nbsp&nbsp|&nbsp&nbsp<span><a onclick='replydelete("+ num +")'>삭제</a></span></div>"
+											    + "<div style='float:right; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ num +"'>" + regdate + "</span></div>"
+												+ "<div style='float:right; padding-left: 10px'><span id='reply_content"+ num +"'>"+content + "</span></div>"
+												+ "<div style='float:right; width:100px; background-color:yellow; border-radius: 0.2em; text-align: right; padding-right: 5px;'><span id='reply_id"+ num +"'>" + id+"</span></div>"
+												+ "</div><br>"
+												);
 		}
 		
 		// 댓글 수정 확인
@@ -217,14 +218,13 @@
 				data:'num=' + num + '&content=' + content ,
 			    success:function(data){
 			    	console.log(data.result);
-			    	$('#reply' + num).empty().append(
-																"<div id=reply"+ num +">"
-																+ "<span id='reply_id"+ num +"'>" +id +"</span>:"
-																+ "<span id='reply_content"+ num +"'>"+ content + "</span>"
-																+ "|<span><a onclick='replyeditform("+ num +")'>수정</a></span>"
-																+ "|<span><a onclick='replydelete("+ num +")'>삭제</a></span>"
-																+"</div><br>"
-							  									);
+			    	$('#reply' + num).empty().append("<div id=reply"+ num +">"
+														+ "<div style='float:right'>&nbsp\;&nbsp\;|&nbsp\;&nbsp\;<span><a onclick='replyeditform("+ num +")'>수정</a></span>"
+														+ "&nbsp&nbsp|&nbsp&nbsp<span><a onclick='replydelete("+ num +")'>삭제</a></span></div>"
+														+ "<div style='float:right; padding-left: 10px'><span id='reply_content"+ num +"'>"+content + "</span></div>"
+														+ "<div style='float:right; width:100px; background-color:yellow; border-radius: 0.2em; text-align: right; padding-right: 5px;'><span id='reply_id"+ num +"'>" + id+"</span></div>"
+														+ "</div><br>"
+					  									);
 			     },
 				error: function(){						
 					alert('Error while request..'	);

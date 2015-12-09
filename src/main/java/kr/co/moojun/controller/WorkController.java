@@ -1,7 +1,6 @@
 package kr.co.moojun.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.WorkboardDAO;
-import kr.co.moojun.model.DTO.MemberDTO;
 import kr.co.moojun.model.DTO.WorkboardDTO;
 import kr.co.moojun.model.DTO.WorkformDTO;
 
@@ -47,7 +45,7 @@ public class WorkController {
          pg = Integer.parseInt(strPg);
       }
 
-      int rowSize = 10; // 한번에 볼 수 있는 그리드 수
+      int rowSize = 6; // 한번에 볼 수 있는 글의 수
       int start = (pg * rowSize) - (rowSize - 1);
       int end = pg * rowSize;
 
@@ -109,6 +107,79 @@ public class WorkController {
 
       // Tiles 적용 (UrlBase 방식)
       return "workboard.worklist";
+   }
+   
+   // 비동기 일자리게시판 목록 (ajaxworklist.htm)
+   @RequestMapping(value="ajaxworklist.htm",method=RequestMethod.GET)
+   public View ajaxworklist(HttpServletRequest request, Model model){
+      System.out.println("ajaxworklist 시작");
+      
+      int pg = 1; //처음 시작페이지
+      
+      String strPg = request.getParameter("pg");   //view에서 넘긴 시작페이지
+      
+      //request 받아온 페이지가 없을경우 1로 시작 -> 처음요청인 상태
+      if (strPg != null) 
+      {
+         pg = Integer.parseInt(strPg);
+      }
+      
+      int rowSize = 6;   //한번에 볼 수 있는 그리드 수
+      int start = (pg * rowSize) - (rowSize - 1);
+      int end = pg * rowSize;
+      System.out.println(strPg + "/" + rowSize + "/" + start + "/" + end);
+
+      //총 게시물수
+      WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
+      int total = workboarddao.getWorkBoardCount();
+
+      int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
+      // int totalPage = total/rowSize + (total%rowSize==0?0:1);
+
+      int block = 5; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
+                  // [10] >>
+      int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
+      // ((1-1)/10*10)
+      int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
+      if (toPage > allPage) { // 예) 20>17
+         toPage = allPage;
+      }
+      
+      System.out.println(total + "/" + toPage);
+
+      HashMap map = new HashMap();
+
+      map.put("start", start);
+      map.put("end", end);
+      
+      List<WorkboardDTO> worklist = workboarddao.getWorkBoardList(map);
+      
+      model.addAttribute("worklist", worklist); 
+      model.addAttribute("pg", pg); 
+      model.addAttribute("allPage", allPage); 
+      model.addAttribute("block", block); 
+      model.addAttribute("fromPage", fromPage);
+      model.addAttribute("toPage", toPage);
+      
+      System.out.println("------------------------------------------------");
+      System.out.println("시작             : " + start + " 끝:" + end);
+      System.out.println("글의 총 개수          : " + total);
+      System.out.println("처음 시작페이지       : " + pg);
+      System.out.println("페이지수          : " + allPage);
+      System.out.println("한페이지에 보여줄 범위     : " + block);
+      System.out.println("보여줄 페이지의 시작    : " + fromPage);
+      System.out.println("보여줄 페이지의 끝       : " + toPage);
+      System.out.println("List<WorkboardDTO> list");
+      
+      for( WorkboardDTO dto :  worklist)
+      {
+         System.out.println(dto.toString());
+      }
+      System.out.println("-------------------------------------------------");
+      System.out.println("ajaxworklist 끝");
+      
+      // Tiles 적용 (UrlBase 방식)
+      return jsonview;
    }
 
    // 일자리게시판 상세보기 (workdetail.htm)
@@ -258,22 +329,32 @@ public class WorkController {
 
       System.out.println("sukso : "      + sukso + " / " 
                        + "siksa : "      + siksa + " / " 
-                     + "don   : "      + don   + " / "
-                     + "searchvalue : " + searchvalue);
+                       + "don   : "      + don   + " / "
+                       + "searchvalue : " + searchvalue);
       
       HashMap map = new HashMap(); // collection
 
       // 체크박스 체크된것만 Map에 추가
+      if(sukso.equals("false") && siksa.equals("false") && don.equals("false"))
+      {
+         System.out.println("체크박스 체크안했을때");
+         map.put("sukso", "sukso");
+         map.put("siksa", "siksa");
+         map.put("don", "don");
+      }
+      
       if (sukso.equals("true")) {
-         System.out.println("1");
+         System.out.println("숙소체크");
          map.put("sukso", "sukso");
       }
+      
       if (siksa.equals("true")) {
-         System.out.println("2");
+         System.out.println("식사체크");
          map.put("siksa", "siksa");
       }
+      
       if (don.equals("true")) {
-         System.out.println("3");
+         System.out.println("급여체크");
          map.put("don", "don");
       }
       
@@ -283,32 +364,20 @@ public class WorkController {
       WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
       List<WorkboardDTO> worklist = workboarddao.checkboxSearch(map);
 
-      // 체크박스중 하나라도 선택했을때 -> jdbcType=VARCHAR
-      if (!(sukso.equals("false") && siksa.equals("false") && don.equals("false"))) {
-         System.out.println("체크박스중 하나라도 선택했을때");
-
-         // 결과값 출력
-         for (WorkboardDTO dto : worklist) {
-            System.out.println(dto.toString());
-         }
-
-         // 결과값이 없을경우..
-         if (worklist.size() == 0) {
-            System.out.println("result = 0");
-            result = "0";
-         } else {
-            System.out.println("result = 1");
-            result = "1";
-         }
-
-         // 결과값과 dto 전달
-      } else// 체크박스 선택 안했을시에...
-      {
-         System.out.println("체크박스 모두 선택 안했을때");
-
-         // 만약 결과값이 없다면 뷰에서 결과값이 없습니다 라고 뿌려주기.-> 비동기일때만...
-         result = "0";
-      }
+      
+     // 결과값 출력
+     for (WorkboardDTO dto : worklist) {
+        System.out.println(dto.toString());
+     }
+      
+     // 결과값이 없을경우..
+     if (worklist.size() == 0) {
+           System.out.println("result = 0");
+        result = "0";
+     } else {
+        System.out.println("result = 1");
+        result = "1";
+     }
 
       System.out.println("최종 넘어가는 값 (result): " + result);
 
@@ -325,20 +394,20 @@ public class WorkController {
    @RequestMapping(value = "workenroll.htm", method = RequestMethod.GET)
    public String workenroll(String num){
 	   
-		System.out.println("신청 후 신청인원 증가 시작");
-
-		// mapper 설정
-		WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
-		int enrollnum = Integer.parseInt(num);
-		System.out.println("enrollnum : " + enrollnum);
-
-		// 신청인원 증가
-		workboarddao.workenroll(enrollnum);
-
-		System.out.println("신청 후 신청인원 증가 끝");
-
-		// Tiles 적용 (UrlBase 방식)
-		return "redirect:worklist.htm";
+	  System.out.println("신청 후 신청인원 증가 시작");
+      
+	  //mapper 설정
+	  WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
+      int enrollnum = Integer.parseInt(num);
+      System.out.println("enrollnum : " + enrollnum);
+      
+      //신청인원 증가
+      workboarddao.workenroll(enrollnum);
+      
+      System.out.println("신청 후 신청인원 증가 끝");
+      
+      // Tiles 적용 (UrlBase 방식)
+      return "redirect:worklist.htm";
 
    }
 }
