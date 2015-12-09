@@ -26,7 +26,8 @@
 						<div class="card-block">
 							<h4 class="card-title"><b>${myepiloguelist.title}</b></h4>
 							<p class="card-text">
-								<small class="text-muted">${myepiloguelist.regdate}</small>
+								<small class="text-muted">${myepiloguelist.regdate}</small>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								<small class="text-muted">${myepiloguelist.id}</small>
 							</p>
 							<a href="#" class="btn btn-primary" id="myepilogue${myepiloguelist.num}" onclick="myepiloguedetail(${myepiloguelist.num})">상세보기</a>
 						</div>

@@ -118,7 +118,7 @@ public class NoticeboardController {
          pg = Integer.parseInt(strPg);
       }
       
-      int rowSize = 3;   //한번에 볼 수 있는 그리드 수
+      int rowSize = 5;   //한번에 볼 수 있는 그리드 수
       int start = (pg * rowSize) - (rowSize - 1);
       int end = pg * rowSize;
       System.out.println(strPg + "/" + rowSize + "/" + start + "/" + end);

@@ -60,20 +60,56 @@
 	              );
 	        };
 	        
-	        /* function Paging(pg) {
+	        function Paging(pg) {
 	            $.ajax({
 	               type : "GET",
-	               url : "noticelist.htm",
+	               url : "ajaxnoticelist.htm",
 	               data : "pg=" + pg,
-	               success : function(result) {
-	                  console.log(pg);
-	                  $('.noticecontainer').load("noticelist.htm?pg="+pg);
+	               success : function(data) {
+	                  var print = "";
+	                  $("#list").empty();
+	                  var nextPage = data.toPage + 1;
+	                  var previousPage = data.fromPage - 1;
+	                  $.each(data.noticelist, function(index, obj){
+	                     print += "<div>";
+	                     print += "<div class=\"noticehead\">";
+	                     print += "<div class=\"col col-xs-2\">" + obj.num + "</div>";
+	                     print += "<div class=\"col col-xs-2\">" + obj.id + "</div>";
+	                     print += "<div class=\"col col-xs-6\" id=\"noticehead" + obj.num + "\"";
+	                     print += "onclick=\"NoticeDetail(" + obj.num + ")\">";
+	                     print += obj.title + "</div>";
+	                     print += "<div class=\"col col-xs-2\">" + obj.regdate + "</div>";
+	                     print += "<div><hr></div></div>";
+	                     print += "<div class=\"notice\" id=\"noticedetail" + obj.num + "\"></div>";
+	                  });
+	                  print += "<div style=\"margin: 0 auto; width: 300px;\">";
+	                  print += "<nav style=\"text-align: center;\">";
+	                  print += "<ul class=\"pagination pagination-sm\">";
+	                  if(data.pg>data.block){
+	                     print += "<li><a onclick=\"Paging(1)\">처음</a></li>";
+	                     print += "<li><a onclick=\"Paging("+ previousPage +")\" aria-label=\"Previous\">";
+	                     print += "<span aria-hidden=\"true\">\&laquo;</span></a></li>";
+	                  }
+	                  for(var i = data.fromPage; i <= data.toPage; i++){
+	                     if(i==data.pg){
+	                        print += "<li class=\"active\"><a>" + i + "</a></li>";
+	                     }
+	                     if(i!=data.pg){
+	                        print += "<li><a onclick=\"Paging(" + i + ")\">" + i + "</a></li>";
+	                     }
+	                  }
+	                  if(data.toPage < data.allPage){
+	                     print += "<li><a onclick=\"Paging(" + nextPage + ")\" aria-label=\"Next\">";
+	                     print += "<span aria-hidden=\"true\">\&raquo;</span></a></li>";
+	                     print += "<li><a onclick=\"Paging(" + data.allPage + ")\">마지막</a></li></ul></nav></div>";
+	                  }
+	                  $("#list").html(print);
 	               },
 	               error : function(status) {
 	                  alert('ERROR');
 	               }
 	            });
-	         }; */
+	         };
 	</script>
 	<style type="text/css">
 	
