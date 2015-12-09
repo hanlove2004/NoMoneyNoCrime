@@ -227,17 +227,17 @@
                   {
                      console.log("결과값이 있는 경우 : data.total != 0");
                      $.each(data.mainepiloguelist , function(index,value){
-                  print += "<div class=\"card\" style=\"float: left;";
-                  print += "margin: 30px; padding: 10px;";
-                  print += "background-color: silver;";
-                  print += "-moz-box-shadow: 30px 3px 5px 5px black;";
-                  print += "-webkit-box-shadow: 3px 3px 85px 5px black;";
-                  print += "box-shadow: 10px 10px 30px 5px black;";
-                  print += "border-top-right-radius: 1em;";
-                  print += "border-top-left-radius: 1em;";
-                  print += "border-bottom-right-radius: 1em;";
-                  print += "border-bottom-left-radius: 1em;\">";
-                  print += "<img class=\"card-img-top\" src=\"" + requestgetcontextpath + "/upload/" + value.photoname1 + "\" alt=\"" + value.title + "\" height=\"100px\" width=\"150px\">";
+	                  print += "<div class=\"card\" style=\"float: left;";
+	                  print += "margin: 30px; padding: 10px;";
+	                  print += "background-color: silver;";
+	                  print += "-moz-box-shadow: 30px 3px 5px 5px black;";
+	                  print += "-webkit-box-shadow: 3px 3px 85px 5px black;";
+	                  print += "box-shadow: 10px 10px 30px 5px black;";
+	                  print += "border-top-right-radius: 1em;";
+	                  print += "border-top-left-radius: 1em;";
+	                  print += "border-bottom-right-radius: 1em;";
+	                  print += "border-bottom-left-radius: 1em;\">";
+	                  print += "<img class=\"card-img-top\" src=\"" + requestgetcontextpath + "/upload/" + value.photoname1 + "\" alt=\"" + value.title + "\" height=\"100px\" width=\"150px\">";
                            print += "<div class=\"card-block\">";
                                  print += "<h4 class=\"card-title\"><b>" + value.title + "</b></h4>";
                                  print += "<p class=\"card-text\">";
@@ -314,27 +314,19 @@
          //댓      글
          $.ajax({
             type : "post",
-            url  : "mainepiloguedetail.htm",
+            url  : "mainepiloguereplydetail.htm",
             cache: false,            
             data :'num=' + num,
             success:function(data){
                 $("#modal-reply").empty();
                 $("#modal-reply").append("<div>댓      글</div>");
                 $.each(data.reply_epiloguelist,function(index,value){
-                    if(value.id != data.userid){
                        $("#modal-reply").append("<div>"
-                                                  + "<span id='reply_id"+ value.num +"'>" + value.id+"</span>:"
-                                                  + "<span id='reply_content"+ value.num +"'>"+value.content + "</span>"
-                                                  + "</div><br>");
-                    }else{
-                       $("#modal-reply").append("<div id=reply"+ value.num +" >" 
-                                                  + "<span id='reply_id"+ value.num +"'>" + value.id+"</span>:"
-                                                  + "<span id='reply_content"+ value.num +"'>"+value.content + "</span>"
-                                                  + "|<span><a onclick='replyeditform("+ value.num +")'>수정</a></span>"
-                                                  + "|<span><a onclick='replydelete("+ value.num +")'>삭제</a></span>"
-                                                  + "</div><br>"
-                                                  );
-                    }//else
+												+ "<div style='float:left; width:100px; background-color:silver; border-radius: 0.2em; text-align: right; padding-right: 5px;'><span id='reply_id"+ value.num +"' style='width:200px'>" + value.id+"</span></div>"
+												+ "<div style='float:left; padding-left: 10px'><span id='reply_content"+ value.num +"'>" + value.content + "</span></div>"
+												+ "<div style='float:left; padding-left: 10px; color: silver; font-size: 8px;'><span id='reply_regdate"+ value.num +"'>" + value.regdate + "</span></div>"
+												+ "</div><br><br>"
+												);
                 });//$.each
             },//success:function(data)
             
@@ -405,23 +397,28 @@
       {
          font-family: myfont05;
       }
+      
+      body
+      {
+         font-family: myfont05;
+      }
    </style>
 </head>
 <body>
    <div class="main" style="background-image: url(<%=request.getContextPath()%>/images/moojun01.jpg);">
-         <!-- header 영역 -->
-         <tiles:insertAttribute name="header" />
-         
-         <!-- main 영역 -->
-         <div class="maincontent">
-         <tiles:insertAttribute name="content" />
-         </div>
+		<!-- header 영역 -->
+		<tiles:insertAttribute name="header" />
 
-       <!-- searchdiv -->
-         <tiles:insertAttribute name="searchdiv" />
-         
-         <!-- footer 영역 -->
-         <tiles:insertAttribute name="footer" />
-   </div>
+		<!-- main 영역 -->
+		<div class="maincontent">
+			<tiles:insertAttribute name="content" />
+		</div>
+
+		<!-- searchdiv -->
+		<tiles:insertAttribute name="searchdiv" />
+
+		<!-- footer 영역 -->
+		<tiles:insertAttribute name="footer" />
+	</div>
 </body>
 </html>

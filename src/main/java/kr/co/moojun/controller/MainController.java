@@ -1,21 +1,27 @@
 package kr.co.moojun.controller;
 
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.EpilogueboardDAO;
 import kr.co.moojun.model.DAO.MemberDAO;
+import kr.co.moojun.model.DAO.Reply_EpilogueDAO;
 import kr.co.moojun.model.DTO.EpilogueboardDTO;
 import kr.co.moojun.model.DTO.MemberDTO;
-import kr.co.moojun.model.DTO.WorkboardDTO;
+import kr.co.moojun.model.DTO.Reply_EpilogueDTO;
 
 @Controller
 public class MainController {
@@ -162,49 +168,116 @@ public class MainController {
       return jsonview;
    }
    
-   //searchbuttonclick 비동기(모달로  제목이나 내용으로 여행후기목록 가져오기)
+   // 여행후기 목록 (searchbuttonclick.htm)
    @RequestMapping(value = "searchbuttonclick.htm", method = RequestMethod.POST)
-   public View searchButtonClick(String keyword, Model model) {
-      System.out.println("searchButtonClick start");
+   public View mainepiloguelist(HttpServletRequest request, Model model) {
+      System.out.println("mainepiloguelist 시작");
+      
+      String keyword = request.getParameter("keyword");
       System.out.println("keyword : " + keyword);
       
-      String temp = keyword;
-      String result = "0";   //search한 값이 null 인경우 : "0" 아닌경우 : "1"
+      int pg = 1;
+      String strPg = request.getParameter("pg");
       
-      //title -> null값이 들어온경우 
-      if(temp.length() == 0){
-         System.out.println("temp.length() == 0");
-         temp = "%";
+      if (strPg != null) {
+         pg = Integer.parseInt(strPg);
       }
       
-      EpilogueboardDAO epilogueboarddao = sqlsession.getMapper(EpilogueboardDAO.class);
-      List<EpilogueboardDTO> searchbuttonlist = epilogueboarddao.searchButtonClick(keyword);
+      int rowSize = 9;
+      int start    = (pg * rowSize) - (rowSize - 1);
+      int end    = pg * rowSize;
+
+      EpilogueboardDAO epilogueboarddao =  sqlsession.getMapper(EpilogueboardDAO.class);
+      int total = epilogueboarddao.maingetEpilogueBoardCount(keyword); // 총 게시물수
       
-      //결과값이 없는 경우
-      if(searchbuttonlist.size() == 0){
-         System.out.println("결과값이 없는 경우 : result = 0");
-         result = "0";
+      System.out.println("시작 : " + start + " 끝:" + end);
+      System.out.println("글의 수 : " + total);
+
+      int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
+      // int totalPage = total/rowSize + (total%rowSize==0?0:1);
+      System.out.println("페이지수 : " + allPage);
+
+      int block = 5; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8]
+                  // [9] [10] >>
+      int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
+      // ((1-1)/10*10)
+      int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
+      if (toPage > allPage) { // 예) 20>17
+         toPage = allPage;
       }
-      else//결과있는경우
+
+      HashMap map = new HashMap();
+
+      map.put("start"    , start);
+      map.put("end"    , end);
+      map.put("keyword", keyword);
+      
+      List<EpilogueboardDTO> mainepiloguelist = epilogueboarddao.maingetEpilogueBoardList(map);
+      model.addAttribute("mainepiloguelist", mainepiloguelist);
+      model.addAttribute("pg"          , pg);
+      model.addAttribute("allPage"    , allPage);
+      model.addAttribute("block"       , block);
+      model.addAttribute("fromPage"    , fromPage);
+      model.addAttribute("toPage"       , toPage);
+      model.addAttribute("total"       , total);
+
+      System.out.println("------------------------------------------------");
+      System.out.println("시작             : " + start + " 끝:" + end);
+      System.out.println("글의 총 개수          : " + total);
+      System.out.println("처음 시작페이지       : " + pg);
+      System.out.println("페이지수          : " + allPage);
+      System.out.println("한페이지에 보여줄 범위     : " + block);
+      System.out.println("보여줄 페이지의 시작    : " + fromPage);
+      System.out.println("보여줄 페이지의 끝       : " + toPage);
+      System.out.println("List<NoticeboardDTO> list");
+
+      for( EpilogueboardDTO dto :  mainepiloguelist)
       {
-         System.out.println("결과값이 없는 경우 : result = 1");
-         result = "1";
-         
-         // 최종 list결과값 출력
-         for (EpilogueboardDTO list : searchbuttonlist) {
-            System.out.println(list.toString());
-         }
-         
+         System.out.println(dto.toString());
       }
-
-      System.out.println("result(최종값) : " + result);
       
-      model.addAttribute("searchbuttonlist", searchbuttonlist); 
-      model.addAttribute("result"          , result); 
-
-      System.out.println("searchButtonClick end");
+      System.out.println("-------------------------------------------------");
+      System.out.println("mainepiloguelist 끝");
       
       // Tiles 적용 (UrlBase 방식)
       return jsonview;
    }
+   
+   // 여행후기 상세보기 (mainepiloguedetail.htm)
+   @RequestMapping(value = "mainepiloguedetail.htm", method = RequestMethod.POST)
+   public View mainepiloguedetail(String num , ModelMap modelmap) {
+      System.out.println("mainepiloguedetail start");
+      System.out.println(num);
+      
+      EpilogueboardDAO epilogueboarddao =  sqlsession.getMapper(EpilogueboardDAO.class);
+      EpilogueboardDTO epilogueboarddto = epilogueboarddao.getEpilogueBoard(Integer.parseInt(num));
+       
+      System.out.println(epilogueboarddto.toString());
+       
+      modelmap.addAttribute("epilogueboarddto",epilogueboarddto);
+       
+		System.out.println("mainepiloguedetail start");
+		// Tiles 적용 (UrlBase 방식)
+		return jsonview;
+	}
+
+	// 여행후기 댓글 리스트 (mainepiloguereplydetail.htm)
+	@RequestMapping(value = "mainepiloguereplydetail.htm", method = RequestMethod.POST)
+	public View epiloguereplydetail(String num, ModelMap modelmap) {
+		
+		System.out.println("mainepiloguereplydetail start");
+		System.out.println(num);
+
+		HashMap map = new HashMap();
+		map.put("num", num);
+
+		Reply_EpilogueDAO reply_epiloguedao = sqlsession.getMapper(Reply_EpilogueDAO.class);
+		List<Reply_EpilogueDTO> reply_epiloguelist = reply_epiloguedao.getEpilogueBoardReplyList(map);
+
+		modelmap.addAttribute("reply_epiloguelist", reply_epiloguelist);
+
+		System.out.println("mainepiloguereplydetail end");
+
+		return jsonview;
+	}
 }

@@ -28,4 +28,10 @@ public interface EpilogueboardDAO {
    List<String> searchKeyword(String keyword); // keyword 비동기 리스트(목록)
    
    List<EpilogueboardDTO> searchButtonClick(String keyword); // searchbutton 클릭 비동기 리스트(목록)
+   
+   /////////////////////////////////////main 여행 후기 검색////////////////////////////////////
+   List<EpilogueboardDTO> maingetEpilogueBoardList(HashMap map); // main여행후기 리스트(목록)
+   
+   int maingetEpilogueBoardCount(String keyword); //여행후기 게시글의 수
+   //////////////////////////////////////////////////////////////////////////////////////
 }

@@ -104,7 +104,6 @@
        WHERE NUM = #{num}
    </select>
    
-   
    <!-- ******************************************************************** Main search 비동기 ************ -->
    <!-- 메인 search 검색 버튼 클릭시  -->
    <select id="searchButtonClick" parameterType="String" resultType="kr.co.moojun.model.DTO.EpilogueboardDTO">
@@ -124,5 +123,36 @@
          WHERE KEYWORD LIKE '%' || #{keyword} || '%'
    </select>
    
+   <!-- search button 여행후기 리스트(목록) -->
+   <select id="maingetEpilogueBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.EpilogueboardDTO">
+      SELECT 
+             * 
+        FROM (
+               SELECT 
+                      ROWNUM AS NUM1
+                    , N.* 
+                 FROM (
+                        SELECT 
+                               * 
+                          FROM EPILOGUE
+                         WHERE TITLE   LIKE '%' || #{keyword} || '%'
+                               OR
+                               CONTENT LIKE '%' || #{keyword} || '%'
+                         ORDER BY REGDATE DESC
+                      ) N
+             )
+       WHERE NUM1    >= #{start} 
+         AND NUM1 &lt;= #{end}
+   </select>
+   
+   <!-- search button 여행후기 게시글의 수 -->
+   <select id="maingetEpilogueBoardCount"  parameterType="String" resultType="Integer">
+      SELECT 
+             COUNT(*) 
+        FROM EPILOGUE
+       WHERE TITLE   LIKE '%' || #{keyword} || '%'
+               OR
+            CONTENT LIKE '%' || #{keyword} || '%'
+   </select>
    
 </mapper>  
