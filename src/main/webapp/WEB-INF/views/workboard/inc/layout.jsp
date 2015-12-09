@@ -100,8 +100,24 @@
         });//$.ajax({
    }//function checkAndSearchClick()
    
-   
-   
+// sendmessage() start
+	function sendMessage() {
+		var sender = $('#sender').val();
+		var receiver = $('#receiver').val();
+		var content = $('#messagecontent').val();
+		var contextpath = $('#contextpath').val();
+		$.ajax({
+			type : "post",
+			url : contextpath + "/sendmessage.htm",
+			data : "sender=" + sender + "&receiver=" + receiver + "&content=" + content,
+			success : function(data) { //callback
+				if(data != null){
+					alert("쪽지를 성공적으로 보냈습니다");
+				}
+				
+			}// success : function(data)
+		});//$.ajax({
+	}//function sendMessage() end
 </script>
 <style type="text/css">
 	a 
