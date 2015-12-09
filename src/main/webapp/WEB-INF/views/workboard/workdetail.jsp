@@ -22,15 +22,19 @@
 				<td>귀&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인</td>
 				<td colspan="2" align="left">${workboarddto.id}
 					<input type="hidden" id="writername" value="${workboarddto.id}">
+					<se:authentication property="name" var="LogingUser" />
+					<c:if test="${workboarddto.id != LogingUser }">
 					<!-- dropdown span -->
 					<span class="dropdown">
 					    <button id="writerdropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 					    <span class="caret" id="caret"></span></button>
 					    <ul class="dropdown-menu">
 					      <li><a href="#">회원정보</a></li>
-					      <li><a href="#">쪽지보내기</a></li>
+					      <li><a href="#" id="messagesend_btn" data-toggle="modal" 
+						data-target="#messageModal">쪽지보내기</a></li>
 					    </ul>
 					</span>
+					</c:if>
 				</td>
 			</tr>
 			<tr>
@@ -99,6 +103,7 @@
 			</tr>
 		</table>
 	</div>
+	
 </div>
 
 <!-- 귀인만나기 신청양식 -->
@@ -158,3 +163,34 @@
    </div>
 </div>
 
+<!-- 쪽지보내기 Modal -->
+  <div class="modal fade" id="messageModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+    <!-- ajax data -->
+    <input type="hidden" id="contextpath" value="<%=request.getContextPath()%>">
+    <input type="hidden" id="sender" value="${LogingUser}">
+    <input type="hidden" id="receiver" value="${workboarddto.id}">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">쪽지 보내기</h4>
+        </div>
+        <div class="modal-body" style="padding-bottom: 5px;padding-top: 5px;border-bottom: 1px solid #e5e5e5;">
+        	<se:authentication property="name" var="LogingUser" />
+        	<div style="margin: 3px;">FROM. ${LogingUser}</div>
+        	<div style="margin: 3px;text-align: right;">TO.  ${workboarddto.id}</div>
+        </div>
+        <div class="modal-body">
+          <textarea rows="8" cols="35" id="messagecontent"></textarea>
+        </div>
+        <div class="modal-footer">
+          <a onclick="sendMessage()"><button type="button" class="btn btn-default" data-dismiss="modal">Send</button></a>
+          <a><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
