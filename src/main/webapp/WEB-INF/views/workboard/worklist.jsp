@@ -1,24 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div style="width: 700px; margin: auto;">
+<div class="container" id="workcontainer" style="background-color: #fff;
+												border-radius: 0.5em;
+												width: 700px;
+												margin-top: 30px;
+												margin-bottom: 30px;
+												font-family: myfont05;
+												text-align: center;">
 	<table class="table table-bordered"
-		style="text-align: center; font-size: 30px;">
+		style="text-align: center;">
 		<tr>
-			<td>
-				<!-- checkbox --> 
-				<input type="checkbox" id="sukso" name="column"	value="숙소">숙소 
-				<input type="checkbox" id="siksa" name="column" value="식사">식사 
-				<input type="checkbox" id="don"	name="column" value="급여">급여 &nbsp; 
-				<input type="search" id="searchvalue" name="searchvalue" placeholder="주소 및 제목 검색">&nbsp;
-				<button id="search" class="btn btn-danger">검색</button>
+			<td style="font-size: 18px; width: 300px">
+				<!-- checkbox -->
+				<input type="checkbox" id="sukso" name="column"	value="숙소"> 숙소  &nbsp;
+				<input type="checkbox" id="siksa" name="column" value="식사"> 식사  &nbsp;
+				<input type="checkbox" id="don"	name="column" value="급여"> 급여 &nbsp;
+			</td>
+			<td style="font-size: 18px; width: 400px"> 
+				<input type="search" id="searchvalue" name="searchvalue" style="width: 300px;" placeholder="주소 및 제목 검색">&nbsp;&nbsp;
+				<button id="search" class="btn btn-danger btn-sm">검색</button>
 			</td>
 		</tr>
-		<tr>
-			<td class="active"><b>귀인 만나기</b></td>
+		<tr style="font-size: 30px;">
+			<td class="info" colspan="2"><b>귀인 만나기</b></td>
 		</tr>
 	</table>
-	
+
+	<div id="work-list">
 	<div class="work-list-box swiper-container" id="work-slide">
       <div class='row work-list swiper-wrapper clear-wrap'>
          <c:forEach var="workboardlist2" items="${worklist}">
@@ -38,9 +47,10 @@
 	                     </img>
 	                  </span>
 	                  <span class='text'>${workboardlist2.title}</span>
-	                  <span class="howmany">
-	                  ${workboardlist2.regpeople} / ${workboardlist2.needpeople} 명
-	                  <b>모집중</b>
+	                  <span class="howmany" style="text-align: center">
+	                  ${workboardlist2.startdate} ~ ${workboardlist2.enddate}
+	                  <br>
+	                  <b>신청 현황 : ${workboardlist2.regpeople} / ${workboardlist2.needpeople} 명</b>
 	                  </span>
 	               </span>
 	               <span class='work-info'> 
@@ -54,6 +64,9 @@
          </c:forEach>
       </div>
    </div>
+   </div>
+   
+   <input type="hidden" id="path" value="<%=request.getContextPath()%>">
    
    <div style="text-align: right">
       <a href="workinsert.htm" class="btn btn-success">글쓰기</a>

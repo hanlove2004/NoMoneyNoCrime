@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <div class="container" id="memberinfo" style="margin-bottom: 20px;">
    <div class="well well-lg" align="center" style="margin: auto; width: 40%; background-color: #FFE7EC;">
-      <form class="form-horizontal" name="memberupdate" action="" method="post">
+      <form class="form-horizontal" name="memberupdate" action="memberupdate.htm" method="post">
             
             <div class="form-group">
                <label for="m_id" class="col-sm-4 control-label">아이디</label>
@@ -70,7 +70,7 @@
             <hr>
             
             <input type="submit" value="수정" class="btn btn-success"> 
-            <input type="button" onclick="<%=request.getContextPath()%>/mypage/memberinfo.htm" value="취소" class="btn btn-info"> 
+            <a href="<%=request.getContextPath()%>/mypage/memberinfo.htm" class="btn btn-info">취소</a> 
          </form>
    </div>
 </div>
