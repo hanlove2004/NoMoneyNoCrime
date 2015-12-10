@@ -1,5 +1,7 @@
 package kr.co.moojun.controller;
 
+import java.security.Principal;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -62,6 +64,19 @@ public class MessageController {
 	      if(result > 0){
 	    	  model.addAttribute("resultmessage", "쪽지가 삭제되었습니다.");
 	      }
+	      
+	      return jsonview;
+	   }
+	   
+	   // alertnewmessage.htm
+	   @RequestMapping(value="alertnewmessage.htm" , method=RequestMethod.POST)
+	   public View alertnewmessage(Model model, Principal principal){
+
+	      System.out.println("alertnewmessage start");
+	      MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
+	      int result = messagedao.getNewMessageCount(principal.getName());
+	      
+	      model.addAttribute("result", result);
 	      
 	      return jsonview;
 	   }

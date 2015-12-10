@@ -15,7 +15,7 @@
 	<div class="messagereceivelisthead" style="padding-top: 20px;">
 		<div class="col col-xs-2">보낸사람</div>
 		<div class="col col-xs-6">내용</div>
-		<div class="col col-xs-2">작성일</div>
+		<div class="col col-xs-2">받은날짜</div>
 		<div class="col col-xs-1">답장</div>
 		<hr>
 	</div>

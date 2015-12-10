@@ -24,4 +24,6 @@ public interface MessageDAO {
    
    int isMemberById(String id); // 아이디 존재 확인
    
+   int getNewMessageCount(String id); // 새로운 메세지 수
+   
 }
