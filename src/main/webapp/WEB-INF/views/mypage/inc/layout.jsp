@@ -26,6 +26,29 @@
 	<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" type="image/x-icon" />
 	<title>무전무죄 프로젝트</title>
 	<script type="text/javascript">
+		$(document).ready(function(){
+		    
+			var path = $('#path').val();
+			
+		    //use jQuery MultiFile Plugin 
+		    $('#epilogueinsertform input[name=files]').MultiFile({
+		        max: 3, //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
+		        accept: 'jpg|png|gif', //허용할 확장자(지정하지 않으면 모든 확장자 허용)
+		        maxfile: 1024, //각 파일 최대 업로드 크기
+		        maxsize: 3024,  //전체 파일 최대 업로드 크기
+		        STRING: { //Multi-lingual support : 메시지 수정 가능
+		            remove : "<img src='"+path+"/images/delete.png' height='16' width='16' alt='x'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
+		            duplicate : "$files 은 이미 선택된 파일입니다.", 
+		            denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
+		            selected:'$files 을 선택했습니다.', 
+		            toomuch: "업로드할 수 있는 최대크기를 초과하였습니다.($size)", 
+		            toomany: "업로드할 수 있는 최대 갯수는 $max개 입니다.",
+		            toobig: "$files 은 크기가 매우 큽니다. (max $size)"
+		        },
+		        list:"#afile3-list" //파일목록을 출력할 요소 지정가능
+		    });
+		});
+	
 		function Paging(pg) {
 			$.ajax({
 				type : "GET",

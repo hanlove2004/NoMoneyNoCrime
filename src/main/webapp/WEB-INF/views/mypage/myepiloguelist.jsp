@@ -87,3 +87,4 @@
 </div>
 
 <%@ include file="myepiloguedetail.jsp" %>
+<%@ include file="myepilogueinsert.jsp" %>

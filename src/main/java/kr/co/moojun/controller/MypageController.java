@@ -1,6 +1,8 @@
 package kr.co.moojun.controller;
 
+import java.io.FileOutputStream;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.EpilogueboardDAO;
@@ -466,6 +469,97 @@ public class MypageController {
 
 		// Tiles 적용 (UrlBase 방식)
 		return jsonview;
+	}
+	
+	// 내 여행후기 쓰기 성공 (myepilogueinsert.htm)
+	@RequestMapping(value = "myepilogueinsert.htm", method = RequestMethod.POST)
+	public String epilogueinsertsuccess(EpilogueboardDTO epilogueboarddto, HttpServletRequest request, Principal principal) throws Exception {
+
+		System.out.println("myepilogueinsertsuccess start");
+		
+		
+		System.out.println(epilogueboarddto.getTitle());
+		System.out.println(epilogueboarddto.getContent());
+		System.out.println(epilogueboarddto.getFiles());
+
+
+		List<CommonsMultipartFile> files = epilogueboarddto.getFiles();
+		List<String> filenames = new ArrayList<String>(); //파일명만 추출
+
+		if(files != null && files.size() > 0 ){ //업로드한 파일이 하나라도 있다면
+
+			for(CommonsMultipartFile multipartfile : files ){
+				
+				String fname = multipartfile.getOriginalFilename(); //파일명 얻기
+				System.out.println("fname : " + fname);
+				if(fname.equals("")){
+					break;
+				}
+				String[] splitname = fname.split("\\.");
+				String path  = request.getSession().getServletContext().getRealPath("/upload");
+				
+				String uploadname = System.currentTimeMillis() + splitname[0] + "_"
+											+ principal.getName() + "." + splitname[1];
+				
+				String fullpath = path + "\\" + uploadname;
+				
+				System.out.println("fname : " + fname);
+				System.out.println("path : " + path);
+				System.out.println("uploadname : " + uploadname);
+				System.out.println("fullpath " + fullpath);
+
+				if(!fname.equals("")){
+					//서버에 파일 쓰기 작업 
+					FileOutputStream fs = new FileOutputStream(fullpath);
+					fs.write(multipartfile.getBytes());
+					fs.close();
+				}
+				filenames.add(uploadname); //실 DB Insert 작업시 .. 파일명 
+			}
+
+		}
+		System.out.println(filenames.size());
+		// DB저장작업
+		// DB 저장할 파일 명
+		switch (filenames.size()) {
+		case 1:
+			System.out.println("case1");
+			epilogueboarddto.setPhotoname1(filenames.get(0));
+			break;
+		case 2:
+			System.out.println("case2");
+			epilogueboarddto.setPhotoname1(filenames.get(0));
+			epilogueboarddto.setPhotoname2(filenames.get(1));
+			break;
+		case 3:
+			System.out.println("case3");
+			epilogueboarddto.setPhotoname1(filenames.get(0));
+			epilogueboarddto.setPhotoname2(filenames.get(1));
+			epilogueboarddto.setPhotoname3(filenames.get(2));
+			break;
+		default:
+			break;
+		}
+		
+
+		//security 에서
+		//Login ID 값
+		//n.setWriter("kglim");
+
+		// 1단계 ( 좀 더 상세한 정보 : ID , PWD , role)
+		UserDetails user = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(user.getUsername() + user.getAuthorities());
+
+		// 2단계
+		System.out.println(principal.getName());
+		epilogueboarddto.setId(principal.getName());
+
+		// 실DB저장
+		EpilogueboardDAO epilogueboarddao =  sqlsession.getMapper(EpilogueboardDAO.class);
+		epilogueboarddao.insertEpilogueBoard(epilogueboarddto);
+
+		// Tiles 적용 (UrlBase 방식)
+		return "redirect:myepiloguelist.htm";
 	}
 	
 	// 나의 여행후기 상세보기 (myepiloguedetail.htm)

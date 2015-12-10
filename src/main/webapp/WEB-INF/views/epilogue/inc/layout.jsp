@@ -26,6 +26,8 @@
 <script>
 $(document).ready(function(){
     
+	var path = $('#path').val();
+    
     //use jQuery MultiFile Plugin 
     $('#epilogueinsertform input[name=files]').MultiFile({
         max: 3, //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
@@ -33,7 +35,7 @@ $(document).ready(function(){
         maxfile: 1024, //각 파일 최대 업로드 크기
         maxsize: 3024,  //전체 파일 최대 업로드 크기
         STRING: { //Multi-lingual support : 메시지 수정 가능
-            remove : "제거", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
+            remove : "<img src='"+path+"/images/delete.png' height='16' width='16' alt='x'/>", //추가한 파일 제거 문구, 이미태그를 사용하면 이미지사용가능
             duplicate : "$files 은 이미 선택된 파일입니다.", 
             denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
             selected:'$files 을 선택했습니다.', 
