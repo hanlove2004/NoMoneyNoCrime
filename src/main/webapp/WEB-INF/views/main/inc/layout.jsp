@@ -19,41 +19,73 @@
    <title>무전무죄 프로젝트</title>
    <script type="text/javascript">
       $(document).ready(function() {
+      	 
+    	 //검색
          $(".li1").click(function() {
-            $("#login").fadeOut();
+        	$("#login").fadeOut();
             $("#join").fadeOut();
             $("#howtouse").fadeOut();
-            $("#start").delay(500).fadeIn();
+            $("#start").delay(500).fadeIn(); 
          });
+      	 //로그인
          $(".li2").click(function() {
             $("#start").fadeOut();
             $("#join").fadeOut();
             $("#howtouse").fadeOut();
             $("#login").delay(500).fadeIn();
          });
+      	 //회원가입
          $(".li3").click(function() {
             $("#start").fadeOut();
             $("#login").fadeOut();
             $("#howtouse").fadeOut();
             $("#join").delay(500).fadeIn();
          });
+      	 //사용방법
          $(".li4").click(function() {
             $("#start").fadeOut();
             $("#login").fadeOut();
             $("#join").fadeOut();
             $("#howtouse").delay(500).fadeIn();
          });
-
-         //암호비교
-         $('#confirmpwd').keyup(function() {
-            var pwd = $('#pwd').val();
-            if ($('#confirmpwd').val() != pwd) {
-               $('#pwdcheck').text('');
-               $('#pwdcheck').html("비밀번호 불일치");
+		 
+ 		 $("#loginbtn").click(function(){
+	        if($("#username").val() == ""){
+	            alert("로그인 아이디를 입력해주세요");
+	            $("#username").focus();
+	            return false;
+	        } else if ($("#password").val() == ""){
+	            alert("로그인 비밀번호를 입력해주세요");
+	            $("#password").focus();
+	            return false;
+	        }
+	     });
+      	 
+      	 // 비밀번호 확인시 이벤트
+ 		 function passwordcheck(confirmpwd,pwd){
+ 			
+ 			if (confirmpwd != pwd) {
+ 	              $('#pwdcheck').text('');
+ 	              $('#pwdcheck').html("비밀번호 불일치");
+ 	              $('#pwdcheck').css("color", "red");
             } else {
-               $('#pwdcheck').text('');
-               $('#pwdcheck').html("비밀번호 일치");
+              $('#pwdcheck').text('');
+              $('#pwdcheck').html("비밀번호 일치");
+              $('#pwdcheck').css("color", "blue");
             }
+ 	     }
+ 		
+ 		 // pwd / confirmpwd 에 입력시 비밀번호 체크
+         $('#confirmpwd').keyup(function() {
+         	var pwd = $('#pwd').val();
+     		var confirmpwd = $('#confirmpwd').val();
+ 			passwordcheck(confirmpwd,pwd);
+         });
+ 		
+         $('#pwd').keyup(function() {
+         	var pwd = $('#pwd').val();
+     		var confirmpwd = $('#confirmpwd').val();
+             passwordcheck(confirmpwd,pwd);
          });
 
          //회원가입 아이디 중복검사
@@ -83,54 +115,54 @@
          
          $('#check').click(function() {
                  
-                 //일력한 값 변수 할당
-                 var uid = document.joinform.id.value;
-             var upw = document.joinform.pwd.value;
-             var upw2 = document.joinform.confirmpwd.value;
-             var name = document.joinform.name.value;
-             var phone = document.joinform.phone.value;
-             var birth = document.joinform.birth.value;
-             var email = document.joinform.email.value;
+            //일력한 값 변수 할당
+            var id = $("#id").val();
+			var pwd = $("#pwd").val();
+			var confirmpwd = $("#confirmpwd").val();
+			var name = $("#name").val();
+			var phone = $("#phone").val();
+			var birth = $("#birth").val();
+			var email = $("#email").val();
              
-             console.log(uid.value);
-             console.log(upw.value);
-             console.log(upw2.value);
-             console.log(birth.value);
-             console.log(name.value);
-             console.log(birth.value);
-             console.log(email.value);
-             console.log(phone.value);
+			console.log("id     : " + id); 
+			console.log("pwd     : " + pwd); 
+			console.log("confirmpwd  : " + confirmpwd); 
+			console.log("name  : " + name); 
+			console.log("phone : " + phone); 
+			console.log("birth : " + birth); 
+			console.log("email : " + email)
              
-            var result= true;
-            if (re_id.test(uid) != true) { // 아이디 검사
+            if (re_id.test(id) != true) { // 아이디 검사
                alert('[아이디 입력 오류] 유효한 ID를 입력해 주세요.');
-               id.focus();
+               $("#id").focus();
                return false;
-            } else if (re_pw.test(upw) != true) { // 비밀번호 검사
+            } else if (re_pw.test(pwd) != true) { // 비밀번호 검사
                alert('[비밀번호 입력 오류] 유효한 비밀번호 를 입력해 주세요.');
-               pwd.focus();
+               $("#pwd").focus();
                return false;
-            } else if (re_pw.test(upw2) != true) { // 비밀번호 검사
+            } else if (re_pw.test(confirmpwd) != true) { // 비밀번호 검사
                alert('[비밀번호 입력 오류] 유효한 비밀번호 를 입력해 주세요.');
-               pwd2.focus();
+               $("#confirmpwd").focus();
                return false;
             } else if (name == "") { // 이름 검사
                alert('[이름 입력 오류] 이름 을 입력해 주세요.');
-               name.focus();
+               $("#name").focus();
                return false;
             } else if (re_tel.test(phone) != true) { // 전화번호 검사
                alert('[Tel 입력 오류] 유효한 전화번호를 입력해 주세요.');
-               tel.focus();
+               $("#phone").focus();
                return false;
             } else if (birth.value == "") { // 생일 검사
                alert('[생년월일 입력 오류] 생년월일을 입력해 주세요.');
-               birth.focus();
+               $("#birth").focus();
                return false;
             } else if (re_email.test(email) != true) { // 이메일 검사
                alert('[이메일 입력 오류] 유효한 이메일을 입력해 주세요.');
-               email.focus();
+               $("#email").focus();
                return false;
             }
+			
+			alert("축하합니다! 가입이 완료 되었습니다!");
          });
          
          //메인search 비동기

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="se"
+   uri="http://www.springframework.org/security/tags"%>
 <!-- Modal -->
 <div class="modal fade" id="epilogueModal" role="dialog">
 	<div class="modal-dialog">
@@ -111,7 +113,7 @@
 					alert('Error while request..'	);
 				}
 			});
-			$("#epilogueModal").modal();
+			
 		}
 		
 		//여행 후기 댓글 쓰기 ajax
