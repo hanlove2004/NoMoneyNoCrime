@@ -4,6 +4,29 @@
 <%@ taglib prefix="se"
 	uri="http://www.springframework.org/security/tags"%>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	// 새로운 메세지 표시
+	var contextpath = $('#contextpath').val();
+	$.ajax({
+		type : "post",
+		url : contextpath + "/alertnewmessage.htm",
+		success : function(data) { //callback
+			if (data != null) {
+				console.log(data.result);
+				$('#newmessagecount').text(data.result);
+			}
+
+		}// success : function(data)
+	});//$.ajax({
+		
+		
+});
+</script>
+
+<input type="hidden" id="contextpath" value="<%=request.getContextPath()%>">
+
 <nav class="navbar navbar-inverse navbar-fixed-top" style="margin-bottom: 0px;">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -24,6 +47,10 @@
 							회원현황</a></li>
 				</se:authorize>
 				<se:authorize ifNotGranted="ROLE_ADMIN">
+					<li><a href="<%=request.getContextPath()%>/mypage/messagereceivelist.htm">
+					<span class="glyphicon glyphicon-envelope"></span>
+					&nbsp;&nbsp;<span style="color: #9d9d9d;" id="newmessagecount">1</span></a>
+					</li>
 					<li><a href="<%=request.getContextPath()%>/mypage/memberinfo.htm"><span class="glyphicon glyphicon-user"></span>
 							MyPage</a></li>
 				</se:authorize>

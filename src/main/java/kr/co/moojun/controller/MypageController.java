@@ -396,7 +396,7 @@ public class MypageController {
 			pg = Integer.parseInt(strPg);
 		}
 
-		int rowSize = 6; // 한번에 볼 수 있는 그리드 수
+		int rowSize = 6; // 한번에 볼 수 있는 글의 수
 		int start = (pg * rowSize) - (rowSize - 1);
 		int end = pg * rowSize;
 		System.out.println(strPg + "/" + rowSize + "/" + start + "/" + end);
@@ -564,21 +564,6 @@ public class MypageController {
 		return jsonview;
 	}
 
-	// 쪽지함 리스트
-	/*@RequestMapping(value = "messagelist.htm", method = RequestMethod.GET)
-	public String messagelist(Principal principal, Model model) {
-		System.out.println("messagelist.htm");
-		MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
-		String id = principal.getName();
-		HashMap map = new HashMap();
-		map.put("id", id);
-		System.out.println("id : " + id);
-		List<MessageDTO> messagelist = messagedao.messagelist(map);
-		model.addAttribute("messagelist", messagelist);
-		System.out.println("messagelist.htm 끝");
-		return "mypage.messagelist";
-	}*/
-
 	// 받은 쪽지함 리스트
 	@RequestMapping(value = "messagereceivelist.htm", method = RequestMethod.GET)
 	public String messagereceivelist(String strPg, Principal principal, Model model) {
@@ -626,7 +611,7 @@ public class MypageController {
 		model.addAttribute("block", block);
 		model.addAttribute("fromPage", fromPage);
 		model.addAttribute("toPage", toPage);
-
+		
 		System.out.println("messagereceivelist.htm 끝");
 		return "mypage.messagereceivelist";
 	}

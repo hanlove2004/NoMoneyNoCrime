@@ -20,7 +20,7 @@
 <!-- 카드 디자인 css 적용 -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/workboard.css">
 <title>무전무죄 프로젝트</title>
-
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -106,6 +106,54 @@
         });//$.ajax({
    }//function checkAndSearchClick()
 
+ 	// 주소검색
+	function execDaumPostcode() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var fullAddr = ''; // 최종 주소 변수
+						var extraAddr = ''; // 조합형 주소 변수
+
+						// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							fullAddr = data.roadAddress;
+
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							fullAddr = data.jibunAddress;
+						}
+
+						// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+						if (data.userSelectedType === 'R') {
+							//법정동명이 있을 경우 추가한다.
+							if (data.bname !== '') {
+								extraAddr += data.bname;
+							}
+							// 건물명이 있을 경우 추가한다.
+							if (data.buildingName !== '') {
+								extraAddr += (extraAddr !== '' ? ', '
+										+ data.buildingName : data.buildingName);
+							}
+							// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+							fullAddr += (extraAddr !== '' ? ' (' + extraAddr
+									+ ')' : '');
+						}
+
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById("add_code").value = data.postcode1
+								+ '-' + data.postcode2;
+						//document.getElementById("postcode2").value = data.postcode2;
+						document.getElementById("addr").value = fullAddr;
+
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById("addr").focus();
+					}
+				}).open();
+	}
+   
 	// sendmessage() start
 	function sendMessage() {
 		var sender = $('#sender').val();
@@ -115,17 +163,18 @@
 		$.ajax({
 			type : "post",
 			url : contextpath + "/sendmessage.htm",
-			data : "sender=" + sender + "&receiver=" + receiver + "&content=" + content,
+			data : "sender=" + sender + "&receiver=" + receiver + "&content="
+					+ content,
 			success : function(data) { //callback
-				if(data != null){
+				if (data != null) {
 					alert("쪽지를 성공적으로 보냈습니다");
 					$('#messagecontent').val("");
 				}
-				
+
 			}// success : function(data)
 		});//$.ajax({
 	}//function sendMessage() end
-	
+
 	// getMemberInfo() start
 	function getMemberInfo(id) {
 		var contextpath = $('#contextpath').val();
@@ -143,58 +192,72 @@
 			}// success : function(data)
 		});//$.ajax({
 	}//function getMemberInfo() end
-	
+
 	// Paging 처리
 	function Paging(pg) {
-        $.ajax({
-           type : "GET",
-           url : "ajaxworklist.htm",
-           data : "pg=" + pg,
-           success : function(data) {
-              var print = "";
-              $("#list").empty();
-              var nextPage = data.toPage + 1;
-              var previousPage = data.fromPage - 1;
-              $.each(data.worklist, function(index, obj){
-                 print += "<div>";
-                 print += "<div class=\"workhead\">";
-                 print += "<div class=\"col col-xs-2\">" + obj.num + "</div>";
-                 print += "<div class=\"col col-xs-2\">" + obj.id + "</div>";
-                 print += "<div class=\"col col-xs-6\" id=\"workhead" + obj.num + "\"";
-                 print += "onclick=\"WorkDetail(" + obj.num + ")\">";
-                 print += obj.title + "</div>";
-                 print += "<div class=\"col col-xs-2\">" + obj.regdate + "</div>";
-                 print += "<div><hr></div></div>";
-                 print += "<div class=\"work\" id=\"workdetail" + obj.num + "\"></div>";
-              });
-              print += "<div style=\"margin: 0 auto; width: 300px;\">";
-              print += "<nav style=\"text-align: center;\">";
-              print += "<ul class=\"pagination pagination-sm\">";
-              if(data.pg>data.block){
-                 print += "<li><a onclick=\"Paging(1)\">처음</a></li>";
-                 print += "<li><a onclick=\"Paging("+ previousPage +")\" aria-label=\"Previous\">";
-                 print += "<span aria-hidden=\"true\">\&laquo;</span></a></li>";
-              }
-              for(var i = data.fromPage; i <= data.toPage; i++){
-                 if(i==data.pg){
-                    print += "<li class=\"active\"><a>" + i + "</a></li>";
-                 }
-                 if(i!=data.pg){
-                    print += "<li><a onclick=\"Paging(" + i + ")\">" + i + "</a></li>";
-                 }
-              }
-              if(data.toPage < data.allPage){
-                 print += "<li><a onclick=\"Paging(" + nextPage + ")\" aria-label=\"Next\">";
-                 print += "<span aria-hidden=\"true\">\&raquo;</span></a></li>";
-                 print += "<li><a onclick=\"Paging(" + data.allPage + ")\">마지막</a></li></ul></nav></div>";
-              }
-              $("#list").html(print);
-           },
-           error : function(status) {
-              alert('ERROR');
-           }
-        });
-     };
+		$
+				.ajax({
+					type : "GET",
+					url : "ajaxworklist.htm",
+					data : "pg=" + pg,
+					success : function(data) {
+						var print = "";
+						$("#list").empty();
+						var nextPage = data.toPage + 1;
+						var previousPage = data.fromPage - 1;
+						$
+								.each(
+										data.worklist,
+										function(index, obj) {
+											print += "<div>";
+											print += "<div class=\"workhead\">";
+											print += "<div class=\"col col-xs-2\">"
+													+ obj.num + "</div>";
+											print += "<div class=\"col col-xs-2\">"
+													+ obj.id + "</div>";
+											print += "<div class=\"col col-xs-6\" id=\"workhead"
+													+ obj.num + "\"";
+											print += "onclick=\"WorkDetail("
+													+ obj.num + ")\">";
+											print += obj.title + "</div>";
+											print += "<div class=\"col col-xs-2\">"
+													+ obj.regdate + "</div>";
+											print += "<div><hr></div></div>";
+											print += "<div class=\"work\" id=\"workdetail" + obj.num + "\"></div>";
+										});
+						print += "<div style=\"margin: 0 auto; width: 300px;\">";
+						print += "<nav style=\"text-align: center;\">";
+						print += "<ul class=\"pagination pagination-sm\">";
+						if (data.pg > data.block) {
+							print += "<li><a onclick=\"Paging(1)\">처음</a></li>";
+							print += "<li><a onclick=\"Paging(" + previousPage
+									+ ")\" aria-label=\"Previous\">";
+							print += "<span aria-hidden=\"true\">\&laquo;</span></a></li>";
+						}
+						for (var i = data.fromPage; i <= data.toPage; i++) {
+							if (i == data.pg) {
+								print += "<li class=\"active\"><a>" + i
+										+ "</a></li>";
+							}
+							if (i != data.pg) {
+								print += "<li><a onclick=\"Paging(" + i
+										+ ")\">" + i + "</a></li>";
+							}
+						}
+						if (data.toPage < data.allPage) {
+							print += "<li><a onclick=\"Paging(" + nextPage
+									+ ")\" aria-label=\"Next\">";
+							print += "<span aria-hidden=\"true\">\&raquo;</span></a></li>";
+							print += "<li><a onclick=\"Paging(" + data.allPage
+									+ ")\">마지막</a></li></ul></nav></div>";
+						}
+						$("#list").html(print);
+					},
+					error : function(status) {
+						alert('ERROR');
+					}
+				});
+	};
 </script>
 <style type="text/css">
 	a 

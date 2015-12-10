@@ -33,12 +33,13 @@
       , PHONE
       , CONTENT
       , REGDATE
-      , STATE
       , REGPEOPLE
+      , CONFIRMPEOPLE
       , ADDR
       , STARTDATE
       , ENDDATE
       , EXPIRE
+      , STATE
       )
       VALUES
       (
@@ -50,12 +51,13 @@
       , #{phone}
       , #{content}
       , SYSDATE
-      , '0'
-      , '0'
+      , 0
+      , 0
       , #{addr}
       , #{startdate}
       , #{enddate}
       , '1'
+      , '10'
       )
 
    </insert>
