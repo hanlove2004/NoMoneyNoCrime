@@ -8,7 +8,7 @@
       <b style="font-family: myfont05; font-size: 20px; color: #DC0429">떠나세요! 여러분의 무전여행을 도와드립니다.</b>
       <hr>
       <form class="form-inline">
-         <input type="text" id="mainsearch" class="form-control" size="35" placeholder="여행후기 검색">
+         <input type="text" id="mainsearch" class="form-control" size="35" placeholder="여행후기 검색" autofocus>
          
          &nbsp;&nbsp;&nbsp;
          
