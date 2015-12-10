@@ -456,21 +456,6 @@ public class MypageController {
 		return jsonview;
 	}
 
-	// 쪽지함 리스트
-	/*@RequestMapping(value = "messagelist.htm", method = RequestMethod.GET)
-	public String messagelist(Principal principal, Model model) {
-		System.out.println("messagelist.htm");
-		MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
-		String id = principal.getName();
-		HashMap map = new HashMap();
-		map.put("id", id);
-		System.out.println("id : " + id);
-		List<MessageDTO> messagelist = messagedao.messagelist(map);
-		model.addAttribute("messagelist", messagelist);
-		System.out.println("messagelist.htm 끝");
-		return "mypage.messagelist";
-	}*/
-
 	// 받은 쪽지함 리스트
 	@RequestMapping(value = "messagereceivelist.htm", method = RequestMethod.GET)
 	public String messagereceivelist(String strPg, Principal principal, Model model) {
@@ -518,7 +503,7 @@ public class MypageController {
 		model.addAttribute("block", block);
 		model.addAttribute("fromPage", fromPage);
 		model.addAttribute("toPage", toPage);
-
+		
 		System.out.println("messagereceivelist.htm 끝");
 		return "mypage.messagereceivelist";
 	}

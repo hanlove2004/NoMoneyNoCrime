@@ -21,6 +21,8 @@
         , RECEIVER
         , CONTENT
         , REGDATE
+        , SDDELETE
+        , RVDELETE
       )
       VALUES
       (
@@ -28,33 +30,24 @@
        , #{sender}
        , #{receiver}
        , #{content}
-       , SYSDATE)   
+       , SYSDATE
+       , 1
+       , 1)
    </insert>
-
-   <!-- 메시지 리스트  -->
-   <select id="getMessageList" parameterType="kr.co.moojun.model.DTO.MessageDTO" resultType="kr.co.moojun.model.DTO.MessageDTO">
-      SELECT 
-             * 
-        FROM MESSAGE 
-       WHERE SENDER    = #{sender} 
-              OR 
-             RECEIVER = #{sender}
-   </select>
-
-   <!-- 메시지 디테일 -->
-   <select id="getMessageDetail" parameterType="Integer" resultType="kr.co.moojun.model.DTO.MessageDTO">
-      SELECT 
-             * 
-        FROM MESSAGE 
-       WHERE NUM = #{num}
-   </select>
    
-   <!-- 메시지 삭제하기 -->
-   <delete id="deleteMessage" parameterType="kr.co.moojun.model.DTO.MessageDTO">
-      DELETE FROM 
-        FROM MESSAGE 
-       WHERE NUM = #{num}
-   </delete>
+   <!-- 보낸사람이 쪽지 삭제 -->
+   <update id="deleteMessageBySender">
+   		UPDATE MESSAGE
+   		SET SDDELETE = 0
+   		WHERE NUM = #{num}
+   </update>
+   
+   <!-- 받은사람이 쪽지 삭제 -->
+   <update id="deleteMessageByReceiver">
+   		UPDATE MESSAGE
+   		SET RVDELETE = 0
+   		WHERE NUM = #{num}
+   </update>
 
 	<!-- 전체 메세지 리스트 -->
 	<select id="messagelist" resultType="kr.co.moojun.model.DTO.MessageDTO">
@@ -71,6 +64,7 @@
         		  FROM (SELECT * 
         		  			FROM MESSAGE 
         		  			WHERE RECEIVER=#{id} 
+        		  					AND RVDELETE = 1
         		  			ORDER BY REGDATE DESC) N
         		 )
       	WHERE NUM1 >= #{start} 
@@ -86,6 +80,7 @@
         		  FROM (SELECT * 
         		  			FROM MESSAGE 
         		  			WHERE SENDER=#{id} 
+        		  					AND SDDELETE = 1
         		  			ORDER BY REGDATE DESC) N
         		 )
       	WHERE NUM1 >= #{start} 
@@ -104,6 +99,12 @@
 		SELECT COUNT(*)
 		FROM MESSAGE
 		WHERE SENDER=#{id}
+	</select>
+	
+	<select id="isMemberById" resultType="Integer">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE ID = #{id}
 	</select>
    
 </mapper>  
