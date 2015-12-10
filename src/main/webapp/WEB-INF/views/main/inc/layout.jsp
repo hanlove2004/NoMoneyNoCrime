@@ -225,6 +225,11 @@
             console.log("searchbutton click function() mainsearch 값 : " + mainsearch);
             console.log("requestgetcontextpath : " + requestgetcontextpath);
             
+            // 검색내용에 대한 제목 처리
+            $("#epiloguetitle").empty();
+            $("#epiloguetitle").append("<table class=\"table table-bordered\" id=\"epiloguetitle\""
+              						+ "style=\"text-align: center; font-size: 30px; font-family: myfont05; margin-top: 20px;\">"
+              						+ "<tr><td class=\"success\"><b>여행 후기 검색 목록</b></td></tr></table>");
              $.ajax({
                type : "post",
                url  : "searchbuttonclick.htm",
@@ -253,7 +258,7 @@
                   if(data.total == 0)
                   {
                      console.log("결과값이 없는 경우 : data.total == 0");
-                     print += "결과값이 없습니다.";
+                     print += "<h3 align=\"center\" style=\"color: red;\">결과값이 없습니다.</h3>";
                   }
                   else //결과값이 있는경우
                   {
@@ -261,7 +266,7 @@
                      $.each(data.mainepiloguelist , function(index,value){
 	                  print += "<div class=\"card\" style=\"float: left;";
 	                  print += "margin: 30px; padding: 10px;";
-	                  print += "background-color: silver;";
+	                  print += "background-color: #FFFFC4;";
 	                  print += "-moz-box-shadow: 30px 3px 5px 5px black;";
 	                  print += "-webkit-box-shadow: 3px 3px 85px 5px black;";
 	                  print += "box-shadow: 10px 10px 30px 5px black;";
@@ -269,7 +274,7 @@
 	                  print += "border-top-left-radius: 1em;";
 	                  print += "border-bottom-right-radius: 1em;";
 	                  print += "border-bottom-left-radius: 1em;\">";
-	                  print += "<img class=\"card-img-top\" src=\"" + requestgetcontextpath + "/upload/" + value.photoname1 + "\" alt=\"" + value.title + "\" height=\"100px\" width=\"150px\">";
+	                  print += "<img class=\"card-img-top\" src=\"" + requestgetcontextpath + "/" + value.photoname1 + "\" alt=\"" + value.title + "\" height=\"100px\" width=\"150px\">";
                            print += "<div class=\"card-block\">";
                                  print += "<h4 class=\"card-title\"><b>" + value.title + "</b></h4>";
                                  print += "<p class=\"card-text\">";
@@ -277,14 +282,19 @@
                                     print += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
                                     print += "<small class=\"text-muted\">" + value.id + "</small>";
                                  print += "</p>";
-                                 print += "<a href=\"#\" class=\"btn btn-primary\" id=\"epilogue" + value.num +" \" onclick=\"epiloguedetail(" + value.num + ")\">상세보기<//a>";
+                                 print += "<a href=\"#\" class=\"btn btn-primary\" id=\"epilogue" + value.num +" \" onclick=\"epiloguedetail(" + value.num + ")\"";
+                 				 print += "data-target=\"#epilogueModal\" data-toggle=\"modal\" >상세보기</a>";
+                                 
                            print += "</div>";
                   print += "</div>";
                       });//$.each
                   }//else
                   
-                  //화면에 뿌리기.
-                  $('#searchdiv').html(print).show();  
+                  // css 처리
+                  $("#searchdivlist").css({"height": "700px", "margin-bottom": "20px"});
+                  
+                  // 화면에 뿌리기
+                  $("#searchdiv").html(print).show();  
                }//success
             });//ajax 
          });//$("#mainsearch").keyup(function()
@@ -327,7 +337,7 @@
                 $("#modal-image").empty();
                 for(var i = 0 ; i < arr.length ; i++){
                    if(arr[i] != null){
-                      $("#modal-image").append("<img style='width:300px;height:300px;' src=' " + $("#path").val()  + "/upload/" + arr[i] +" ' >");
+                      $("#modal-image").append("<img style='width:100%;height:auto;' src=' " + $("#path").val()  + "/upload/" + arr[i] +" ' >");
                    }
                 }
                 

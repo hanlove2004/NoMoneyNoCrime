@@ -213,6 +213,19 @@ public class MainController {
       map.put("keyword", keyword);
       
       List<EpilogueboardDTO> mainepiloguelist = epilogueboarddao.maingetEpilogueBoardList(map);
+      
+      //photoname1이 null일 경우에 로고를 default로 설정
+	  for(int i = 0; i < mainepiloguelist.size(); i++){
+	    System.out.println(">" + mainepiloguelist.get(i).getPhotoname1() + "<");
+		if(mainepiloguelist.get(i).getPhotoname1() == null){
+			System.out.println("타니?");
+			mainepiloguelist.get(i).setPhotoname1("images/무전무죄_logo_fin_01.png");
+		} else if(mainepiloguelist.get(i).getPhotoname1() != null){
+			mainepiloguelist.get(i).setPhotoname1("upload/"+mainepiloguelist.get(i).getPhotoname1());
+		}
+		System.out.println("셋팅 완료 : " + mainepiloguelist.get(i).getPhotoname1());
+	  }
+      
       model.addAttribute("mainepiloguelist", mainepiloguelist);
       model.addAttribute("pg"          , pg);
       model.addAttribute("allPage"    , allPage);

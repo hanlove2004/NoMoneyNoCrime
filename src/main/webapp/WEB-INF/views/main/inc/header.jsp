@@ -28,8 +28,13 @@
 	         
 	         <se:authentication property="name" var="LoingUser" />
 	            <se:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
+	            	<li>
+	            		<a href="<%=request.getContextPath()%>/submain.htm">
+							<span class="glyphicon glyphicon-home"></span> HOME</a>
+	            	</li>
 					<li>
-						<a href="${pageContext.request.contextPath}/logout">(${LoingUser})로그아웃</a>
+						<a href="${pageContext.request.contextPath}/logout">
+							<span class="glyphicon glyphicon-log-out"></span>  (${LoingUser})로그아웃</a>
 					</li>
 				</se:authorize>
 	         
