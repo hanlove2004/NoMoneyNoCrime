@@ -409,14 +409,6 @@
 		<!-- header 영역 -->
 		<tiles:insertAttribute name="header" />
 
-<<<<<<< HEAD
-         <!-- searchdiv -->
-         <tiles:insertAttribute name="searchdiv" />
-         
-         <!-- footer 영역 -->
-         <tiles:insertAttribute name="footer" />
-   </div>
-=======
 		<!-- main 영역 -->
 		<div class="maincontent">
 			<tiles:insertAttribute name="content" />
@@ -428,6 +420,5 @@
 		<!-- footer 영역 -->
 		<tiles:insertAttribute name="footer" />
 	</div>
->>>>>>> f1ea120d27ead9390ec6d38601355abe74b4c57c
 </body>
 </html>
