@@ -210,14 +210,15 @@
 		</where>
    </select>
    
-   <!-- /////////////////////////////////////////MYPAGE///////////////////////////////////////// -->
    <!-- 일자리게시판 게시글의 수 -->
    <select id="getWorkBoardCount" resultType="Integer">
       SELECT 
              COUNT(*) 
         FROM WORKBOARD
+       WHERE EXPIRE = '1'
    </select>
    
+   <!-- /////////////////////////////////////////MYPAGE///////////////////////////////////////// -->
    <!-- 내 일자리 등록 리스트 -->
     <select id="getMyWorkAddList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.WorkboardDTO">
       SELECT 
