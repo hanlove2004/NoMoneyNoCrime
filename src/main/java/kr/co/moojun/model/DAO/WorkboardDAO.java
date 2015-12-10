@@ -32,4 +32,6 @@ public interface WorkboardDAO {
    
    int workenroll(int num); // 일자리 신청시 등록인원 증가
    
+   int checkRequest(int num, String id); // 일자리 신청 여부 확인(중복 신청 검사를 위한)
+   
 }

@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.MemberDAO;
-import kr.co.moojun.model.DAO.MessageDAO;
 import kr.co.moojun.model.DTO.MemberDTO;
-import kr.co.moojun.model.DTO.MessageDTO;
 
 @Controller
 @RequestMapping("/main/")
@@ -34,19 +32,19 @@ public class MemberController {
 	
 	//아이디 찾기 성공 (serchid.htm)
 	@RequestMapping(value="searchid.htm",method=RequestMethod.POST)
-	public String searchidsuccess(String name , String email){
+	public String searchidsuccess(String searchname, String searchidemail){
 		
 		System.out.println("searchidsuccess start");
 		
 		SimpleMailMessage msg = new SimpleMailMessage(templateMessage); // 메일생성
 		
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		MemberDTO memberdto = memberdao.searchIdByNameAndEmail(name , email);
+		MemberDTO memberdto = memberdao.searchIdByNameAndEmail(searchname , searchidemail);
 		System.out.println(memberdto);
 		if(memberdto != null){
 			// 메일 발송
-			msg.setTo(email); // to
-			msg.setText(name+" 님의 아이디는 "+memberdto.getId()+" 입니다."); //content
+			msg.setTo(searchidemail); // to
+			msg.setText(searchname+" 님의 아이디는 "+memberdto.getId()+" 입니다."); //content
 			mailSender.send(msg); // 메일발송
 			System.out.println("메일이 발송 되었습니다.");
 		}else{
@@ -60,19 +58,19 @@ public class MemberController {
 	
 	//비밀번호 찾기 성공 (searchpwd.htm)
 	@RequestMapping(value="searchpwd.htm",method=RequestMethod.POST)
-	public String searchpwdsuccess(String searchid , String email){
+	public String searchpwdsuccess(String searchpwdid , String searchpwdemail){
 		
 		System.out.println("searchpwdsuccess start");
-		System.out.println(searchid + "/" + email);
+		System.out.println(searchpwdid + "/" + searchpwdemail);
 		SimpleMailMessage msg = new SimpleMailMessage(templateMessage); // 메일생성
 		
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		MemberDTO memberdto = memberdao.searchPwdByIdAndEmail(searchid , email);
+		MemberDTO memberdto = memberdao.searchPwdByIdAndEmail(searchpwdid , searchpwdemail);
 		System.out.println(memberdto);
 		if(memberdto != null){
 			// 메일 발송
-			msg.setTo(email); // to
-			msg.setText(searchid + " 님의 비밀번호는 "+memberdto.getPwd()+" 입니다."); //content
+			msg.setTo(searchpwdemail); // to
+			msg.setText(searchpwdid + " 님의 비밀번호는 "+memberdto.getPwd()+" 입니다."); //content
 			mailSender.send(msg); // 메일발송
 			System.out.println("메일이 발송 되었습니다.");
 		}else{
@@ -105,7 +103,7 @@ public class MemberController {
 		return "redirect:/main.htm";
 	}
 	
-	//회원 탈퇴 성공 (delete.htm)
+	/*//회원 탈퇴 성공 (delete.htm)
 	@RequestMapping(value="delete.htm",method=RequestMethod.POST)
 	public String deletesuccess(MemberDTO memberdto){
 		
@@ -121,21 +119,21 @@ public class MemberController {
 		System.out.println("deletesuccess end");
 		// Tiles 적용 (UrlBase 방식)
 		return "main.start";
-	}
+	}*/
 	
-	// sendmessage.htm
-   @RequestMapping(value="getmemberinfo.htm" , method=RequestMethod.POST)
-   public View sendmessage(String id, Model model){
+	//???
+	// 귀인만나기 게시판 회원 아이디에서 회원정보 보기(getmemberinfo.htm)
+	@RequestMapping(value="getmemberinfo.htm" , method=RequestMethod.POST)
+	public View sendmessage(String id, Model model){
 
-      System.out.println("sendmessage start");
-      
-      
-      MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-      MemberDTO memberdto = memberdao.getMemberDetail(id);
-      
-      model.addAttribute("memberdto", memberdto);
-      
-      return jsonview;
+		System.out.println("sendmessage start");
+
+		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
+		MemberDTO memberdto = memberdao.getMemberDetail(id);
+
+		model.addAttribute("memberdto", memberdto);
+
+		return jsonview;
    }
-   
+	
 }

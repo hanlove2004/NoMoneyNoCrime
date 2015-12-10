@@ -64,7 +64,7 @@ display: block;
     line-height: 28px;
     font-size: 1.3em;
     color: #fff;
-    background: #03A9F4;
+    background: #01A0A6;
     z-index: 20;
 }
 
@@ -124,7 +124,8 @@ img {
     color: #bdbdbd;
 }
 .work-list .work-info .text {
-    color: #757575 !important;
+    color: black !important;
+    background-color: #FEDA16;
 }
 
 .work-list-box .work-list .work-card{
@@ -155,5 +156,5 @@ img {
     font-weight: 600;
     letter-spacing: 0px;
     font-size: 1.1em;
-    color: #03A9F4;
+    color: red;
 }

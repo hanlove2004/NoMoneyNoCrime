@@ -59,9 +59,10 @@
    </insert>
    
    <!-- 탈퇴 -->
-   <delete id="deleteMember" parameterType="kr.co.moojun.model.DTO.MemberDTO">
-         delete from member 
-         where id=#{id} and pwd=#{pwd}
+   <delete id="deleteMember">
+      DELETE 
+        FROM MEMBER
+       WHERE ID = #{id}
    </delete>
    
    <!-- 강퇴(관리자) -->
@@ -147,6 +148,13 @@
       FROM MEMBER
       WHERE ID = #{param1} 
       	AND PWD = #{param2}
+   </select>
+   
+   <!-- 비밀번호 체크 -->
+   <select id="getPassword" resultType="String">
+      SELECT PWD
+      FROM MEMBER
+      WHERE ID = #{id}
    </select>
    
 </mapper>

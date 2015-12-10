@@ -40,8 +40,16 @@
 					   		border-top-left-radius: 0.5em;
 							border-bottom-right-radius: 0.5em;
 							border-bottom-left-radius: 0.5em;">
-						<img class="card-img-top" src="<%=request.getContextPath()%>/upload/${epiloguelist.photoname1}" 
-							alt="${epiloguelist.title}" height="100px" width="150px" style="border: double;">
+						<c:choose>
+							<c:when test="${epiloguelist.photoname1 != null}">
+								<img class="card-img-top" src="<%=request.getContextPath()%>/upload/${epiloguelist.photoname1}" 
+									alt="${epiloguelist.title}" height="100px" width="150px" style="border: double;">
+							</c:when>
+							<c:when test="${epiloguelist.photoname1 == null}">
+								<img class="card-img-top" src="<%=request.getContextPath()%>/images/무전무죄_logo_fin_01.png" 
+									alt="${epiloguelist.title}" height="100px" width="150px" style="border: double;">
+							</c:when>
+						</c:choose>
 						<div class="card-block">
 							<h4 class="card-title"><b>${epiloguelist.title}</b></h4>
 							<p class="card-text">
