@@ -53,10 +53,10 @@ public class MypageController {
 		//LOGIN 상태인 id 받아오기
 		id = principal.getName();
 		System.out.println(id);
-		
-		//회원정보 상세보기
+
+		// 회원정보 상세보기
 		MemberDTO memberdto = memberdao.getMemberDetail(id);
-		
+
 		System.out.println(memberdto.toString());
 		model.addAttribute("memberdto", memberdto);
 
@@ -65,7 +65,7 @@ public class MypageController {
 		// Tiles 적용 (UrlBase 방식)
 		return "mypage.memberinfo";
 	}
-	
+
 	// 비밀번호 일치 확인 (pwdcheck.htm)
 	@RequestMapping(value = "pwdcheck.htm", method = RequestMethod.POST)
 	public View idcheck(String id, String pwd, Model model) {
@@ -137,88 +137,92 @@ public class MypageController {
 
 	// 마이페이지 회원탈퇴 (memberdelete.htm)
 	@RequestMapping(value = "memberdelete.htm", method = RequestMethod.POST)
-	public String memberdelete(MemberDTO dto, Model model) {
-
+	public String memberdelete(MemberDTO dto) {
 		System.out.println("memberdelete 시작");
 		System.out.println(dto.toString());
-		
 		// result 1 : 탈퇴 성공, result 0 : 탈퇴 실패
 		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		int result = memberdao.deleteMember(dto);
-		
-		model.addAttribute("result", result);
-				
+		String id = dto.getId();
+		String pwd = dto.getPwd();
+		// modal에서 입력한 pwd값
+		System.out.println("id : " + id + "/ pwd " + pwd);
+		String pwd2 = memberdao.getPassword(id);
+		System.out.println("asdfasdfasdf" + pwd2);
+		// 실제 비밀번호
+		if (pwd.equals(pwd2)) {
+			memberdao.deleteMember(id);
+		}
 		System.out.println("memberdelete 끝");
 
 		// Tiles 적용 (UrlBase 방식)
-		return "main.start";
+		return "redirect:/logout";
 	}
-	
+
 	// 나의 일자리 등록현황(workaddlist.htm)
 	@RequestMapping(value = "workaddlist.htm", method = RequestMethod.GET)
-	   public String workaddlist(Principal principal, HttpServletRequest request, Model model) {
-	      System.out.println("workaddlist 시작");
-	      int pg = 1; // 처음 시작페이지
-	      String strPg = request.getParameter("pg"); // view에서 넘긴 시작페이지
-	      // request 받아온 페이지가 없을경우 1로 시작 -> 처음요청인 상태
-	      if (strPg != null) {
-	         pg = Integer.parseInt(strPg);
-	      }
+	public String workaddlist(Principal principal, HttpServletRequest request, Model model) {
+		System.out.println("workaddlist 시작");
+		int pg = 1; // 처음 시작페이지
+		String strPg = request.getParameter("pg"); // view에서 넘긴 시작페이지
+		// request 받아온 페이지가 없을경우 1로 시작 -> 처음요청인 상태
+		if (strPg != null) {
+			pg = Integer.parseInt(strPg);
+		}
 
-	      int rowSize = 10; // 한번에 볼 수 있는 그리드 수
-	      int start = (pg * rowSize) - (rowSize - 1);
-	      int end = pg * rowSize;
-	      String id = principal.getName();
-	      // 총 게시물수
-	      WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
-	      int total = workboarddao.getMyWorkAddListCount(id);
+		int rowSize = 10; // 한번에 볼 수 있는 그리드 수
+		int start = (pg * rowSize) - (rowSize - 1);
+		int end = pg * rowSize;
+		String id = principal.getName();
+		// 총 게시물수
+		WorkboardDAO workboarddao = sqlsession.getMapper(WorkboardDAO.class);
+		int total = workboarddao.getMyWorkAddListCount(id);
 
-	      int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
-	      // int totalPage = total/rowSize + (total%rowSize==0?0:1);
+		int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
+		// int totalPage = total/rowSize + (total%rowSize==0?0:1);
 
-	      int block = 10; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
-	      // [10] >>
-	      int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
-	      // ((1-1)/10*10)
-	      int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
-	      if (toPage > allPage) { // 예) 20>17
-	         toPage = allPage;
-	      }
-	      HashMap map = new HashMap();
-	      map.put("start", start);
-	      map.put("end", end);
-	      map.put("id", id);
-	      List<WorkboardDTO> workaddlist = workboarddao.getMyWorkAddList(map);
+		int block = 10; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
+		// [10] >>
+		int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
+		// ((1-1)/10*10)
+		int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
+		if (toPage > allPage) { // 예) 20>17
+			toPage = allPage;
+		}
+		HashMap map = new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("id", id);
+		List<WorkboardDTO> workaddlist = workboarddao.getMyWorkAddList(map);
 
-	      model.addAttribute("workaddlist", workaddlist);
-	      model.addAttribute("pg", pg);
-	      model.addAttribute("allPage", allPage);
-	      model.addAttribute("block", block);
-	      model.addAttribute("fromPage", fromPage);
-	      model.addAttribute("toPage", toPage);
+		model.addAttribute("workaddlist", workaddlist);
+		model.addAttribute("pg", pg);
+		model.addAttribute("allPage", allPage);
+		model.addAttribute("block", block);
+		model.addAttribute("fromPage", fromPage);
+		model.addAttribute("toPage", toPage);
 
-	      System.out.println("------------------------------------------------");
-	      System.out.println("사용자 아이디    : " + id);
-	      System.out.println("시작             : " + start + " 끝:" + end);
-	      System.out.println("글의 총 개수          : " + total);
-	      System.out.println("처음 시작페이지       : " + pg);
-	      System.out.println("페이지수          : " + allPage);
-	      System.out.println("한페이지에 보여줄 범위     : " + block);
-	      System.out.println("보여줄 페이지의 시작    : " + fromPage);
-	      System.out.println("보여줄 페이지의 끝       : " + toPage);
-	      System.out.println("List<NoticeboardDTO> list");
+		System.out.println("------------------------------------------------");
+		System.out.println("사용자 아이디    : " + id);
+		System.out.println("시작             : " + start + " 끝:" + end);
+		System.out.println("글의 총 개수          : " + total);
+		System.out.println("처음 시작페이지       : " + pg);
+		System.out.println("페이지수          : " + allPage);
+		System.out.println("한페이지에 보여줄 범위     : " + block);
+		System.out.println("보여줄 페이지의 시작    : " + fromPage);
+		System.out.println("보여줄 페이지의 끝       : " + toPage);
+		System.out.println("List<NoticeboardDTO> list");
 
-	      for (WorkboardDTO dto : workaddlist) {
-	         System.out.println(dto.toString());
-	      }
-	      System.out.println("-------------------------------------------------");
+		for (WorkboardDTO dto : workaddlist) {
+			System.out.println(dto.toString());
+		}
+		System.out.println("-------------------------------------------------");
 
-	      System.out.println("workaddlist 끝");
+		System.out.println("workaddlist 끝");
 
-	      // Tiles 적용 (UrlBase 방식)
-	      return "mypage.workaddlist";
-	   }
-	
+		// Tiles 적용 (UrlBase 방식)
+		return "mypage.workaddlist";
+	}
+
 	// 일자리 등록 상세보기 (workadddetail.htm)
 	@RequestMapping(value = "workadddetail.htm", method = RequestMethod.GET)
 	public String workadddetail(String num) {
@@ -606,18 +610,4 @@ public class MypageController {
 		return "reference.worklist";
 	}
 	
-	// 회원 탈퇴
-	@RequestMapping(value = "deletemember.htm", method = RequestMethod.POST)
-	public String deletemember(MemberDTO dto, Model model) {
-		System.out.println(dto.getId() + "/" + dto.getPwd());
-		MemberDAO memberdao = sqlsession.getMapper(MemberDAO.class);
-		int result = memberdao.deleteMember(dto);
-		//System.out.println(dto.getId() + "/" + dto.getPwd());
-		model.addAttribute("result", result);
-		System.out.println("deletemember.htm3");
-		/* 0 : fail, 1 : success*/
-		System.out.println("deletemember 끝");
-		return "redirect:/logout";
-	}
-
 }

@@ -45,21 +45,69 @@ $(document).ready(function(){
     });
 });
 
-//글상세보기
-$(document).ready(function(){
-    var a = '0';
-    
-    $("#noticehead").click(function(){
-       if(a=='0'){
-          $("#notice1").slideDown("slow");
-          a = '1';
-       }
-       else {
-          $("#notice1").slideUp("slow");
-          a = '0';
-       }
-    });
- });
+function Paging(pg) {
+	$.ajax({
+		type : "GET",
+		url : "ajaxepiloguelist.htm",
+		data : "pg=" + pg,
+		success : function(data) {
+			var print = "";
+			$("#epiloguelist").empty();
+			var nextPage = data.toPage + 1;
+			var previousPage = data.fromPage - 1;
+         
+			print += "<div style=\"margin: 0 auto; width: 700px; height: 550px;\">";
+			print += "<div class=\"card-deck-wrapper\" style=\"margin: 0 auto;\">";
+			print += "<div class=\"card-deck\">";
+			$.each(data.epiloguelist, function(index, obj){
+				print += "<div class=\"card\" style=\"float: left; margin: 30px; padding: 10px; background-color: silver;";
+				print += "-moz-box-shadow: 30px 3px 5px 5px black;";
+				print += "-webkit-box-shadow: 3px 3px 85px 5px black;";
+				print += "box-shadow: 10px 10px 30px 5px black;";
+				print += "border-top-right-radius: 1em;";
+				print += "border-top-left-radius: 1em;";
+				print += "border-bottom-right-radius: 1em;";
+				print += "border-bottom-left-radius: 1em;\">";
+				print += "<img class=\"card-img-top\" src=\"" + $("#path").val() + "/upload/" + obj.photoname1 +"\"";
+				print += "alt=" + obj.title + " height=\"100px\" width=\"150px\">";
+				print += "<div class=\"card-block\">";
+				print += "<h4 class=\"card-title\"><b>" + obj.title + "</b></h4>";
+				print += "<p class=\"card-text\">";
+				print += "<small class=\"text-muted\">" + obj.regdate + "</small>\&nbsp\&nbsp\&nbsp\&nbsp\&nbsp\&nbsp";
+				print += "<small class=\"text-muted\">" + obj.id + "</small></p>";
+				print += "<a href=\"#\" class=\"btn btn-primary\" id=\"epilogue" + data.num + "\" onclick=\"epiloguedetail(" + obj.num + ")\">상세보기</a>";
+				print += "</div></div>";
+			});
+				print += "</div></div></div>";
+				print += "<div style=\"margin: 0 auto; width: 300px;\">";
+				print += "<nav style=\"text-align: center;\">";
+				print += "<ul class=\"pagination pagination-sm\">";
+				if(data.pg>data.block){
+					print += "<li><a onclick=\"Paging(1)\">처음</a></li>";
+					print += "<li><a onclick=\"Paging("+ previousPage +")\" aria-label=\"Previous\">";
+					print += "<span aria-hidden=\"true\">\&laquo;</span></a></li>";
+				}
+				for(var i = data.fromPage; i <= data.toPage; i++){
+					if(i==data.pg){
+						print += "<li class=\"active\"><a>" + i + "</a></li>";
+					}
+					if(i!=data.pg){
+						print += "<li><a onclick=\"Paging(" + i + ")\">" + i + "</a></li>";
+					}
+				}
+				if(data.toPage < data.allPage){
+					print += "<li><a onclick=\"Paging(" + nextPage + ")\" aria-label=\"Next\">";
+					print += "<span aria-hidden=\"true\">\&raquo;</span></a></li>";
+					print += "<li><a onclick=\"Paging(" + data.allPage + ")\">마지막</a></li></ul></nav></div>";
+				}
+           
+			$("#epiloguelist").html(print);
+		},
+		error : function(status) {
+			alert('ERROR');
+		}
+	});
+};
  
 </script>
 

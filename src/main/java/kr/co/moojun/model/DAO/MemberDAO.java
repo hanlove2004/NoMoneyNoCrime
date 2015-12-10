@@ -10,7 +10,7 @@ public interface MemberDAO {
 	
 	int insertRoleAndMember(String id , String role); // 회원 권한 insert
 	
-	int deleteMember(MemberDTO memberdto); // 탈퇴
+	int deleteMember(String id); // 탈퇴
 	
 	int admindeleteMember(int num); // 회원 강퇴
 	
@@ -27,4 +27,6 @@ public interface MemberDAO {
 	int getMemberCount(); // 회원 현황 (전체 회원수)
 	
 	int checkMember(String id, String pwd); // 수정시 비밀번호 확인 (마이페이지에서)
+	
+	String getPassword(String id);   // 비밀번호 체크
 }

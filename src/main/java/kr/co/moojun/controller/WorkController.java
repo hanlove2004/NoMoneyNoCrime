@@ -1,6 +1,7 @@
 package kr.co.moojun.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -72,6 +73,14 @@ public class WorkController {
 
       List<WorkboardDTO> worklist = workboarddao.getWorkBoardList(map);
       
+      // 주소 split으로 잘라서 도/시(군) 까지만 표시하기
+      for(int i = 0; i < worklist.size(); i++){
+    	  String addr = worklist.get(i).getAddr();
+    	  String[] addrlist = addr.split(" ");
+    	  
+    	  worklist.get(i).setAddr(addrlist[0] + " " + addrlist[1]);
+      }
+      
       System.out.println(worklist.toString());
 
       model.addAttribute("worklist", worklist);
@@ -111,8 +120,10 @@ public class WorkController {
    
    // 비동기 일자리게시판 목록 (ajaxworklist.htm)
    @RequestMapping(value="ajaxworklist.htm",method=RequestMethod.GET)
-   public View ajaxworklist(HttpServletRequest request, Model model){
+   public View ajaxworklist(HttpServletRequest request, Model model, Principal principal){
       System.out.println("ajaxworklist 시작");
+      
+      String id = principal.getName();
       
       int pg = 1; //처음 시작페이지
       
@@ -178,6 +189,8 @@ public class WorkController {
       System.out.println("-------------------------------------------------");
       System.out.println("ajaxworklist 끝");
       
+      model.addAttribute("id",id);
+      
       // Tiles 적용 (UrlBase 방식)
       return jsonview;
    }
@@ -201,12 +214,17 @@ public class WorkController {
       // 로그인한 아이디 만나이 / 이름
       WorkformDTO logininfo = workboarddao.getLoginidAgeName(id);
       
+      // 신청여부 확인(중복 신청 확인을 위한)
+      int result = workboarddao.checkRequest(num, id);
+      
       System.out.println(logininfo);
-
       System.out.println(workboarddto.toString());
+      System.out.println(result);
+      
       model.addAttribute("workboarddto", workboarddto); // 모델앤 뷰중에서 모델
       model.addAttribute("id", id);
       model.addAttribute("logininfo", logininfo);
+      model.addAttribute("result", result);
 
       System.out.println("workdetail 끝");
 

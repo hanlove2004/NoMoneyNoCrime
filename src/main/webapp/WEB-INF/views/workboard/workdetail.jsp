@@ -73,10 +73,12 @@
 					<c:set var="loginid" value="${id}" /> 
 					<!-- 로그인한 아이디와 작성자와 같을때 신청버튼 활성화 -->
 					<c:if test="${dtoid != loginid}">
-						<button type="button" class="btn btn-success" data-toggle="modal"
-							data-target="#requestForm">신청
-						</button>
-                    &nbsp;&nbsp;&nbsp;
+						<c:if test="${result == 0}">
+							<button type="button" class="btn btn-success" data-toggle="modal"
+								data-target="#requestForm">신청
+							</button>
+	                    	&nbsp;&nbsp;&nbsp;
+	                    </c:if>
                     </c:if> <!-- 만약 관리자 일 경우 삭제버튼 활성화 --> 
                     <se:authorize ifAllGranted="ROLE_ADMIN">
 						<button type="submit" class="btn btn-danger">

@@ -269,5 +269,13 @@
          WHERE NUM = #{NUM}
    </update>
    
+   <!-- 일자리 신청 여부 확인(중복 신청 검사를 위한) -->
+   <select id="checkRequest" resultType="Integer">
+        SELECT 
+              COUNT(*)
+         FROM WORKFORM
+        WHERE NUM = #{param1}
+          AND WORKER = #{param2}
+   </select>
    
 </mapper>

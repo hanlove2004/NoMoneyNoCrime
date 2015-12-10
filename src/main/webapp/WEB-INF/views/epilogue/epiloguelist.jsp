@@ -40,8 +40,16 @@
 					   		border-top-left-radius: 0.5em;
 							border-bottom-right-radius: 0.5em;
 							border-bottom-left-radius: 0.5em;">
-						<img class="card-img-top" src="<%=request.getContextPath()%>/upload/${epiloguelist.photoname1}" 
-							alt="${epiloguelist.title}" height="100px" width="150px" style="border: double;">
+						<c:choose>
+							<c:when test="${epiloguelist.photoname1 != null}">
+								<img class="card-img-top" src="<%=request.getContextPath()%>/upload/${epiloguelist.photoname1}" 
+									alt="${epiloguelist.title}" height="100px" width="150px" style="border: double;">
+							</c:when>
+							<c:when test="${epiloguelist.photoname1 == null}">
+								<img class="card-img-top" src="<%=request.getContextPath()%>/images/무전무죄_logo_fin_01.png" 
+									alt="${epiloguelist.title}" height="100px" width="150px" style="border: double;">
+							</c:when>
+						</c:choose>
 						<div class="card-block">
 							<h4 class="card-title"><b>${epiloguelist.title}</b></h4>
 							<p class="card-text">
@@ -59,36 +67,35 @@
 		</div>
 	</div>
 	
-	<div style="margin: 0 auto; width: 300px;">
-		<nav style="text-align: center;">
-			<ul class="pagination pagination-sm">
-				<!-- 처음 , 이전 페이지로 이동 -->
-				<c:if test="${pg>block}">
-					<li><a href="epiloguelist.htm?pg=1">처음</a></li>
-					<li>
-						<a href="epiloguelist.htm?pg=${fromPage-1}" aria-label="Previous">
+	<div style="margin: 0 auto;">
+			<nav style="text-align: center;">
+				<ul class="pagination pagination-sm">
+					<!-- 처음 , 이전 페이지로 이동 -->
+					<c:if test="${pg>block}">
+						<li><a onclick="Paging(1)">처음</a></li>
+						<li><a onclick="Paging(${fromPage-1})" aria-label="Previous"> 
 							<span aria-hidden="true">&laquo;</span>
-						</a>
-			    	</li>
-		    	</c:if> 
-		    	<!-- 각 페이지로 이동 -->
-		    	<c:forEach begin="${fromPage}" end="${toPage}" var="i">
-		    		<c:if test="${i==pg}"><li class="active"><a>${i}</a></li></c:if>
-					<c:if test="${i!=pg}">
-						<li><a href="epiloguelist.htm?pg=${i}">${i}</a></li>
+						</a></li>
 					</c:if>
-				</c:forEach> 
-				<!-- 마지막 , 다음 페이지로 이동 -->
-				<c:if test="${toPage<allPage}">
-					<li>
-						<a href="epiloguelist.htm?pg=${toPage+1}" aria-label="Next">
+					<!-- 각 페이지로 이동 -->
+					<c:forEach begin="${fromPage}" end="${toPage}" var="i">
+						<c:if test="${i==pg}">
+							<li class="active"><a>${i}</a></li>
+						</c:if>
+						<c:if test="${i!=pg}">
+							<li><a onclick="Paging(${i})">${i}</a></li>
+						</c:if>
+					</c:forEach>
+					<!-- 마지막 , 다음 페이지로 이동 -->
+					<c:if test="${toPage<allPage}">
+						<li><a onclick="Paging(${toPage+1})" aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
-						</a>
-					</li>
-					<li><a href='epiloguelist.htm?pg=${allPage}'>마지막</a></li>
-				</c:if>
-			</ul>
-		</nav>
+						</a></li>
+						<li><a onclick="Paging(${allPage})">마지막</a></li>
+					</c:if>
+				</ul>
+			</nav>
+		</div>
 	</div>
 </div>
 
