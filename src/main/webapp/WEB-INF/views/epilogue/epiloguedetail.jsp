@@ -65,6 +65,8 @@
 			    	if(LoingUser == data.epilogueboarddto.id){
 			    		$('#modal-edit').append("<a href='epilogueupdate.htm?num=" + data.epilogueboarddto.num + "'>수정</a>");
 			    		$('#modal-delete').append("<a href='epiloguedelete.htm?num="+ data.epilogueboarddto.num +"'>삭제</a>");
+			    	} else if(LoingUser == 'admin') {
+			    		$('#modal-delete').append("<a href='epiloguedelete.htm?num="+ data.epilogueboarddto.num +"'>삭제</a>");
 			    	}
 			    	
 			    	$("#modal-image").empty();

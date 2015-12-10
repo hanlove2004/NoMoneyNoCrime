@@ -295,6 +295,9 @@ public class MypageController {
 		
 		System.out.println("myepiloguelist 시작");
 		
+		//로그인 아이디 가져오기
+		String id = principal.getName();
+		
 		int pg = 1;
 		
 		String strPg = request.getParameter("pg");
@@ -309,7 +312,7 @@ public class MypageController {
 		
 		//수정해야할 부분
 		EpilogueboardDAO epilogueboarddao =  sqlsession.getMapper(EpilogueboardDAO.class);
-		int total = epilogueboarddao.getEpilogueBoardCount(); // 총 게시물수
+		int total = epilogueboarddao.getMyEpilogueBoardCount(id); // 총 게시물수
 		System.out.println("시작 : " + start + " 끝:" + end);
 		System.out.println("글의 수 : " + total);
 
@@ -326,16 +329,26 @@ public class MypageController {
 			toPage = allPage;
 		}
 		
-		//접속자 아이디 받아오기
-		String id = principal.getName();
-		
 		HashMap map = new HashMap();
 
 		map.put("start", start);
 		map.put("end", end);
 		map.put("id", id);
-
+		
 		List<EpilogueboardDTO> myepiloguelist = epilogueboarddao.getMyEpilogueBoardList(map);
+
+		// photoname1이 null일 경우에 로고를 default로 설정
+		for (int i = 0; i < myepiloguelist.size(); i++) {
+			System.out.println(">" + myepiloguelist.get(i).getPhotoname1() + "<");
+			if (myepiloguelist.get(i).getPhotoname1() == null) {
+				System.out.println("타니?");
+				myepiloguelist.get(i).setPhotoname1("images/무전무죄_logo_fin_01.png");
+			} else if (myepiloguelist.get(i).getPhotoname1() != null) {
+				myepiloguelist.get(i).setPhotoname1("upload/" + myepiloguelist.get(i).getPhotoname1());
+			}
+			System.out.println("셋팅 완료 : " + myepiloguelist.get(i).getPhotoname1());
+		}
+		
 		request.setAttribute("myepiloguelist", myepiloguelist);
 		request.setAttribute("pg", pg);
 		request.setAttribute("allPage", allPage);
@@ -362,6 +375,97 @@ public class MypageController {
 		
 		// Tiles 적용 (UrlBase 방식)
 		return "mypage.myepiloguelist";
+	}
+		
+	// 비동기 여행후기 목록 (ajaxmyepiloguelist.htm)
+	@RequestMapping(value = "ajaxmyepiloguelist.htm", method = RequestMethod.GET)
+	public View ajaxepiloguelist(HttpServletRequest request, Model model, Principal principal) {
+
+		String id = principal.getName();
+
+		System.out.println("로그인한 아이디:" + id);
+
+		System.out.println("ajaxmyepiloguelist 시작");
+
+		int pg = 1; // 처음 시작페이지
+
+		String strPg = request.getParameter("pg"); // view에서 넘긴 시작페이지
+
+		// request 받아온 페이지가 없을경우 1로 시작 -> 처음요청인 상태
+		if (strPg != null) {
+			pg = Integer.parseInt(strPg);
+		}
+
+		int rowSize = 6; // 한번에 볼 수 있는 그리드 수
+		int start = (pg * rowSize) - (rowSize - 1);
+		int end = pg * rowSize;
+		System.out.println(strPg + "/" + rowSize + "/" + start + "/" + end);
+
+		// 총 게시물수
+		EpilogueboardDAO epilogueboarddao = sqlsession.getMapper(EpilogueboardDAO.class);
+		int total = epilogueboarddao.getMyEpilogueBoardCount(id);
+
+		int allPage = (int) Math.ceil(total / (double) rowSize); // 페이지수
+		// int totalPage = total/rowSize + (total%rowSize==0?0:1);
+
+		int block = 5; // 한페이지에 보여줄 범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9]
+						// [10] >>
+		int fromPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
+		// ((1-1)/10*10)
+		int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
+		if (toPage > allPage) { // 예) 20>17
+			toPage = allPage;
+		}
+
+		System.out.println(total + "/" + toPage);
+
+		HashMap map = new HashMap();
+
+		map.put("start", start);
+		map.put("end", end);
+		map.put("id", id);
+
+		List<EpilogueboardDTO> myepiloguelist = epilogueboarddao.getMyEpilogueBoardList(map);
+		
+		//photoname1이 null일 경우에 로고를 default로 설정
+		for(int i = 0; i < myepiloguelist.size(); i++){
+			System.out.println(">" + myepiloguelist.get(i).getPhotoname1() + "<");
+			if(myepiloguelist.get(i).getPhotoname1() == null){
+				System.out.println("타니?");
+				myepiloguelist.get(i).setPhotoname1("images/무전무죄_logo_fin_01.png");
+			} else if(myepiloguelist.get(i).getPhotoname1() != null){
+				myepiloguelist.get(i).setPhotoname1("upload/"+myepiloguelist.get(i).getPhotoname1());
+			}
+			System.out.println("셋팅 완료 : " + myepiloguelist.get(i).getPhotoname1());
+		}
+
+		model.addAttribute("myepiloguelist", myepiloguelist);
+		model.addAttribute("pg", pg);
+		model.addAttribute("allPage", allPage);
+		model.addAttribute("block", block);
+		model.addAttribute("fromPage", fromPage);
+		model.addAttribute("toPage", toPage);
+
+		System.out.println("------------------------------------------------");
+		System.out.println("시작             : " + start + " 끝:" + end);
+		System.out.println("글의 총 개수          : " + total);
+		System.out.println("처음 시작페이지       : " + pg);
+		System.out.println("페이지수          : " + allPage);
+		System.out.println("한페이지에 보여줄 범위     : " + block);
+		System.out.println("보여줄 페이지의 시작    : " + fromPage);
+		System.out.println("보여줄 페이지의 끝       : " + toPage);
+		System.out.println("List<EpilogueboardDTO> list");
+
+		for (EpilogueboardDTO dto : myepiloguelist) {
+			System.out.println(dto.toString());
+		}
+		System.out.println("-------------------------------------------------");
+		System.out.println("ajaxepiloguelist 끝");
+
+		model.addAttribute("id", id);
+
+		// Tiles 적용 (UrlBase 방식)
+		return jsonview;
 	}
 	
 	// 나의 여행후기 상세보기 (myepiloguedetail.htm)

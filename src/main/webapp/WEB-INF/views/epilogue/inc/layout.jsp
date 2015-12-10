@@ -68,14 +68,15 @@ function Paging(pg) {
 				print += "border-top-left-radius: 1em;";
 				print += "border-bottom-right-radius: 1em;";
 				print += "border-bottom-left-radius: 1em;\">";
-				print += "<img class=\"card-img-top\" src=\"" + $("#path").val() + "/upload/" + obj.photoname1 +"\"";
+				print += "<img class=\"card-img-top\" src=\"" + $("#path").val() + "/" + obj.photoname1 +"\"";
 				print += "alt=" + obj.title + " height=\"100px\" width=\"150px\">";
 				print += "<div class=\"card-block\">";
 				print += "<h4 class=\"card-title\"><b>" + obj.title + "</b></h4>";
 				print += "<p class=\"card-text\">";
 				print += "<small class=\"text-muted\">" + obj.regdate + "</small>\&nbsp\&nbsp\&nbsp\&nbsp\&nbsp\&nbsp";
 				print += "<small class=\"text-muted\">" + obj.id + "</small></p>";
-				print += "<a href=\"#\" class=\"btn btn-primary\" id=\"epilogue" + data.num + "\" onclick=\"epiloguedetail(" + obj.num + ")\">상세보기</a>";
+				print += "<a href=\"#\" class=\"btn btn-primary\" id=\"epilogue" + data.num + "\" onclick=\"epiloguedetail(" + obj.num + ")\"";
+				print += "data-target=\"#epilogueModal\" data-toggle=\"modal\" >상세보기</a>";
 				print += "</div></div>";
 			});
 				print += "</div></div></div>";

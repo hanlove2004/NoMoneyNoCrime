@@ -96,6 +96,14 @@
         AND NUM1 &lt;= #{end}
    </select>
    
+   <!-- 나의 여행후기 게시글 수 -->
+   <select id="getMyEpilogueBoardCount" parameterType="String" resultType="Integer">
+      SELECT
+      		COUNT(*)
+        FROM EPILOGUE
+       WHERE ID = #{id}
+   </select>
+   
    <!-- 여행후기 디테일(상세보기) -->
    <select id="getMyEpilogueBoard" parameterType="Integer" resultType="kr.co.moojun.model.DTO.EpilogueboardDTO">
       SELECT 
