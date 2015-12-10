@@ -18,56 +18,45 @@
 
 	<se:authorize ifNotGranted="ROLE_ADMIN">
 		<div align="right" style="width: 97%; height: 30px;">
-			<!-- <button type="submit" class="btn btn-info btn-sm">
-				<a href="epilogueinsert.htm"> 
-					<span class="glyphicon glyphicon-pencil"></span> 글쓰기
-				</a> -->
-				<a href="#" class="btn btn-info btn-sm" id="epilogueinsert" 
-					data-target="#insertModal" data-toggle="modal" >글쓰기</a>
+			<a href="#" class="btn btn-info btn-sm" id="epilogueinsert" 
+				data-target="#insertModal" data-toggle="modal" >글쓰기</a>
 		</div>
 	</se:authorize>
 	<br>
-	<!-- 목록(카드 디자인) 테스트 -->
-	<div style="margin: 0 auto; width: 600px; height: 500px;">
-		<div class="card-deck-wrapper" style="margin: 0 auto;">
-			<div class="card-deck">
-				<c:forEach var="epiloguelist" items="${epiloguelist}">
-					<div class="card" style="float: left; margin: 13px; padding: 7px; background-color: #DCD8D0;
-							-moz-box-shadow: 10px 3px 5px 5px silver; 
-					   		-webkit-box-shadow: 3px 3px 50px 5px silver; 
-					   		box-shadow: 10px 10px 30px 5px silver; 
-					   		border-top-right-radius: 0.5em;
-					   		border-top-left-radius: 0.5em;
-							border-bottom-right-radius: 0.5em;
-							border-bottom-left-radius: 0.5em;">
-						<c:choose>
-							<c:when test="${epiloguelist.photoname1 != null}">
-								<img class="card-img-top" src="<%=request.getContextPath()%>/upload/${epiloguelist.photoname1}" 
-									alt="${epiloguelist.title}" height="100px" width="150px" style="border: double;">
-							</c:when>
-							<c:when test="${epiloguelist.photoname1 == null}">
-								<img class="card-img-top" src="<%=request.getContextPath()%>/images/무전무죄_logo_fin_01.png" 
-									alt="${epiloguelist.title}" height="100px" width="150px" style="border: double;">
-							</c:when>
-						</c:choose>
-						<div class="card-block">
-							<h4 class="card-title"><b>${epiloguelist.title}</b></h4>
-							<p class="card-text">
-								<small class="text-muted">${epiloguelist.regdate}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<small class="text-muted">${epiloguelist.id}</small>
-							</p>
-							<div align="center">
-							<a href="#" class="btn btn-primary" id="epilogue${epiloguelist.num}" onclick="epiloguedetail(${epiloguelist.num})"
-							data-target="#epilogueModal" data-toggle="modal" >상세보기</a>
+	<input type="hidden" id="path" value="<%=request.getContextPath()%>">
+	
+	<div id="epiloguelist">
+		<!-- 목록(카드 디자인) 테스트 -->
+		<div style="margin: 0 auto; width: 700px; height: 550px;">
+			<div class="card-deck-wrapper" style="margin: 0 auto;">
+				<div class="card-deck">
+					<c:forEach var="epiloguelist" items="${epiloguelist}">
+						<div class="card" style="float: left; margin: 30px; padding: 10px; background-color: silver;
+								-moz-box-shadow: 30px 3px 5px 5px black; 
+						   		-webkit-box-shadow: 3px 3px 85px 5px black; 
+						   		box-shadow: 10px 10px 30px 5px black; 
+						   		border-top-right-radius: 1em;
+						   		border-top-left-radius: 1em;
+								border-bottom-right-radius: 1em;
+								border-bottom-left-radius: 1em;">
+							<img class="card-img-top" src="<%=request.getContextPath()%>/${epiloguelist.photoname1}" 
+								alt="${epiloguelist.title}" height="100px" width="150px" style="border: double;">
+							<div class="card-block">
+								<h4 class="card-title"><b>${epiloguelist.title}</b></h4>
+								<p class="card-text">
+									<small class="text-muted">${epiloguelist.regdate}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<small class="text-muted">${epiloguelist.id}</small>
+								</p>
+								<a href="#" class="btn btn-primary" id="epilogue${epiloguelist.num}" onclick="epiloguedetail(${epiloguelist.num})"
+							    data-target="#epilogueModal" data-toggle="modal" >상세보기</a>
 							</div>
 						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div style="margin: 0 auto;">
+		
+		<div style="margin: 0 auto;">
 			<nav style="text-align: center;">
 				<ul class="pagination pagination-sm">
 					<!-- 처음 , 이전 페이지로 이동 -->
