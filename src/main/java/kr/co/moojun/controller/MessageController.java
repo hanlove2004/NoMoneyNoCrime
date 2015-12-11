@@ -80,4 +80,21 @@ public class MessageController {
 	      
 	      return jsonview;
 	   }
+	   
+	   //messagedetail.htm
+	   @RequestMapping(value="messagedetail.htm" , method=RequestMethod.POST)
+	   public View getmessagedetail(String num, String list, Model model){
+
+	      System.out.println("getmessagedetail start");
+	      System.out.println(list);
+	      MessageDAO messagedao = sqlsession.getMapper(MessageDAO.class);
+	      if(list.equals("receivelist")){
+	    	  int result = messagedao.updateRvcheck(Integer.parseInt(num));  
+	      }
+	      MessageDTO messagedto = messagedao.getMessageDetail(Integer.parseInt(num));  
+	      
+	      model.addAttribute("messagedto", messagedto);
+	      
+	      return jsonview;
+	   }
 }

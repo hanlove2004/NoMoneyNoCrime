@@ -16,6 +16,8 @@ public interface MessageDAO {
    
    List<MessageDTO> messagereceivelist(HashMap map);   // 받은 메세지 리스트
    
+   MessageDTO getMessageDetail(int num); // 메세지 디테일
+   
    int getReceiveMessageCount(String id); // 총 받은 메세지 수
    
    List<MessageDTO> messagesendlist(HashMap map);   // 보낸 메세지 리스트
@@ -25,5 +27,7 @@ public interface MessageDAO {
    int isMemberById(String id); // 아이디 존재 확인
    
    int getNewMessageCount(String id); // 새로운 메세지 수
+   
+   int updateRvcheck(int num); // 메세지 확인 컬럼 값변경
    
 }
