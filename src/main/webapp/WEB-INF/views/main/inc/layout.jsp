@@ -185,7 +185,7 @@
                   if(data.result == "0")
                   {
                      console.log("결과값이 없는 경우 : data.result == 0");
-                     print += "<li style='width:287px; text-align:left'>결과값이 없습니다.</li>";
+                     /* print += "<li style='width:287px; text-align:left'>결과값이 없습니다.</li>"; */
                   }
                   else //결과값이 있는경우
                   {

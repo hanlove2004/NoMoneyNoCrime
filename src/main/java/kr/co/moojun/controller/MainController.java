@@ -134,11 +134,12 @@ public class MainController {
       //title -> null값이 들어온경우 
       if(temp.length() == 0){
          System.out.println("temp.length() == 0");
-         temp = "%";
+         //검색결과가 없게 하기 위한 값
+         temp = "*********************";
       }
       
       EpilogueboardDAO epilogueboarddao = sqlsession.getMapper(EpilogueboardDAO.class);
-      List<String> keywordlist = epilogueboarddao.searchKeyword(keyword);
+      List<String> keywordlist = epilogueboarddao.searchKeyword(temp);
       
       //결과값이 없는 경우
       if(keywordlist.size() == 0){
