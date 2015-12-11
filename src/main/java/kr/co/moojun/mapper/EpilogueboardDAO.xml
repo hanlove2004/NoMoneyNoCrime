@@ -45,11 +45,29 @@
 
    <!-- 여행후기 리스트(목록) -->
    <select id="getEpilogueBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.EpilogueboardDTO">
-      SELECT 
-             * 
-        FROM (SELECT ROWNUM AS NUM1, N.* FROM (SELECT * FROM EPILOGUE ORDER BY REGDATE DESC) N)
-      WHERE NUM1 >= #{start} 
-        AND NUM1 &lt;= #{end}
+        SELECT
+		       ROWNUMBER              		AS ROWNUMBER
+		     , NUM                    		AS NUM
+		     , ID                     		AS ID
+		     , TITLE					    AS TITLE
+		     , CONTENT               	 	AS CONTENT
+		     , REGDATE                		AS REGDATE
+		     , PHOTONAME1             		AS PHOTONAME1
+		     , PHOTONAME2             		AS PHOTONAME2
+		     , PHOTONAME3             		AS PHOTONAME3
+		  FROM (
+		         SELECT
+		                ROWNUM AS ROWNUMBER
+		              , N.*
+		           FROM (
+		                  SELECT
+		                         *
+		                    FROM EPILOGUE
+		                   ORDER BY NUM DESC
+		                 ) N
+		       )
+		 WHERE ROWNUMBER >= #{start}
+		   AND ROWNUMBER &lt;= #{end}
    </select>
 
    <!-- 여행후기 디테일(상세보기) -->
@@ -88,12 +106,30 @@
    <!-- MyPage 관련 mapper -->
    <!-- 나의 여행후기 리스트(목록) -->
    <select id="getMyEpilogueBoardList" parameterType="hashmap" resultType="kr.co.moojun.model.DTO.EpilogueboardDTO">
-      SELECT 
-             * 
-        FROM (SELECT ROWNUM AS NUM1, E.* FROM 
-              (SELECT * FROM EPILOGUE WHERE ID = #{id} ORDER BY REGDATE DESC) E)
-      WHERE NUM1 >= #{start} 
-        AND NUM1 &lt;= #{end}
+        SELECT
+		       ROWNUMBER              		AS ROWNUMBER
+		     , NUM                    		AS NUM
+		     , ID                     		AS ID
+		     , TITLE					    AS TITLE
+		     , CONTENT               	 	AS CONTENT
+		     , REGDATE                		AS REGDATE
+		     , PHOTONAME1             		AS PHOTONAME1
+		     , PHOTONAME2             		AS PHOTONAME2
+		     , PHOTONAME3             		AS PHOTONAME3
+		  FROM (
+		         SELECT
+		                ROWNUM AS ROWNUMBER
+		              , N.*
+		           FROM (
+		                  SELECT
+		                         *
+		                    FROM EPILOGUE
+		                   WHERE ID = #{id}
+		                   ORDER BY NUM DESC
+		                 ) N
+		       )
+		 WHERE ROWNUMBER >= #{start}
+		   AND ROWNUMBER &lt;= #{end}
    </select>
    
    <!-- 나의 여행후기 게시글 수 -->
@@ -113,17 +149,7 @@
    </select>
    
    <!-- ******************************************************************** Main search 비동기 ************ -->
-   <!-- 메인 search 검색 버튼 클릭시  -->
-   <select id="searchButtonClick" parameterType="String" resultType="kr.co.moojun.model.DTO.EpilogueboardDTO">
-      SELECT 
-               * 
-          FROM EPILOGUE
-         WHERE TITLE   LIKE '%' || #{keyword} || '%'
-                OR
-               CONTENT LIKE '%' || #{keyword} || '%'
-   </select>
-   
-    <!-- keyword search -->
+   <!-- keyword search -->
    <select id="searchKeyword" parameterType="String" resultType="String">
       SELECT 
                * 
@@ -146,11 +172,9 @@
                          WHERE TITLE   LIKE '%' || #{keyword} || '%'
                                OR
                                CONTENT LIKE '%' || #{keyword} || '%'
-                         ORDER BY REGDATE DESC
+                         ORDER BY NUM DESC
                       ) N
              )
-       WHERE NUM1    >= #{start} 
-         AND NUM1 &lt;= #{end}
    </select>
    
    <!-- search button 여행후기 게시글의 수 -->

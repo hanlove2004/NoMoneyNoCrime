@@ -76,6 +76,64 @@
 				location.href='memberdelete.htm?num=' + num;
 			}
 		}
+		
+		function Paging(pg) {
+			$.ajax({
+				type : "GET",
+				url : "ajaxmemberlist.htm",
+				data : "pg=" + pg,
+				success : function(data) {
+					var print = "";
+					$("#memberlist").empty();
+					var nextPage = data.toPage + 1;
+					var previousPage = data.fromPage - 1;
+					print += "<table class=\"table table-hover\" style=\"text-align: center;\">";
+					print += "<tr style=\"font-size: 15px;\" class=\"success\">";
+					print += "<td>회원번호</td>";
+					print += "<td>아이디</td>";
+					print += "<td>이름</td>";
+					print += "<td>생년월일</td>";
+					print += "<td>전화번호</td>";
+					print += "<td>상세보기</td></tr>";
+					$.each(data.memberlist, function(index, obj){
+						print += "<tr style=\"font-size: 15px;\">";
+						print += "<td>" + obj.num + "</td>";
+						print += "<td>" + obj.id + "</td>";
+						print += "<td>" + obj.name + "</td>";
+						print += "<td>" + obj.birth + "</td>";
+						print += "<td>" + obj.phone + "</td>";
+						print += "<td><button type=\"button\" class=\"btn btn-warning btn-sm\" onclick=\"memberdetail(" + obj.num + ")\"";
+						print += "data-toggle=\"modal\" data-target=\"#memberModal\">상세보기</button></td></tr>";
+					});
+					print += "</table>";
+					print += "<div style=\"margin: 0 auto; width: 300px;\">";
+					print += "<nav style=\"text-align: center;\">";
+					print += "<ul class=\"pagination pagination-sm\">";
+					if(data.pg>data.block){
+						print += "<li><a onclick=\"Paging(1)\">처음</a></li>";
+						print += "<li><a onclick=\"Paging("+ previousPage +")\" aria-label=\"Previous\">";
+						print += "<span aria-hidden=\"true\">\&laquo;</span></a></li>";
+						}
+					for(var i = data.fromPage; i <= data.toPage; i++){
+						if(i==data.pg){
+							print += "<li class=\"active\"><a>" + i + "</a></li>";
+						}
+						if(i!=data.pg){
+							print += "<li><a onclick=\"Paging(" + i + ")\">" + i + "</a></li>";
+						}
+					}
+					if(data.toPage < data.allPage){
+						print += "<li><a onclick=\"Paging(" + nextPage + ")\" aria-label=\"Next\">";
+						print += "<span aria-hidden=\"true\">\&raquo;</span></a></li>";
+						print += "<li><a onclick=\"Paging(" + data.allPage + ")\">마지막</a></li></ul></nav></div>";
+					}
+					$("#memberlist").html(print);
+				},
+				error : function(status) {
+					alert('ERROR');
+				}
+			});
+		};
 	</script>
 </head>
 <body style="font-family: myfont05;">

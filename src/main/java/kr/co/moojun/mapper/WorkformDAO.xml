@@ -35,6 +35,7 @@
       , NAME
       , AGE
       , INTRODUCE
+      , REQSTATE
       )
       VALUES
       (
@@ -44,6 +45,7 @@
       , #{name}
       , #{age}
       , #{introduce}
+      , '10'
       )
    </insert>
 </mapper>

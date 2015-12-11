@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <footer>
-	<div class="container" style="background-color: #0B1216; width: 100%; height: 120px; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; margin: auto;">
+	<div class="container" style="background-color: #0B1216; width: 100%; border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; margin: auto;">
 		<div class="footerleft" style="margin-top: 0px; float: left;">
 			<p>&nbsp;&nbsp;
 				<img alt="smalllogo" 

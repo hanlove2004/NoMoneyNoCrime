@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.View;
 
 import kr.co.moojun.model.DAO.MemberDAO;
 import kr.co.moojun.model.DTO.MemberDTO;
@@ -21,6 +24,10 @@ public class AdminController {
 
 	@Autowired
 	private SqlSession sqlsession;
+	
+	@Autowired
+	@Qualifier("jsonview")
+	private View jsonview;
 
 	// 회원 목록 (memberlist.htm)
 	@RequestMapping(value = "memberlist.htm", method = RequestMethod.GET)
@@ -92,6 +99,23 @@ public class AdminController {
 		return "admin.memberlist";
 	}
 	
+	// 상세보기 (memberdetail.htm)
+	@RequestMapping(value = "memberdetail.htm", method = RequestMethod.POST)
+	public View memberdetail(int num, ModelMap modelmap) {
+		System.out.println("memberdetail start");
+		System.out.println(num);
+		
+		MemberDAO memberdao =  sqlsession.getMapper(MemberDAO.class);
+		MemberDTO memberdto = memberdao.admingetMemberDetail(num);
+		System.out.println(memberdto.toString());
+		
+		modelmap.addAttribute("memberdto",memberdto);
+       
+		System.out.println("memberdetail end");
+       
+		return jsonview;
+	}
+
 	//회원 강퇴(memberdelete.htm)
 	@RequestMapping(value="memberdelete.htm",method=RequestMethod.GET)
 	public String memberdelete(int num){

@@ -20,6 +20,10 @@ public interface MemberDAO {
 	
 	MemberDTO getMemberDetail(String id); // 회원정보 보기 (디테일)
 	
+	MemberDTO admingetMemberDetail(int num); // 회원정보 상세보기 (관리자 전용)
+	
+	int emailcheck(String id); // 이메일중복체크
+	
 	MemberDTO searchIdByNameAndEmail(String name , String email); // 아이디 찾기
 	
 	MemberDTO searchPwdByIdAndEmail(String id , String email); // 비밀번호 찾기

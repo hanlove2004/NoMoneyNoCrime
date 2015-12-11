@@ -89,10 +89,10 @@
                       MEMBER MEMBER
                    ON WORKBOARD.ID = MEMBER.ID
                 WHERE EXPIRE = '1'
+			    ORDER BY NUM DESC
 	        )
 	    WHERE R >= #{start}
 	     AND R &lt;= #{end}
-	   ORDER BY NUM DESC
    </select>
    
    <!-- 일자리게시판 디테일(상세보기) -->

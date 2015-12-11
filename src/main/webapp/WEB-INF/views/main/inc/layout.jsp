@@ -107,6 +107,25 @@
             });
          });
          
+         //회원가입 이메일 중복검사
+         $("#email").focusout(function() {
+            var email = $('#email').val();
+            console.log("email : " + email);
+            $.ajax({
+               type : "post",
+               url  : "emailcheck.htm",
+               data : "email=" + email,
+               success : function(data) { //callback  
+                  console.log(data.data); // 아이디가 중복 되면 false 아니면 true
+                  if (!data.data) {
+                     alert("중복된 이메일 입니다. 다시 입력해주세요");
+                     $('#email').val("");
+                     $('#email').focus();
+                  }
+               }
+            });
+         });
+         
          //회원가입 유효성 검사
          var re_id = /^[a-z0-9_-]{4,16}$/; //아이디 검사식 (4~16글자)
          var re_pw = /^[a-z0-9_-]{6,18}$/; // 비밀번호 검사식 (6~18글자)

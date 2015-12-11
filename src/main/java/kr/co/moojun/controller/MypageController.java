@@ -339,6 +339,13 @@ public class MypageController {
 		map.put("id", id);
 		
 		List<EpilogueboardDTO> myepiloguelist = epilogueboarddao.getMyEpilogueBoardList(map);
+		
+		// 여행후기 TITLE 가공(8글자 이상일때 .. 추가)
+		for(int i = 0; i < myepiloguelist.size(); i++){
+			if(myepiloguelist.get(i).getTitle().length() > 8){
+				myepiloguelist.get(i).setTitle(myepiloguelist.get(i).getTitle().substring(0, 8)+"..");
+			}
+		}
 
 		// photoname1이 null일 경우에 로고를 default로 설정
 		for (int i = 0; i < myepiloguelist.size(); i++) {
@@ -429,6 +436,13 @@ public class MypageController {
 		map.put("id", id);
 
 		List<EpilogueboardDTO> myepiloguelist = epilogueboarddao.getMyEpilogueBoardList(map);
+		
+		// 여행후기 TITLE 가공(8글자 이상일때 .. 추가)
+		for(int i = 0; i < myepiloguelist.size(); i++){
+			if(myepiloguelist.get(i).getTitle().length() > 8){
+				myepiloguelist.get(i).setTitle(myepiloguelist.get(i).getTitle().substring(0, 8)+"..");
+			}
+		}
 		
 		//photoname1이 null일 경우에 로고를 default로 설정
 		for(int i = 0; i < myepiloguelist.size(); i++){

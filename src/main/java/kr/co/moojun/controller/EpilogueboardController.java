@@ -76,6 +76,15 @@ public class EpilogueboardController {
 		map.put("end", end);
 
 		List<EpilogueboardDTO> epiloguelist = epilogueboarddao.getEpilogueBoardList(map);
+		
+		for(int i = 0; i < epiloguelist.size(); i++){
+			System.out.println("타이틀 가공 시작");
+			if(epiloguelist.get(i).getTitle().length() > 8){
+				epiloguelist.get(i).setTitle(epiloguelist.get(i).getTitle().substring(0, 7));
+			}
+			System.out.println("여행후기 제목 : " + epiloguelist.get(i).getTitle());
+		}
+		
 		request.setAttribute("epiloguelist", epiloguelist);
 		request.setAttribute("pg", pg);
 		request.setAttribute("allPage", allPage);
@@ -152,6 +161,13 @@ public class EpilogueboardController {
 		map.put("end", end);
 
 		List<EpilogueboardDTO> epiloguelist = epilogueboarddao.getEpilogueBoardList(map);
+		
+		// 여행후기 TITLE 가공(8글자 이상일때 .. 추가)
+		for(int i = 0; i < epiloguelist.size(); i++){
+			if(epiloguelist.get(i).getTitle().length() > 8){
+				epiloguelist.get(i).setTitle(epiloguelist.get(i).getTitle().substring(0, 8)+"..");
+			}
+		}
 
 		model.addAttribute("epiloguelist", epiloguelist);
 		model.addAttribute("pg", pg);

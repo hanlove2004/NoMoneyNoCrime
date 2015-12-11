@@ -165,6 +165,14 @@ public class WorkController {
       
       List<WorkboardDTO> worklist = workboarddao.getWorkBoardList(map);
       
+      // 주소 split으로 잘라서 도/시(군) 까지만 표시하기
+      for(int i = 0; i < worklist.size(); i++){
+    	  String addr = worklist.get(i).getAddr();
+    	  String[] addrlist = addr.split(" ");
+    	  
+    	  worklist.get(i).setAddr(addrlist[0] + " " + addrlist[1]);
+      }
+      
       model.addAttribute("worklist", worklist); 
       model.addAttribute("pg", pg); 
       model.addAttribute("allPage", allPage); 
