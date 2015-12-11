@@ -23,6 +23,7 @@
         , REGDATE
         , SDDELETE
         , RVDELETE
+        , RVCHECK
       )
       VALUES
       (
@@ -31,6 +32,7 @@
        , #{receiver}
        , #{content}
        , SYSDATE
+       , 1
        , 1
        , 1)
    </insert>
@@ -87,6 +89,13 @@
         AND NUM1 &lt;= #{end}
 	</select>
 
+	<!-- 메세지 디테일 -->
+	<select id="getMessageDetail" resultType="kr.co.moojun.model.DTO.MessageDTO">
+		SELECT *
+		FROM MESSAGE
+		WHERE NUM = #{num}
+	</select>
+
 	<!-- 받은 메세지 수 -->
 	<select id="getReceiveMessageCount" resultType="Integer">
 		SELECT COUNT(*)
@@ -113,7 +122,14 @@
 		SELECT COUNT(*)
 		FROM MESSAGE
 		WHERE RECEIVER = #{id}
+				AND RVCHECK = 1
 				AND RVDELETE = 1
 	</select>
    
+   	<!-- 메세지 확인 컬럼 값변경 -->
+   	<update id="updateRvcheck">
+   		UPDATE MESSAGE
+   		SET RVCHECK = 0
+   		WHERE NUM = #{num}
+   	</update>
 </mapper>  

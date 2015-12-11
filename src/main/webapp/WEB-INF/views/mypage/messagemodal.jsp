@@ -17,6 +17,25 @@
 		$('#to').html("TO. <input type='text' id='to1'>");
 	}//setReceiver() end
 	
+	//setDetailMessage()
+	function setDetailMessage(num, list){
+		var contextpath = $('#contextpath').val();
+		$.ajax({
+			type : "post",
+			url : contextpath + "/messagedetail.htm",
+			data : "num=" + num + "&list=" + list ,
+			success : function(data) { //callback
+				if (data != null) {
+					$("#detailfrom").text("FROM. " +data.messagedto.sender);
+					$("#detailto").text("TO. " + data.messagedto.receiver);
+					$("#messagedetailcontent").text(data.messagedto.content);
+					$("#titleicon").remove();					
+					$("#receivetitle").css("color","#333");
+				}
+			}// success : function(data)
+		});//$.ajax
+	}//setDetailMessage() end
+	
 	//sendmessage()
 	function sendMessage() {
 		
@@ -57,10 +76,8 @@
 	}//function sendMessage() end
 	
 	// 쪽지 삭제 모달창에 글번호 set
-	function setMessageNum(){
-		var messagenum = $("#messagenum").val();
-		console.log(messagenum);
-		$("#numfordelete").val(messagenum);
+	function setMessageNum(num){
+		$("#numfordelete").val(num);
 	}
 	
 	// 쪽지 삭제
@@ -111,6 +128,31 @@
         </div>
         <div class="modal-footer">
           <a onclick="sendMessage()"><button type="button" class="btn btn-default">Send</button></a>
+          <a><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- 쪽지디테일 Modal -->
+  <div class="modal fade" id="messagedetailModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">쪽지 상세보기</h4>
+        </div>
+        <div class="modal-body" style="padding-bottom: 5px;padding-top: 5px;border-bottom: 1px solid #e5e5e5;">
+        	<div style="margin: 3px;" id="detailfrom"></div>
+        	<div style="margin: 3px;text-align: right;" id="detailto"></div>
+        </div>
+        <div class="modal-body">
+          <div id="messagedetailcontent"></div>
+        </div>
+        <div class="modal-footer">
           <a><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></a>
         </div>
       </div>

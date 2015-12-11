@@ -23,15 +23,25 @@
 	<c:forEach var="messagereceivelist" items="${messagereceivelist}">
 	<div>
 			<div class="col col-xs-2">${messagereceivelist.sender}</div>
-			<div class="col col-xs-6">${messagereceivelist.content}</div>
+			<div class="col col-xs-6">
+				<c:if test="${messagereceivelist.rvcheck > 0 }">
+					<a href="#" data-toggle="modal" data-target="#messagedetailModal" id="receivetitle"
+					 onclick="setDetailMessage(${messagereceivelist.num},'receivelist')">
+					 	<span class="glyphicon glyphicon-ice-lolly" id="titleicon"></span>${messagereceivelist.content}
+					 </a>
+				</c:if>
+				<c:if test="${messagereceivelist.rvcheck == 0 }">
+					<a href="#" data-toggle="modal" data-target="#messagedetailModal"
+					 onclick="setDetailMessage(${messagereceivelist.num},'receivelist')"  style="color: #333;">${messagereceivelist.content}</a>
+				</c:if>
+			</div>
 			<div class="col col-xs-2">${messagereceivelist.regdate}</div>
 			<div class="col col-xs-2">
 				<button type="button" class="btn btn-xs">
 					<a href="#" data-toggle="modal" data-target="#messageModal" onclick="setSenderReceiver()">보내기</a>
 				</button>
-				<input type="hidden" id="messagenum" value="${messagereceivelist.num}">
 				<button type="button" class="btn btn-xs">
-					<a href="#" data-toggle="modal" data-target="#messagedeleteModal" onclick="setMessageNum()">삭제</a>
+					<a href="#" data-toggle="modal" data-target="#messagedeleteModal" onclick="setMessageNum(${messagereceivelist.num})">삭제</a>
 				</button>
 			</div><br>
 			<div><hr></div>

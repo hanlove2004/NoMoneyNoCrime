@@ -22,15 +22,17 @@
 	<c:forEach var="messagesendlist" items="${messagesendlist}">
 	<div>
 			<div class="col col-xs-2">${messagesendlist.receiver}</div>
-			<div class="col col-xs-6">${messagesendlist.content}</div>
+			<div class="col col-xs-6">
+				<a href="#" data-toggle="modal" data-target="#messagedetailModal" 
+				onclick="setDetailMessage(${messagesendlist.num}),'sendlist'">${messagesendlist.content}</a>
+			</div>
 			<div class="col col-xs-2">${messagesendlist.regdate}</div>
 			<div class="col col-xs-2">
 				<button type="button" class="btn btn-xs">
 					<a href="#" data-toggle="modal" data-target="#messageModal" onclick="setSenderReceiver()">보내기</a>
 				</button>
-				<input type="hidden" id="messagenum" value="${messagesendlist.num}">
 				<button type="button" class="btn btn-xs">
-					<a href="#" data-toggle="modal" data-target="#messagedeleteModal" onclick="setMessageNum()">삭제</a>
+					<a href="#" data-toggle="modal" data-target="#messagedeleteModal" onclick="setMessageNum(${messagesendlist.num})">삭제</a>
 				</button>
 			</div><br>
 			<div><hr></div>

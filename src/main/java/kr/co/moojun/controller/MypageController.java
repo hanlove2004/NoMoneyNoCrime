@@ -712,6 +712,16 @@ public class MypageController {
 
 		
 		List<MessageDTO> messagereceivelist = messagedao.messagereceivelist(map);
+		
+		// 내용 자르기
+		for(MessageDTO messagedto: messagereceivelist){
+			String content = messagedto.getContent();
+			int contentlength = messagedto.getContent().length();
+			if(contentlength > 15){
+				content = content.substring(0, 14) + "....";
+				messagedto.setContent(content);
+			}
+		}
 
 		model.addAttribute("messagereceivelist", messagereceivelist);
 		model.addAttribute("pg", pg);
@@ -760,6 +770,17 @@ public class MypageController {
 		map.put("end", end);
 
 		List<MessageDTO> messagesendlist = messagedao.messagesendlist(map);
+		
+		// 내용 자르기
+		for(MessageDTO messagedto: messagesendlist){
+			String content = messagedto.getContent();
+			int contentlength = messagedto.getContent().length();
+			if(contentlength > 15){
+				content = content.substring(0, 14) + "....";
+				messagedto.setContent(content);
+			}
+		}
+		
 		model.addAttribute("messagesendlist", messagesendlist);
 		model.addAttribute("pg", pg);
 		model.addAttribute("allPage", allPage);

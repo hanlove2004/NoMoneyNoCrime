@@ -10,6 +10,7 @@ public class MessageDTO {
 	private Date regdate;
 	private int sddelete;
 	private int rvdelete;
+	private int rvcheck;
 
 	public int getNum() {
 		return num;
@@ -65,6 +66,14 @@ public class MessageDTO {
 
 	public void setRvdelete(int rvdelete) {
 		this.rvdelete = rvdelete;
+	}
+
+	public int getRvcheck() {
+		return rvcheck;
+	}
+
+	public void setRvcheck(int rvcheck) {
+		this.rvcheck = rvcheck;
 	}
 
 }

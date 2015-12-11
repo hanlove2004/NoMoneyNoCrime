@@ -109,8 +109,18 @@ public class MainController {
       String temp = keyword;
       String result = "0";   //search한 값이 null 인경우 : "0" 아닌경우 : "1"
       
+<<<<<<< HEAD
+=======
+      //title -> null값이 들어온경우 
+      if(temp.length() == 0){
+         System.out.println("temp.length() == 0");
+         //검색결과가 없게 하기 위한 값
+         temp = "*********************";
+      }
+      
+>>>>>>> 753b57b92f38ef07c84ad0df08b9936e3a5562dd
       EpilogueboardDAO epilogueboarddao = sqlsession.getMapper(EpilogueboardDAO.class);
-      List<String> keywordlist = epilogueboarddao.searchKeyword(keyword);
+      List<String> keywordlist = epilogueboarddao.searchKeyword(temp);
       
       //결과값이 없는 경우
       if(keywordlist.size() == 0){
